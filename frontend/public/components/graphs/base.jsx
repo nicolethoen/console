@@ -68,10 +68,7 @@ export class BaseGraph extends SafetyFirst {
           console.error(e);
         }
       })
-      .catch(error => {
-        this.setState({error});
-        this.updateGraph(null, error);
-      })
+      .catch(error => this.updateGraph(null, error))
       .then(() => this.interval = setTimeout(() => {
         this.fetch();
       }, pollInterval));
