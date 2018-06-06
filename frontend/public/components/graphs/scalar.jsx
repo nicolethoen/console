@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import { BaseGraph } from './base';
 import { units } from '../utils';
+import {connectToFlags, FLAGS} from '../../features';
 
 const style = {
   height: 80,
@@ -10,7 +11,7 @@ const style = {
   overflow: 'hidden',
 };
 
-export class Scalar extends BaseGraph {
+export class Scalar_ extends BaseGraph {
   constructor (props) {
     super(props);
     this.timeSpan = 0;
@@ -38,3 +39,5 @@ export class Scalar extends BaseGraph {
     </div>;
   }
 }
+
+export const Scalar = connectToFlags(FLAGS.PROMETHEUS)(Scalar_);

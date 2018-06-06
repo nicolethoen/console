@@ -3,6 +3,7 @@ import * as React from 'react';
 import { restyle } from 'plotly.js/lib/core';
 
 import { BaseGraph } from './base';
+import {connectToFlags, FLAGS} from '../../features';
 
 const baseData = {
   x: [],
@@ -12,7 +13,7 @@ const baseData = {
   type: 'scatter',
 };
 
-export class Line extends BaseGraph {
+class Line_ extends BaseGraph {
   constructor (props) {
     super(props);
 
@@ -118,3 +119,5 @@ export class Line extends BaseGraph {
     });
   }
 }
+
+export const Line = connectToFlags(FLAGS.PROMETHEUS)(Line_);

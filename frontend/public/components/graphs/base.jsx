@@ -7,10 +7,14 @@ import { coFetchJSON } from '../../co-fetch';
 import { SafetyFirst } from '../safety-first';
 
 import { prometheusBasePath } from './index';
+import {FLAGS} from '../../features';
 
 export class BaseGraph extends SafetyFirst {
   constructor(props) {
     super(props);
+    // eslint-disable-next-line no-console
+    console.log(this.props);
+
     this.interval = null;
     this.setNode = n => this.setNode_(n);
     // Child classes set these
@@ -32,8 +36,11 @@ export class BaseGraph extends SafetyFirst {
 
   fetch () {
     const timeSpan = this.end - this.start || this.timeSpan;
-    const end = this.end || Date.now();
-    const start = this.start || (end - timeSpan);
+    const pollInterval = timeSpan / 120 || 15000;
+
+    if (!this.props.flags[FLAGS.PROMETHEUS]) {
+      return;
+    }
 
     let queries = this.props.query;
     if (!_.isArray(queries)) {
@@ -42,8 +49,9 @@ export class BaseGraph extends SafetyFirst {
       }];
     }
 
+    const end = this.end || Date.now();
+    const start = this.start || (end - timeSpan);
     const basePath = this.props.basePath || prometheusBasePath;
-    const pollInterval = timeSpan / 120 || 15000;
     const stepSize = pollInterval / 1000;
     const promises = queries.map(q => {
       const url = this.timeSpan
@@ -62,15 +70,8 @@ export class BaseGraph extends SafetyFirst {
       })
       .catch(error => this.updateGraph(null, error))
       .then(() => this.interval = setTimeout(() => {
-        if (this.isMounted_) {
-          this.fetch();
-        }
+        this.fetch();
       }, pollInterval));
-  }
-
-  componentWillMount () {
-    this.fetch();
-    window.addEventListener('resize', this.resize);
   }
 
   componentWillUnmount () {
@@ -81,6 +82,9 @@ export class BaseGraph extends SafetyFirst {
 
   componentDidMount () {
     super.componentDidMount();
+
+    this.fetch();
+    window.addEventListener('resize', this.resize);
 
     if (!this.node) {
       return;
@@ -95,6 +99,12 @@ export class BaseGraph extends SafetyFirst {
       // eslint-disable-next-line no-console
       console.error('error initializing graph:', e);
     });
+  }
+
+  componentDidUpdate(prevProps){
+    if (prevProps.flags[FLAGS.PROMETHEUS] !== this.props.flags[FLAGS.PROMETHEUS]) {
+      this.fetch();
+    }
   }
 
   prometheusURL () {
@@ -115,6 +125,9 @@ export class BaseGraph extends SafetyFirst {
   }
 
   render () {
+    if (!this.props.flags[FLAGS.PROMETHEUS]){
+      return <div />;
+    }
     return <a href={this.prometheusURL()} target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>
       <div className="graph-wrapper" style={this.style}>
         <h5 className="graph-title">{this.props.title}</h5>

@@ -6,12 +6,13 @@ import * as bar from 'plotly.js/lib/bar';
 register(bar);
 
 import { BaseGraph } from './base';
+import {connectToFlags, FLAGS} from '../../features';
 
 const colors = {
   salmon: 'rgb(253,216,171)',
 };
 
-export class Bar extends BaseGraph {
+class Bar_ extends BaseGraph {
   constructor (props) {
     super(props);
     this.data = [{
@@ -105,3 +106,5 @@ export class Bar extends BaseGraph {
     relayout(this.node, this.layout);
   }
 }
+
+export const Bar = connectToFlags(FLAGS.PROMETHEUS)(Bar_);

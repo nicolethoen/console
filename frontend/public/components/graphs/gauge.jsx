@@ -6,6 +6,7 @@ import * as pie from 'plotly.js/lib/pie';
 register(pie);
 
 import { BaseGraph } from './base';
+import {connectToFlags, FLAGS} from '../../features';
 
 const colors = {
   ok: 'rgb(46,201,141)',
@@ -22,7 +23,7 @@ const fontColors = {
   error: '#d64456',
 };
 
-export class Gauge extends BaseGraph {
+export class Gauge_ extends BaseGraph {
   constructor (props) {
     super(props);
 
@@ -168,10 +169,12 @@ export class Gauge extends BaseGraph {
   }
 }
 
-Gauge.defaultProps = {
+Gauge_.defaultProps = {
   invert: false,
   thresholds: {
     warn: 67,
     error: 92,
   },
 };
+
+export const Gauge = connectToFlags(FLAGS.PROMETHEUS)(Gauge_);
