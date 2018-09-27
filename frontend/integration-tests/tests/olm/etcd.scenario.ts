@@ -120,8 +120,8 @@ describe('Interacting with the etcd OCS', () => {
 
   it('displays the raw YAML for the `EtcdCluster`', async() => {
     await element(by.linkText('YAML')).click();
-    await browser.wait(until.presenceOf($('.yaml-editor--buttons')));
-    await $('.yaml-editor--buttons').element(by.buttonText('Save Changes')).click();
+    await browser.wait(until.presenceOf($('.yaml-editor__buttons')));
+    await $('.yaml-editor__buttons').element(by.buttonText('Save Changes')).click();
     await browser.wait(until.visibilityOf($('.alert-success')), 2000);
 
     expect($('.alert-success').getText()).toContain(`${etcdcluster} has been updated to version`);
@@ -169,8 +169,8 @@ describe('Interacting with the etcd OCS', () => {
 
   it('displays the raw YAML for the `EtcdBackup`', async() => {
     await element(by.linkText('YAML')).click();
-    await browser.wait(until.presenceOf($('.yaml-editor--buttons')));
-    await $('.yaml-editor--buttons').element(by.buttonText('Save Changes')).click();
+    await browser.wait(until.presenceOf($('.yaml-editor__buttons')));
+    await $('.yaml-editor__buttons').element(by.buttonText('Save Changes')).click();
     await browser.wait(until.visibilityOf($('.alert-success')), 2000);
 
     expect($('.alert-success').getText()).toContain(`${etcdbackup} has been updated to version`);
@@ -218,8 +218,8 @@ describe('Interacting with the etcd OCS', () => {
 
   it('displays the raw YAML for the `EtcdRestore`', async() => {
     await element(by.linkText('YAML')).click();
-    await browser.wait(until.presenceOf($('.yaml-editor--buttons')));
-    await $('.yaml-editor--buttons').element(by.buttonText('Save Changes')).click();
+    await browser.wait(until.presenceOf($('.yaml-editor__buttons')));
+    await $('.yaml-editor__buttons').element(by.buttonText('Save Changes')).click();
     await browser.wait(until.visibilityOf($('.alert-success')), 2000);
 
     expect($('.alert-success').getText()).toContain(`${etcdrestore} has been updated to version`);

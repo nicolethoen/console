@@ -3,6 +3,9 @@ $co-namespace-selector-mobile: 27px;
 $color-dropdown-hover: rgba(0, 0, 0, .05);
 $color-bookmarker--hover: #AAA;
 $color-bookmarker: #DDD;
+$link-padding-left: 40px;
+$section-padding-left: 13px;
+$active-border: 3px;
 
 .dropdown {
   position: relative;
@@ -164,6 +167,51 @@ $color-bookmarker: #DDD;
       white-space: nowrap;
     }
   }
+}
+
+.co-m-masthead-link {
+
+  display: block;
+  float: none;
+  font-size: 13px;
+  line-height: 23px;
+  overflow-x: hidden;
+  padding: 2px 0 2px $link-padding-left;
+  white-space: nowrap;
+
+  a {
+    background-color: inherit;
+    color: $color-os-nav-title;
+    display: inline-block;
+    text-decoration: none;
+    width: 100%;
+  }
+
+  &.active {
+    padding-left: $link-padding-left - $active-border;
+    background-color: #383F47;
+    border-left: $active-border solid $color-os-nav-border-left-active;
+
+    a {
+      color: #fff;
+    }
+  }
+}
+
+.co-import-yaml-link {
+  margin-left: auto;
+
+  &:hover {
+    background-color: transparent !important;
+  }
+
+  @media (min-width: $grid-float-breakpoint) {
+    padding-top: 7px;
+  }
+}
+
+.co-create-from-yaml__add-icon {
+  margin-right: 9px;
 }
 
 .co-namespace-selector__menu.dropdown-menu {
