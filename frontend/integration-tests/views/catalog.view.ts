@@ -19,7 +19,7 @@ export const hasSubscription = (name: string) => browser.getCurrentUrl().then(ur
   if (url.indexOf('all-namespaces') > -1) {
     throw new Error('Cannot call `hasSubscription` for all namespaces');
   }
-  return entryRowFor(name).element(by.buttonText('Create Subscription')).isPresent();
+  return entryRowFor(name).element(by.buttonText('Create')).isPresent();
 }).then(canSubscribe => !canSubscribe);
 
 export const viewCatalogDetail = (name: string) => $$('.co-catalogsource-list__section').filter(section => section.$('h3').getText()
@@ -27,5 +27,5 @@ export const viewCatalogDetail = (name: string) => $$('.co-catalogsource-list__s
   .click();
 
 export const createSubscriptionFor = withRetry((pkgName: string) => moveTo(
-  entryRowFor(pkgName).element(by.buttonText('Create Subscription'))
+  entryRowFor(pkgName).element(by.buttonText('Create'))
 ).then(el => el.click()));

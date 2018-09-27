@@ -3,7 +3,7 @@ import { browser, $, element, by, ExpectedConditions as until, Key } from 'protr
 import { appHost, testName } from '../protractor.conf';
 import * as crudView from './crud.view';
 
-export const createApplicationButton = element(by.buttonText('Create Application'));
+export const createApplicationButton = element(by.buttonText('Create'));
 export const isLoaded = () => browser.wait(until.presenceOf($('.co-source-to-image-form')));
 export const nsDropdown = $('#namespace');
 export const nameInput = $('#name');

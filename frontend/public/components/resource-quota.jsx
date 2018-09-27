@@ -68,7 +68,7 @@ export const ResourceQuotasPage = connectToFlags(FLAGS.OPENSHIFT)(({namespace, f
   }
   return <MultiListPage
     canCreate={true}
-    createButtonText="Create Resource Quota"
+    createButtonText="Create"
     createProps={{to: `/k8s/ns/${namespace || 'default'}/resourcequotas/new`}}
     ListComponent={ResourceQuotasList}
     resources={resources}

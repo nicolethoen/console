@@ -242,7 +242,7 @@ export const ListPage = props => {
   const {createButtonText, createHandler, filterLabel, kind, namespace, selector, name, fieldSelector, filters, limit, showTitle = true, fake} = props;
   let { createProps } = props;
   const ko = kindObj(kind);
-  const {labelPlural, plural, namespaced, label} = ko;
+  const {labelPlural, plural, namespaced} = ko;
   const title = props.title || labelPlural;
   let href = namespaced ? `/k8s/ns/${namespace || 'default'}/${plural}/new` : `/k8s/cluster/${plural}/new`;
   if (ko.crd) {
@@ -271,7 +271,7 @@ export const ListPage = props => {
     helpText={props.helpText}
     canCreate={props.canCreate}
     canExpand={props.canExpand}
-    createButtonText={createButtonText || `Create ${label}`}
+    createButtonText={createButtonText || 'Create'}
     textFilter={props.textFilter}
     resources={resources}
     autoFocus={props.autoFocus}

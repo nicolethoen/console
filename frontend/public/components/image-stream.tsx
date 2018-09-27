@@ -70,7 +70,7 @@ const createApplication = (kindObj, imageStream) => {
     callback: () => {
       history.push(`/source-to-image?imagestream=${name}&imagestream-ns=${namespace}`);
     },
-    label: 'Create Application',
+    label: 'Create',
   };
 };
 

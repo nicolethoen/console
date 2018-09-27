@@ -17,7 +17,7 @@ const createBinding = (kindObj, serviceInstance) => {
     callback: () => {
       history.push(`/k8s/ns/${serviceInstance.metadata.namespace}/serviceinstances/${serviceInstance.metadata.name}/create-binding`);
     },
-    label: 'Create Service Binding',
+    label: 'Create',
   };
 };
 

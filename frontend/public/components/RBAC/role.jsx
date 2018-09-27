@@ -137,7 +137,7 @@ export const BindingsForRolePage = (props) => {
   }
   return <MultiListPage
     canCreate={true}
-    createButtonText="Create Binding"
+    createButtonText="Create"
     createProps={{to: `/k8s/${ns ? `ns/${ns}` : 'cluster'}/rolebindings/new?rolekind=${kind}&rolename=${name}`}}
     ListComponent={BindingsListComponent}
     staticFilters={[{'role-binding-roleRef': name}]}
@@ -176,7 +176,7 @@ export const RolesPage = connectToFlags(FLAGS.PROJECTS_AVAILBLE, FLAGS.PROJECTS_
     canCreate={true}
     showTitle={showTitle}
     namespace={namespace}
-    createButtonText="Create Role"
+    createButtonText="Create"
     createProps={{to: `/k8s/ns/${namespace || 'default'}/roles/new`}}
     filterLabel="Roles by name"
     flatten={resources => _.flatMap(resources, 'data').filter(r => !!r)}

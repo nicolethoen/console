@@ -107,7 +107,7 @@ export const ClusterServiceVersionResourcesPage = connect(inFlightStateToProps)(
         namespace={obj.metadata.namespace}
         canCreate={owned.length > 0 && obj.status.phase === ClusterServiceVersionPhase.CSVPhaseSucceeded}
         createProps={createProps}
-        createButtonText={owned.length > 1 ? 'Create New' : `Create ${owned[0].displayName}`}
+        createButtonText="Create"
         flatten={flatten}
         rowFilters={firehoseResources.length > 1 ? rowFilters : null}
       />

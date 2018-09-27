@@ -139,7 +139,7 @@ const roleResources = [
 
 export const RoleBindingsPage = ({namespace, showTitle=true, fake}) => <MultiListPage
   canCreate={true}
-  createButtonText="Create Binding"
+  createButtonText="Create"
   createProps={{to: '/k8s/cluster/rolebindings/new'}}
   fake={fake}
   filterLabel="Role Bindings by role or subject"
@@ -514,7 +514,7 @@ const BaseEditRoleBinding = connect(null, {setActiveNamespace: UIActions.setActi
           <div className="separator"></div>
 
           <ButtonBar errorMessage={this.state.error} inProgress={this.state.inProgress}>
-            <button type="submit" className="btn btn-primary" id="save-changes">{saveButtonText || 'Create Binding'}</button>
+            <button type="submit" className="btn btn-primary" id="save-changes">{saveButtonText || 'Create'}</button>
             <Link to={formatNamespacedRouteForResource('rolebindings')} className="btn btn-default" id="cancel">Cancel</Link>
           </ButtonBar>
         </form>

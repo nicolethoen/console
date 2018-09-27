@@ -23,7 +23,7 @@ const createInstance = (kindObj, serviceClass) => {
       callback: () => {
         history.push(`/k8s/cluster/clusterserviceclasses/${serviceClass.metadata.name}/create-instance`);
       },
-      label: 'Create Instance',
+      label: 'Create',
     };
   }
 };

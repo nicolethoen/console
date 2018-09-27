@@ -124,7 +124,7 @@ const CreateNamespaceModal = connect(null, mapDispatchToProps)(class CreateNames
           </div>
         </div>}
       </ModalBody>
-      <ModalSubmitFooter errorMessage={this.state.errorMessage} inProgress={this.state.inProgress} submitText={`Create ${label}`} cancel={this.props.cancel.bind(this)} />
+      <ModalSubmitFooter errorMessage={this.state.errorMessage} inProgress={this.state.inProgress} submitText="Create" cancel={this.props.cancel.bind(this)} />
     </form>;
   }
 });
