@@ -142,9 +142,9 @@ export const EditYAML = connect(stateToProps)(
       });
     }
 
-    loadYaml(reload=false, obj=this.props.obj, readOnly=this.props.readOnly) {
+    loadYaml(reload=false, obj=this.props.obj, dropped=false, readOnly=this.props.readOnly) {
 
-      if (this.state.initialized && !reload) {
+      if (this.state.initialized && !dropped && !reload) {
         return;
       }
 
@@ -185,8 +185,9 @@ export const EditYAML = connect(stateToProps)(
       this.ace.focus();
       this.ace.setReadOnly(readOnly);
       this.displayedVersion = _.get(obj, 'metadata.resourceVersion');
-      this.setState({initialized: true, stale: false});
-      this.resize_();
+      if (!this.state.initialized) {
+        this.setState({initialized: true, stale: false});
+      }
     }
 
     save() {
@@ -304,9 +305,12 @@ export const EditYAML = connect(stateToProps)(
       */
 
       const {error, success, stale} = this.state;
-      const {create, obj, download = true, showHeader, readOnly} = this.props;
+      const {create, obj, download = true, dropped = false, showHeader, readOnly} = this.props;
       const kind = obj && obj.kind;
       const model = this.getModel(obj);
+      if (create && obj) {
+        this.loadYaml(false, obj, dropped);
+      }
 
       return <div>
         {showHeader && <div className="yaml-editor__header">
