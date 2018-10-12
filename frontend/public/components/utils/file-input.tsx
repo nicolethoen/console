@@ -1,9 +1,12 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 import { NativeTypes } from 'react-dnd-html5-backend';
+import * as _ from 'lodash-es';
 // eslint-disable-next-line no-unused-vars
 import { DropTarget, ConnectDropTarget, DropTargetMonitor } from 'react-dnd';
 import withDragDropContext from './drag-drop-context';
+import { AsyncComponent } from './async';
+import { safeLoad } from 'js-yaml';
 
 // Maximal file size, in bytes, that user can upload
 const maxFileUploadSize = 4000000;
@@ -41,8 +44,21 @@ export class FileInput extends React.Component<FileInputProps, FileInputState> {
     this.readFile(event.target.files[0]);
   }
   render() {
-    const { connectDropTarget, isOver, canDrop, id, isRequired } = this.props;
+    const { connectDropTarget, isOver, canDrop, id, isRequired, isYaml = false } = this.props;
     const klass = classNames('co-file-dropzone-container', {'co-file-dropzone--drop-over': isOver});
+
+    if (isYaml) {
+      const obj = safeLoad(this.props.inputFileData);
+      return (
+        connectDropTarget(
+          <div className="co-file-dropzone">
+            {canDrop && <div className={klass}><p className="co-file-dropzone__drop-text">Drop file here</p></div>}
+            <AsyncComponent loader={() => import('.././edit-yaml').then(c => c.EditYAML)} create={true}
+              showHeader={false} dropped={!_.isEmpty(obj)} download={false} obj={obj} />
+          </div>
+        )
+      );
+    }
     return (
       connectDropTarget(
         <div className="co-file-dropzone">
@@ -148,6 +164,7 @@ export const DroppableFileInput = withDragDropContext(class DroppableFileInput e
       inputFileName={this.state.inputFileName} />;
   }
 });
+
 /* eslint-disable no-undef */
 export type DroppableFileInputProps = {
   inputFileData: string,
@@ -181,5 +198,6 @@ export type FileInputProps = {
   inputFieldHelpText: string,
   textareaFieldHelpText: string,
   isRequired: boolean,
+  isYaml?: boolean,
 };
 /* eslint-enable no-undef */
