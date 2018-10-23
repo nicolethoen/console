@@ -3,6 +3,7 @@ import * as React from 'react';
 import { safeLoad, safeDump } from 'js-yaml';
 import { saveAs } from 'file-saver';
 import { connect } from 'react-redux';
+import { DropTarget } from 'react-dnd';
 
 import * as ace from 'brace';
 import 'brace/ext/searchbox';
@@ -344,3 +345,13 @@ export const EditYAML = connect(stateToProps)(
     }
   }
 );
+
+function collect(connect_) {
+  return {
+    // Call this function inside render()
+    // to let React DnD handle the drag events:
+    connectDropTarget: connect_.dropTarget(),
+  };
+}
+
+export default DropTarget('yaml', {}, collect)(EditYAML);
