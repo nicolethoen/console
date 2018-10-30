@@ -3,7 +3,9 @@ import * as React from 'react';
 import { safeLoad, safeDump } from 'js-yaml';
 import { saveAs } from 'file-saver';
 import { connect } from 'react-redux';
-import { DropTarget } from 'react-dnd';
+import { NativeTypes } from 'react-dnd-html5-backend';
+// eslint-disable-next-line no-unused-vars
+import { DropTarget, ConnectDropTarget, DropTargetMonitor } from 'react-dnd';
 
 import * as ace from 'brace';
 import 'brace/ext/searchbox';
@@ -18,6 +20,7 @@ import { SafetyFirst } from './safety-first';
 import { coFetchJSON } from '../co-fetch';
 import { ResourceSidebar } from './sidebars/resource-sidebar';
 import { yamlTemplates } from '../models/yaml-templates';
+import {FileInputProps} from './utils/file-input';
 
 const { snippetManager } = ace.acequire('ace/snippets');
 snippetManager.register([...snippets.values()], 'yaml');
@@ -346,12 +349,17 @@ export const EditYAML = connect(stateToProps)(
   }
 );
 
-function collect(connect_) {
-  return {
-    // Call this function inside render()
-    // to let React DnD handle the drag events:
-    connectDropTarget: connect_.dropTarget(),
-  };
-}
+const boxTarget = {
+  drop(props: FileInputProps, monitor: DropTargetMonitor) {
+    if (props.onDrop && monitor.isOver()) {
+      props.onDrop(props, monitor);
+    }
+  },
+};
 
-export default DropTarget('yaml', {}, collect)(EditYAML);
+export const EditYAMLComponent = DropTarget(NativeTypes.FILE, boxTarget, (connect, monitor) => ({
+  connectDropTarget: connect.dropTarget(),
+  isOver: monitor.isOver(),
+  canDrop: monitor.canDrop()
+}))(EditYAML);
+

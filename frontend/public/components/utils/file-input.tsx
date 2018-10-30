@@ -53,8 +53,8 @@ export class FileInput extends React.Component<FileInputProps, FileInputState> {
         connectDropTarget(
           <div className="co-file-dropzone">
             {canDrop && <div className={klass}><p className="co-file-dropzone__drop-text">Drop file here</p></div>}
-            <AsyncComponent loader={() => import('.././edit-yaml').then(c => c.EditYAML)} create={true}
-              showHeader={false} dropped={!_.isEmpty(obj)} download={false} obj={obj} />
+            <AsyncComponent loader={() => import('../edit-yaml').then(c => c.EditYAML)} create={true}
+                            showHeader={false} dropped={!_.isEmpty(obj)} download={false} obj={obj} />
           </div>
         )
       );
@@ -69,11 +69,11 @@ export class FileInput extends React.Component<FileInputProps, FileInputState> {
             <div className="modal-body__field">
               <div className="input-group">
                 <input type="text"
-                  className="form-control"
-                  value={this.props.inputFileName}
-                  aria-describedby={`${id}-help`}
-                  readOnly
-                  disabled />
+                       className="form-control"
+                       value={this.props.inputFileName}
+                       aria-describedby={`${id}-help`}
+                       readOnly
+                       disabled />
                 <span className="input-group-btn">
                   <span className="btn btn-default co-btn-file">
                     Browse&hellip;
@@ -83,10 +83,10 @@ export class FileInput extends React.Component<FileInputProps, FileInputState> {
               </div>
               <p className="help-block" id={`${id}-help`}>{this.props.inputFieldHelpText}</p>
               <textarea className="form-control co-file-dropzone__textarea"
-                onChange={this.onDataChange}
-                value={this.props.inputFileData}
-                aria-describedby={`${id}-textarea-help`}
-                required={isRequired}>
+                        onChange={this.onDataChange}
+                        value={this.props.inputFileData}
+                        aria-describedby={`${id}-textarea-help`}
+                        required={isRequired}>
               </textarea>
               <p className="help-block" id={`${id}-textarea-help`}>{this.props.textareaFieldHelpText}</p>
               { this.props.errorMessage && <div className="text-danger">{this.props.errorMessage}</div> }
