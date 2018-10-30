@@ -20,7 +20,7 @@ import { SafetyFirst } from './safety-first';
 import { coFetchJSON } from '../co-fetch';
 import { ResourceSidebar } from './sidebars/resource-sidebar';
 import { yamlTemplates } from '../models/yaml-templates';
-import {FileInputProps} from './utils/file-input';
+import { FileInputProps } from "./utils/file-input";
 
 const { snippetManager } = ace.acequire('ace/snippets');
 snippetManager.register([...snippets.values()], 'yaml');
