@@ -1,5 +1,6 @@
 import * as _ from 'lodash-es';
 import * as React from 'react';
+import * as classNames from 'classnames';
 import { safeLoad, safeDump } from 'js-yaml';
 import { saveAs } from 'file-saver';
 import { connect } from 'react-redux';
@@ -20,7 +21,6 @@ import { SafetyFirst } from './safety-first';
 import { coFetchJSON } from '../co-fetch';
 import { ResourceSidebar } from './sidebars/resource-sidebar';
 import { yamlTemplates } from '../models/yaml-templates';
-import { FileInputProps } from "./utils/file-input";
 
 const { snippetManager } = ace.acequire('ace/snippets');
 snippetManager.register([...snippets.values()], 'yaml');
@@ -309,56 +309,61 @@ export const EditYAML = connect(stateToProps)(
       */
 
       const {error, success, stale} = this.state;
-      const {create, obj, download = true, dropped = false, showHeader, readOnly} = this.props;
+      const {connectDropTarget, canDrop, isOver, create, obj, download = true, dropped = false, showHeader, readOnly} = this.props;
       const kind = obj && obj.kind;
       const model = this.getModel(obj);
       if (create && obj) {
         this.loadYaml(false, obj, dropped);
       }
 
-      return <div>
-        {showHeader && <div className="yaml-editor__header">
-          {`${create ? 'Create' : 'Edit'} ${_.get(model, 'label', kind)}`}
-        </div>}
-        <div className="co-p-has-sidebar">
-          <div className="co-p-has-sidebar__body">
-            <div className="yaml-editor" ref={r => this.editor = r} style={{height: this.state.height}}>
-              <div className="absolute-zero">
-                <div className="full-width-and-height yaml-editor__flexbox">
-                  <div id={this.id} key={this.id} className="yaml-editor__acebox" />
-                  <div className="yaml-editor__buttons">
-                    {error && <p className="alert alert-danger"><span className="pficon pficon-error-circle-o"></span>{error}</p>}
-                    {success && <p className="alert alert-success"><span className="pficon pficon-ok"></span>{success}</p>}
-                    {stale && <p className="alert alert-info">
-                      <span className="pficon pficon-info"></span>This object has been updated. Click reload to see the new version.
-                    </p>}
-                    {create && <button type="submit" className="btn btn-primary" id="save-changes" onClick={() => this.save()}>Create</button>}
-                    {!create && !readOnly && <button type="submit" className="btn btn-primary" id="save-changes" onClick={() => this.save()}>Save</button>}
-                    {!create && <button type="submit" className="btn btn-default" id="reload-object" onClick={() => this.reload()}>Reload</button>}
-                    <button className="btn btn-default" id="cancel" onClick={() => this.onCancel()}>Cancel</button>
-                    {download && <button type="submit" className="btn btn-default pull-right hidden-sm hidden-xs" onClick={() => this.download()}><i className="fa fa-download"></i>&nbsp;Download</button>}
+      const klass = classNames('co-file-dropzone-container', {'co-file-dropzone--drop-over': isOver});
+
+      return (
+        connectDropTarget(<div>
+          {showHeader && <div className="yaml-editor__header">
+            {`${create ? 'Create' : 'Edit'} ${_.get(model, 'label', kind)}`}
+          </div>}
+          {canDrop && <div className={klass}><p className="co-file-dropzone__drop-text">Drop file here</p></div>}
+          <div className="co-p-has-sidebar">
+            <div className="co-p-has-sidebar__body">
+              <div className="yaml-editor" ref={r => this.editor = r} style={{height: this.state.height}}>
+                <div className="absolute-zero">
+                  <div className="full-width-and-height yaml-editor__flexbox">
+                    <div id={this.id} key={this.id} className="yaml-editor__acebox" />
+                    <div className="yaml-editor__buttons">
+                      {error && <p className="alert alert-danger"><span className="pficon pficon-error-circle-o"></span>{error}</p>}
+                      {success && <p className="alert alert-success"><span className="pficon pficon-ok"></span>{success}</p>}
+                      {stale && <p className="alert alert-info">
+                        <span className="pficon pficon-info"></span>This object has been updated. Click reload to see the new version.
+                      </p>}
+                      {create && <button type="submit" className="btn btn-primary" id="save-changes" onClick={() => this.save()}>Create</button>}
+                      {!create && !readOnly && <button type="submit" className="btn btn-primary" id="save-changes" onClick={() => this.save()}>Save</button>}
+                      {!create && <button type="submit" className="btn btn-default" id="reload-object" onClick={() => this.reload()}>Reload</button>}
+                      <button className="btn btn-default" id="cancel" onClick={() => this.onCancel()}>Cancel</button>
+                      {download && <button type="submit" className="btn btn-default pull-right hidden-sm hidden-xs" onClick={() => this.download()}><i className="fa fa-download"></i>&nbsp;Download</button>}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+            <ResourceSidebar isCreateMode={create} kindObj={model} height={this.state.height} loadSampleYaml={this.loadSampleYaml_} downloadSampleYaml={this.downloadSampleYaml_} />
           </div>
-          <ResourceSidebar isCreateMode={create} kindObj={model} height={this.state.height} loadSampleYaml={this.loadSampleYaml_} downloadSampleYaml={this.downloadSampleYaml_} />
-        </div>
-      </div>;
+        </div>)
+      );
     }
   }
 );
 
 const boxTarget = {
-  drop(props: FileInputProps, monitor: DropTargetMonitor) {
+  drop(props, monitor) {
     if (props.onDrop && monitor.isOver()) {
       props.onDrop(props, monitor);
     }
   },
 };
 
-export const EditYAMLComponent = DropTarget(NativeTypes.FILE, boxTarget, (connect, monitor) => ({
-  connectDropTarget: connect.dropTarget(),
+export const EditYAMLComponent = DropTarget(NativeTypes.FILE, boxTarget, (connectFunc, monitor) => ({
+  connectDropTarget: connectFunc.dropTarget(),
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()
 }))(EditYAML);

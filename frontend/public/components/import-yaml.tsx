@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { DropTargetMonitor } from 'react-dnd';
 import { EditYAMLComponent } from "./edit-yaml";
+import withDragDropContext from "./utils/drag-drop-context";
 
 const maxFileUploadSize = 4000000;
 const fileSizeErrorMsg = 'Maximum file size exceeded. File limit is 4MB.';
 
-export class ImportYamlPage extends React.Component<ImportYamlProps, ImportYamlState> {
+export const ImportYamlPage = withDragDropContext(class ImportYamlPage extends React.Component<ImportYamlProps, ImportYamlState> {
   constructor(props) {
     super(props);
     this.state = {
@@ -58,7 +59,7 @@ export class ImportYamlPage extends React.Component<ImportYamlProps, ImportYamlS
     </React.Fragment>;
   }
 
-}
+});
 
 /* eslint-disable no-undef */
 export type ImportYamlState = {
