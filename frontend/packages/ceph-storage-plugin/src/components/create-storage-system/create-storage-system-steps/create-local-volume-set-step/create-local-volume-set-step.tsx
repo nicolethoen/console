@@ -1,16 +1,12 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import * as React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
+import { Alert, Button, Form, Grid, GridItem, Modal } from '@patternfly/react-core';
 import {
-  Alert,
-  Button,
-  Form,
-  Grid,
-  GridItem,
-  Modal,
-  WizardContext,
-  WizardContextType,
-} from '@patternfly/react-core';
+  WizardContextType as WizardContextTypeDeprecated,
+  WizardContext as WizardContextDeprecated,
+} from '@patternfly/react-core/deprecated';
+
 import { history } from '@console/internal/components/utils';
 import { getLocalVolumeSetRequestData } from '@console/local-storage-operator-plugin/src/components/local-volume-set/request';
 import {
@@ -300,7 +296,9 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const isArbiterSupported = useFlag(FEATURES.OCS_ARBITER);
-  const { onNext, activeStep } = React.useContext<WizardContextType>(WizardContext);
+  const { onNext, activeStep } = React.useContext<WizardContextTypeDeprecated>(
+    WizardContextDeprecated,
+  );
 
   const cancel = () => {
     dispatch({
@@ -338,7 +336,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         {t("ceph-storage-plugin~After the LocalVolumeSet is created you won't be able to edit it.")}
       </span>
       {isArbiterSupported && (
-        <p className="pf-u-pt-sm">
+        <p className="pf-v5-u-pt-sm">
           <strong>{t('ceph-storage-plugin~Note:')} </strong>
           {arbiterText(t)}
         </p>

@@ -32,7 +32,7 @@ const OBStatus: React.FC<OBStatusProps> = ({ ob }) => <Status status={getPhase(o
 
 const tableColumnClasses = [
   '',
-  'pf-m-hidden pf-m-visible-on-md pf-u-w-25-on-md',
+  'pf-m-hidden pf-m-visible-on-md pf-v5-u-w-25-on-md',
   'pf-m-hidden pf-m-visible-on-lg',
   Kebab.columnClass,
 ];

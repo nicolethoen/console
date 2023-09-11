@@ -4,17 +4,13 @@ import { match as RouterMatch } from 'react-router';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { useDispatch } from 'react-redux';
+import { Button, Alert, AlertActionCloseButton, Stack, StackItem } from '@patternfly/react-core';
 import {
-  Wizard,
-  WizardFooter,
-  WizardContextConsumer,
-  Button,
-  Alert,
-  WizardStep,
-  AlertActionCloseButton,
-  Stack,
-  StackItem,
-} from '@patternfly/react-core';
+  Wizard as WizardDeprecated,
+  WizardFooter as WizardFooterDeprecated,
+  WizardStep as WizardStepDeprecated,
+  WizardContextConsumer as WizardContextConsumerDeprecated,
+} from '@patternfly/react-core/deprecated';
 import { history } from '@console/internal/components/utils/router';
 import { setFlag } from '@console/internal/actions/features';
 import { k8sCreate, K8sResourceKind, referenceForModel } from '@console/internal/module/k8s';
@@ -133,8 +129,8 @@ const CreateStorageClusterWizard: React.FC<CreateStorageClusterWizardProps> = ({
    * This allows error handling per step and moves to next step only when API request is successful.
    */
   const CustomFooter: React.ReactNode = (
-    <WizardFooter>
-      <WizardContextConsumer>
+    <WizardFooterDeprecated>
+      <WizardContextConsumerDeprecated>
         {({ activeStep, onNext, onBack, onClose }) => {
           const nextButtonFactory = {
             [CreateStepsSC.DISCOVER]: {
@@ -195,11 +191,11 @@ const CreateStorageClusterWizard: React.FC<CreateStorageClusterWizardProps> = ({
             </>
           );
         }}
-      </WizardContextConsumer>
-    </WizardFooter>
+      </WizardContextConsumerDeprecated>
+    </WizardFooterDeprecated>
   );
 
-  const steps: WizardStep[] = [
+  const steps: WizardStepDeprecated[] = [
     {
       id: CreateStepsSC.DISCOVER,
       name: t('ceph-storage-plugin~Discover disks'),
@@ -244,7 +240,6 @@ const CreateStorageClusterWizard: React.FC<CreateStorageClusterWizardProps> = ({
       <StackItem>
         {showInfoAlert && (
           <Alert
-            aria-label={t('ceph-storage-plugin~Info Alert')}
             className="co-alert ocs-install-info-alert"
             variant="info"
             isInline
@@ -258,7 +253,7 @@ const CreateStorageClusterWizard: React.FC<CreateStorageClusterWizardProps> = ({
         )}
       </StackItem>
       <StackItem isFilled>
-        <Wizard
+        <WizardDeprecated
           className="ocs-install-wizard"
           steps={steps}
           startAtStep={getStep()}

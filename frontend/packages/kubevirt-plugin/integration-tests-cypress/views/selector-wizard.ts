@@ -7,12 +7,12 @@ export const next = 'button[data-test-id="wizard-next"]';
 export const cancelBtn = 'button[id="create-vm-wizard-cancel-btn"]';
 export const customizeBtn = 'button[data-test-id="wizard-customize"]';
 
-export const wizardNav = '.pf-c-wizard__nav-list';
-export const wizardNavLink = '.pf-c-wizard__nav-link';
+export const wizardNav = '.pf-v5-c-wizard__nav-list';
+export const wizardNavLink = '.pf-v5-c-wizard__nav-link';
 export const templateTitle = '.catalog-tile-pf-title';
 
 export const imageSourceDropdown = '#image-source-type-dropdown';
-export const selectMenu = '.pf-c-select__menu';
+export const selectMenu = '.pf-v5-c-select__menu';
 export const sourceURL = '#provision-source-url';
 export const sourceRegistry = '#provision-source-container';
 export const cdrom = 'input[id="cdrom"]';
@@ -24,7 +24,7 @@ export const pvcSize = '#request-size-input';
 export const clonePVCNSDropdown = 'button[id="clone-pvc-ns"]';
 export const pvcNSDropdown = 'button[id="pvc-ns-dropdown"]';
 export const projectNS = (project: string) => `a[id="${project}-Project-link"]`;
-export const clonePVCDropDown = '.pf-c-dropdown__toggle-text';
+export const clonePVCDropDown = '.pf-v5-c-dropdown__toggle-text';
 export const pvcDropdown = 'button[id="pvc-name-dropdown"]';
 export const pvcName = (pvc: string) => `a[id="${pvc}-PersistentVolumeClaim-link"]`;
 
@@ -40,7 +40,7 @@ export const successList = 'button[data-test="success-list"]';
 // customize wizard
 export const osDropdown = '#operating-system-dropdown';
 export const flavorDropdown = 'button[id="flavor-dropdown]';
-export const selectItem = '.pf-c-select__menu-item';
+export const selectItem = '.pf-v5-c-select__menu-item';
 export const nextBtn = 'button[id="create-vm-wizard-submit-btn"]';
 export const selectPXENIC = 'select[id="pxe-bootsource"]';
 export const cloudInit = 'button[id="cloud"]';

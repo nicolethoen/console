@@ -1,7 +1,17 @@
 import * as classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import * as React from 'react';
-import { ActionGroup, Button, FormGroup, Form, TextInput, Tooltip } from '@patternfly/react-core';
+import {
+  ActionGroup,
+  Button,
+  FormGroup,
+  Form,
+  TextInput,
+  Tooltip,
+  FormHelperText,
+  HelperText,
+  HelperTextItem,
+} from '@patternfly/react-core';
 import {
   ButtonBar,
   Dropdown,
@@ -46,7 +56,7 @@ const CreateBackingStoreForm: React.FC<CreateBackingStoreFormProps> = withHandle
   );
   const isODF = useFlag(ODF_MODEL_FLAG);
 
-  const handleBsNameTextInputChange = (strVal: string) => {
+  const handleBsNameTextInputChange = (_event, strVal: string) => {
     if (strVal.length <= 43) {
       setBsName(strVal);
     }
@@ -153,7 +163,6 @@ const CreateBackingStoreForm: React.FC<CreateBackingStoreFormProps> = withHandle
         label={t('ceph-storage-plugin~BackingStore Name')}
         fieldId="backingstore-name"
         className="nb-endpoints-form-entry"
-        helperText={t('ceph-storage-plugin~A unique name for the BackingStore  within the project')}
         isRequired
       >
         <Tooltip
@@ -170,6 +179,14 @@ const CreateBackingStoreForm: React.FC<CreateBackingStoreFormProps> = withHandle
             aria-label={t('ceph-storage-plugin~BackingStore Name')}
           />
         </Tooltip>
+
+        <FormHelperText>
+          <HelperText>
+            <HelperTextItem>
+              {t('ceph-storage-plugin~A unique name for the BackingStore within the project.')}
+            </HelperTextItem>
+          </HelperText>
+        </FormHelperText>
       </FormGroup>
 
       <FormGroup

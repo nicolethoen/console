@@ -23,7 +23,7 @@ export default ({ vmName }) =>
       cy.get('@nextButton').click();
       cy.get('#vm-name').clear().type(`${vmName}-advanced-wizard`);
       cy.byLegacyTestID('wizard-customize').click();
-      cy.get('.pf-c-wizard__nav-link').filter(':contains("Advanced")').click();
+      cy.get('.pf-v5-c-wizard__nav-link').filter(':contains("Advanced")').click();
     });
 
     it('should open ssh accordion', () => {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Card, CardActions, CardHeader, CardTitle } from '@patternfly/react-core';
+import { Card, CardHeader, CardTitle } from '@patternfly/react-core';
 import UtilizationBody from '@console/shared/src/components/dashboard/utilization-card/UtilizationBody';
 import { PrometheusUtilizationItem } from '@console/internal/components/dashboard/dashboards-page/cluster-dashboard/utilization-card';
 import { humanizeDecimalBytesPerSec } from '@console/internal/components/utils';
@@ -17,12 +17,19 @@ export const UtilizationCard: React.FC = () => {
   const { name } = obj.metadata;
 
   return (
-    <Card>
-      <CardHeader>
+    <Card isClickable isSelectable>
+      <CardHeader
+        actions={{
+          actions: (
+            <>
+              <UtilizationDurationDropdown />
+            </>
+          ),
+          hasNoOffset: false,
+          className: undefined,
+        }}
+      >
         <CardTitle>{t('ceph-storage-plugin~Performance')}</CardTitle>
-        <CardActions>
-          <UtilizationDurationDropdown />
-        </CardActions>
       </CardHeader>
       <UtilizationBody>
         <PrometheusUtilizationItem

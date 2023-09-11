@@ -7,12 +7,12 @@ export const addDeviceButton = $('#add-device-btm');
 export const addDeviceSelect = $('#add-device-select');
 
 export const draggablePointer = (position) =>
-  $(`#VMBootOrderList div:nth-child(${position}) div.pf-c-data-list__item-row`).$(
+  $(`#VMBootOrderList div:nth-child(${position}) div.pf-v5-c-data-list__item-row`).$(
     'div[style="cursor: move;"]',
   );
 
 export const deleteDeviceButton = (position) =>
-  $(`#VMBootOrderList div:nth-child(${position}) div.pf-c-data-list__item-row`).$(
+  $(`#VMBootOrderList div:nth-child(${position}) div.pf-v5-c-data-list__item-row`).$(
     'div[style="cursor: pointer;"]',
   );
 

@@ -10,17 +10,20 @@ import {
   ActionGroup,
   Alert,
   Button,
-  Dropdown,
-  DropdownItem,
-  DropdownPosition,
-  DropdownToggle,
   EmptyState,
   EmptyStateBody,
   EmptyStateIcon,
   EmptyStateVariant,
   Switch,
-  Title,
+  EmptyStateHeader,
+  EmptyStateFooter,
 } from '@patternfly/react-core';
+import {
+  Dropdown as DropdownDeprecated,
+  DropdownItem as DropdownItemDeprecated,
+  DropdownPosition as DropdownPositionDeprecated,
+  DropdownToggle as DropdownToggleDeprecated,
+} from '@patternfly/react-core/deprecated';
 import {
   AngleDownIcon,
   AngleRightIcon,
@@ -30,13 +33,15 @@ import {
 import {
   ISortBy,
   sortable,
-  Table,
-  TableBody,
   TableGridBreakpoint,
-  TableHeader,
   TableVariant,
   wrappable,
 } from '@patternfly/react-table';
+import {
+  Table as TableDeprecated,
+  TableHeader as TableHeaderDeprecated,
+  TableBody as TableBodyDeprecated,
+} from '@patternfly/react-table/deprecated';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
@@ -92,29 +97,29 @@ const MetricsActionsMenu: React.FC<{}> = () => {
   };
 
   const dropdownItems = [
-    <DropdownItem key="add-query" component="button" onClick={addQuery}>
+    <DropdownItemDeprecated key="add-query" component="button" onClick={addQuery}>
       {t('public~Add query')}
-    </DropdownItem>,
-    <DropdownItem
+    </DropdownItemDeprecated>,
+    <DropdownItemDeprecated
       key="collapse-all"
       component="button"
       onClick={() => dispatch(queryBrowserSetAllExpanded(!isAllExpanded))}
     >
       {isAllExpanded ? t('public~Collapse all query tables') : t('public~Expand all query tables')}
-    </DropdownItem>,
-    <DropdownItem key="delete-all" component="button" onClick={doDelete}>
+    </DropdownItemDeprecated>,
+    <DropdownItemDeprecated key="delete-all" component="button" onClick={doDelete}>
       {t('public~Delete all queries')}
-    </DropdownItem>,
+    </DropdownItemDeprecated>,
   ];
 
   return (
-    <Dropdown
+    <DropdownDeprecated
       className="co-actions-menu"
       dropdownItems={dropdownItems}
       isOpen={isOpen}
       onSelect={setClosed}
-      position={DropdownPosition.right}
-      toggle={<DropdownToggle onToggle={setIsOpen}>Actions</DropdownToggle>}
+      position={DropdownPositionDeprecated.right}
+      toggle={<DropdownToggleDeprecated onToggle={setIsOpen}>Actions</DropdownToggleDeprecated>}
     />
   );
 };
@@ -247,10 +252,10 @@ const QueryKebab: React.FC<{ index: number }> = ({ index }) => {
   }, [dispatch, index]);
 
   const dropdownItems = [
-    <DropdownItem key="toggle-query" component="button" onClick={toggleIsEnabled}>
+    <DropdownItemDeprecated key="toggle-query" component="button" onClick={toggleIsEnabled}>
       {isEnabled ? t('public~Disable query') : t('public~Enable query')}
-    </DropdownItem>,
-    <DropdownItem
+    </DropdownItemDeprecated>,
+    <DropdownItemDeprecated
       tooltip={!isEnabled ? t('Query must be enabled') : undefined}
       isDisabled={!isEnabled}
       key="toggle-all-series"
@@ -258,13 +263,13 @@ const QueryKebab: React.FC<{ index: number }> = ({ index }) => {
       onClick={toggleAllSeries}
     >
       {isDisabledSeriesEmpty ? t('public~Hide all series') : t('public~Show all series')}
-    </DropdownItem>,
-    <DropdownItem key="delete" component="button" onClick={doDelete}>
+    </DropdownItemDeprecated>,
+    <DropdownItemDeprecated key="delete" component="button" onClick={doDelete}>
       {t('public~Delete query')}
-    </DropdownItem>,
-    <DropdownItem key="duplicate" component="button" onClick={doClone}>
+    </DropdownItemDeprecated>,
+    <DropdownItemDeprecated key="duplicate" component="button" onClick={doClone}>
       {t('public~Duplicate query')}
-    </DropdownItem>,
+    </DropdownItemDeprecated>,
   ];
 
   return <KebabDropdown dropdownItems={dropdownItems} />;
@@ -461,7 +466,7 @@ export const QueryTable: React.FC<QueryTableProps> = ({ index, namespace }) => {
           >
             {isDisabledSeriesEmpty ? t('public~Unselect all') : t('public~Select all')}
           </Button>
-          <Table
+          <TableDeprecated
             aria-label={t('public~query results table')}
             cells={columns}
             gridBreakPoint={TableGridBreakpoint.none}
@@ -470,9 +475,9 @@ export const QueryTable: React.FC<QueryTableProps> = ({ index, namespace }) => {
             sortBy={sortBy}
             variant={TableVariant.compact}
           >
-            <TableHeader />
-            <TableBody />
-          </Table>
+            <TableHeaderDeprecated />
+            <TableBodyDeprecated />
+          </TableDeprecated>
         </div>
       </div>
       <TablePagination
@@ -638,16 +643,19 @@ const QueryBrowserWrapper: React.FC<{}> = () => {
     return (
       <div className="query-browser__wrapper graph-empty-state">
         <EmptyState variant={EmptyStateVariant.full}>
-          <EmptyStateIcon icon={ChartLineIcon} />
-          <Title headingLevel="h2" size="md">
-            {t('public~No query entered')}
-          </Title>
+          <EmptyStateHeader
+            titleText={<>{t('public~No query entered')}</>}
+            icon={<EmptyStateIcon icon={ChartLineIcon} />}
+            headingLevel="h2"
+          />
           <EmptyStateBody>
             {t('public~Enter a query in the box below to explore metrics for this cluster.')}
           </EmptyStateBody>
-          <Button onClick={insertExampleQuery} variant="primary">
-            {t('public~Insert example query')}
-          </Button>
+          <EmptyStateFooter>
+            <Button onClick={insertExampleQuery} variant="primary">
+              {t('public~Insert example query')}
+            </Button>
+          </EmptyStateFooter>
         </EmptyState>
       </div>
     );
@@ -757,7 +765,7 @@ const QueryBrowserPage_: React.FC<{}> = () => {
             <QueryBrowserWrapper />
             <div className="query-browser__controls">
               <div className="query-browser__controls--right">
-                <ActionGroup className="pf-c-form pf-c-form__group--no-top-margin">
+                <ActionGroup className="pf-v5-c-form pf-v5-c-form__group--no-top-margin">
                   <AddQueryButton />
                   <RunQueriesButton />
                 </ActionGroup>

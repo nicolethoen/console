@@ -88,8 +88,7 @@ Cypress.Commands.add('validateSPSettings', () => {
 
 describe('ID(CNV-6923) Verify storageProfile with a fake storageClass', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
     cy.createStorageClass(); // ensure SC existence
     cy.editStorageProfile(); // ensure SP has default properties for AccessMode and VolumeMode

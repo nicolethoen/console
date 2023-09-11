@@ -1,10 +1,11 @@
 import * as React from 'react';
+
 import {
-  SelectOption,
-  SelectGroup,
-  OptionsMenuItemGroup,
-  OptionsMenuItem,
-} from '@patternfly/react-core';
+  SelectOption as SelectOptionDeprecated,
+  SelectGroup as SelectGroupDeprecated,
+  OptionsMenuItemGroup as OptionsMenuItemGroupDeprecated,
+  OptionsMenuItem as OptionsMenuItemDeprecated,
+} from '@patternfly/react-core/deprecated';
 
 type GroupedSelectItems = {
   group: string;
@@ -15,18 +16,18 @@ export const getSelectOptions = (
   selectItems: { name: string; id: string }[],
 ): React.ReactElement[] =>
   selectItems.map(({ id, name }) => (
-    <SelectOption key={id} value={id}>
+    <SelectOptionDeprecated key={id} value={id}>
       {name}
-    </SelectOption>
+    </SelectOptionDeprecated>
   ));
 
 export const getGroupedSelectOptions = (
   groupedSelectItems: GroupedSelectItems,
 ): React.ReactElement[] =>
   groupedSelectItems.map(({ group, items }) => (
-    <SelectGroup key={group} label={group}>
+    <SelectGroupDeprecated key={group} label={group}>
       {getSelectOptions(items)}
-    </SelectGroup>
+    </SelectGroupDeprecated>
   ));
 
 export const getOptionsMenuItems = (
@@ -35,21 +36,21 @@ export const getOptionsMenuItems = (
   onSelect: (e) => void,
 ) => {
   return dropdownItems.map(({ group, items }) => (
-    <OptionsMenuItemGroup
+    <OptionsMenuItemGroupDeprecated
       className="nb-data-consumption-card__dropdown-item--hide-list-style"
       key={group}
       groupTitle={group}
     >
       {items.map((item) => (
-        <OptionsMenuItem
+        <OptionsMenuItemDeprecated
           onSelect={onSelect}
           isSelected={selectedItems.includes(item.id)}
           id={item.id}
           key={item.id}
         >
           {item.name}
-        </OptionsMenuItem>
+        </OptionsMenuItemDeprecated>
       ))}
-    </OptionsMenuItemGroup>
+    </OptionsMenuItemGroupDeprecated>
   ));
 };

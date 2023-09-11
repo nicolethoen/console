@@ -76,7 +76,7 @@ export const CreateOBCForm: React.FC<CreateOBCFormProps> = (props) => {
         </label>
         <div className="form-group">
           <input
-            className="pf-c-form-control"
+            className="pf-v5-c-form-control"
             type="text"
             onChange={(e) => dispatch({ type: 'setName', name: e.currentTarget.value.trim() })}
             value={state.name}
@@ -176,7 +176,7 @@ export const CreateOBCPage: React.FC<CreateOBCPageProps> = (props) => {
       <form className="co-m-pane__body-group" onSubmit={save}>
         <CreateOBCForm state={state} dispatch={dispatch} namespace={namespace} />
         <ButtonBar errorMessage={state.error} inProgress={state.progress}>
-          <ActionGroup className="pf-c-form">
+          <ActionGroup className="pf-v5-c-form">
             <Button type="submit" variant="primary">
               {t('ceph-storage-plugin~Create')}
             </Button>

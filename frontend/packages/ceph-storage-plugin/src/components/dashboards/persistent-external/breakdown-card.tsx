@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Select, SelectProps, Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
+import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
+import {
+  Select as SelectDeprecated,
+  SelectProps as SelectPropsDeprecated,
+} from '@patternfly/react-core/deprecated';
 import { humanizeBinaryBytes } from '@console/internal/components/utils';
 import {
   DashboardItemProps,
@@ -44,7 +48,7 @@ export const BreakdownCard: React.FC<DashboardItemProps> = ({
   const top5MetricsStats = getStackChartStats(top5SortedMetricsData, humanize);
   const metricTotal = results[1]?.data?.result[0]?.value[1];
 
-  const handleMetricsChange: SelectProps['onSelect'] = (_e, breakdown) => {
+  const handleMetricsChange: SelectPropsDeprecated['onSelect'] = (_e, breakdown) => {
     setMetricType(breakdown as string);
     setBreakdownSelect(!isOpenBreakdownSelect);
   };
@@ -71,7 +75,7 @@ export const BreakdownCard: React.FC<DashboardItemProps> = ({
       <CardHeader>
         <CardTitle>{t('ceph-storage-plugin~Capacity breakdown')}</CardTitle>
         <div className="ceph-capacity-breakdown-card__header">
-          <Select
+          <SelectDeprecated
             className="ceph-capacity-breakdown-card-header__dropdown"
             autoFocus={false}
             onSelect={handleMetricsChange}
@@ -83,7 +87,7 @@ export const BreakdownCard: React.FC<DashboardItemProps> = ({
             isCheckboxSelectionBadgeHidden
           >
             {breakdownSelectItems}
-          </Select>
+          </SelectDeprecated>
         </div>
       </CardHeader>
       <CardBody className="ceph-capacity-breakdown-card__body">

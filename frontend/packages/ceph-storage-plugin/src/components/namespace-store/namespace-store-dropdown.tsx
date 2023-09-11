@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Alert } from '@patternfly/react-core';
 import {
-  Alert,
-  Dropdown,
-  DropdownItem,
-  DropdownSeparator,
-  DropdownToggle,
-} from '@patternfly/react-core';
+  Dropdown as DropdownDeprecated,
+  DropdownItem as DropdownItemDeprecated,
+  DropdownSeparator as DropdownSeparatorDeprecated,
+  DropdownToggle as DropdownToggleDeprecated,
+} from '@patternfly/react-core/deprecated';
 import { useK8sWatchResource } from '@console/internal/components/utils/k8s-watch-hook';
 import { useDeepCompareMemoize, getName } from '@console/shared';
 import NamespaceStoreModal from './namespace-store-modal';
@@ -36,7 +36,7 @@ export const NamespaceStoreDropdown: React.FC<NamespaceStoreDropdownProps> = ({
       (res, nns) => {
         const name = getName(nns);
         res.push(
-          <DropdownItem
+          <DropdownItemDeprecated
             key={nns.metadata.uid}
             component="button"
             id={name}
@@ -56,22 +56,22 @@ export const NamespaceStoreDropdown: React.FC<NamespaceStoreDropdownProps> = ({
             })}
           >
             {name}
-          </DropdownItem>,
+          </DropdownItemDeprecated>,
         );
         return res;
       },
       creatorDisabled
         ? []
         : [
-            <DropdownItem
+            <DropdownItemDeprecated
               data-test="create-new-namespacestore-button"
               key="first-item"
               component="button"
               onClick={() => NamespaceStoreModal({ namespace })}
             >
               {t('ceph-storage-plugin~Create new NamespaceStore ')}
-            </DropdownItem>,
-            <DropdownSeparator key="separator" />,
+            </DropdownItemDeprecated>,
+            <DropdownSeparatorDeprecated key="separator" />,
           ],
     );
     setDropdownItems(nnsDropdownItems);
@@ -95,10 +95,10 @@ export const NamespaceStoreDropdown: React.FC<NamespaceStoreDropdownProps> = ({
           title={t('ceph-storage-plugin~An error has occurred while fetching namespace stores')}
         />
       )}
-      <Dropdown
+      <DropdownDeprecated
         className="dropdown--full-width"
         toggle={
-          <DropdownToggle
+          <DropdownToggleDeprecated
             id="nns-dropdown-id"
             isDisabled={
               !!nnsLoadErr ||
@@ -108,7 +108,7 @@ export const NamespaceStoreDropdown: React.FC<NamespaceStoreDropdownProps> = ({
             onToggle={() => setOpen(!isOpen)}
           >
             {selectedKey || t('ceph-storage-plugin~Select a namespace store')}
-          </DropdownToggle>
+          </DropdownToggleDeprecated>
         }
         isOpen={isOpen}
         dropdownItems={dropdownItems}

@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { match as RouteMatch } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { Wizard, WizardStep } from '@patternfly/react-core';
+import {
+  Wizard as WizardDeprecated,
+  WizardStep as WizardStepDeprecated,
+} from '@patternfly/react-core/deprecated';
 import { useK8sGet } from '@console/internal/components/utils/k8s-get-hook';
 import { ListKind } from '@console/internal/module/k8s';
 import { InfrastructureModel } from '@console/internal/models';
@@ -27,7 +30,7 @@ const CreateStorageSystem: React.FC<CreateStorageSystemProps> = () => {
   const [infra, infraLoaded, infraLoadError] = useK8sGet<any>(InfrastructureModel, 'cluster');
   const infraType = infra?.spec?.platformSpec?.type;
 
-  let wizardSteps: WizardStep[] = [];
+  let wizardSteps: WizardStepDeprecated[] = [];
   let hasOCS: boolean = false;
 
   if (ssLoaded && !ssLoadError && infraLoaded && !infraLoadError) {
@@ -35,7 +38,7 @@ const CreateStorageSystem: React.FC<CreateStorageSystemProps> = () => {
     wizardSteps = createSteps(t, state, dispatch, infraType, hasOCS);
   }
 
-  const steps: WizardStep[] = [
+  const steps: WizardStepDeprecated[] = [
     {
       id: 1,
       name: StepsName(t)[Steps.BackingStorage],
@@ -58,7 +61,7 @@ const CreateStorageSystem: React.FC<CreateStorageSystemProps> = () => {
   return (
     <>
       <CreateStorageSystemHeader />
-      <Wizard
+      <WizardDeprecated
         steps={steps}
         footer={
           <CreateStorageSystemFooter

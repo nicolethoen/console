@@ -4,8 +4,7 @@ const template = 'rhel6-server-small';
 
 describe('smoke tests', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
   });
 

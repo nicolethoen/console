@@ -88,7 +88,7 @@ export const EncryptionFormGroup: React.FC<EncryptionFormGroupProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [encryption.clusterWide, encryption.storageClass, encryptionChecked]);
 
-  const toggleEncryption = (checked: boolean) => {
+  const toggleEncryption = (_event, checked: boolean) => {
     const payload = {
       ...encryption,
       clusterWide: checked,
@@ -102,14 +102,14 @@ export const EncryptionFormGroup: React.FC<EncryptionFormGroupProps> = ({
     setEncryptionChecked(checked);
   };
 
-  const toggleClusterWideEncryption = (checked: boolean) => {
+  const toggleClusterWideEncryption = (_event, checked: boolean) => {
     setEncryptionDispatch(ActionType.SET_ENCRYPTION, mode, dispatch, {
       ...encryption,
       clusterWide: checked,
     });
   };
 
-  const toggleStorageClassEncryption = (checked: boolean) => {
+  const toggleStorageClassEncryption = (_event, checked: boolean) => {
     const encryptOj = {
       ...encryption,
       storageClass: checked,
@@ -120,7 +120,7 @@ export const EncryptionFormGroup: React.FC<EncryptionFormGroupProps> = ({
     setEncryptionDispatch(ActionType.SET_ENCRYPTION, mode, dispatch, encryptOj);
   };
 
-  const toggleAdvancedEncryption = (checked: boolean) => {
+  const toggleAdvancedEncryption = (_event, checked: boolean) => {
     setEncryptionDispatch(ActionType.SET_ENCRYPTION, mode, dispatch, {
       ...encryption,
       advanced: checked,

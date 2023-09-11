@@ -17,8 +17,7 @@ const disk1: Disk = {
 
 describe('Test template resource', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
     cy.createNAD(testName);
     cy.createDefaultTemplate();

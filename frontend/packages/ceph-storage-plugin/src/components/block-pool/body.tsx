@@ -4,13 +4,16 @@ import * as _ from 'lodash';
 
 import {
   Alert,
-  Dropdown,
-  DropdownToggle,
-  DropdownItem,
   EmptyState,
   EmptyStateIcon,
   EmptyStateBody,
+  EmptyStateHeader,
 } from '@patternfly/react-core';
+import {
+  Dropdown as DropdownDeprecated,
+  DropdownToggle as DropdownToggleDeprecated,
+  DropdownItem as DropdownItemDeprecated,
+} from '@patternfly/react-core/deprecated';
 import { CaretDownIcon } from '@patternfly/react-icons';
 import { ListKind } from '@console/internal/module/k8s';
 import { useK8sGet } from '@console/internal/components/utils/k8s-get-hook';
@@ -43,7 +46,9 @@ export const BlockPoolStatus: React.FC<BlockPoolStatusProps> = ({ status, name, 
   return (
     <>
       <EmptyState>
-        <EmptyStateIcon icon={statusObj.icon} className={statusObj.className} />
+        <EmptyStateHeader
+          icon={<EmptyStateIcon icon={statusObj.icon} className={statusObj.className} />}
+        />
         <EmptyStateBody data-test="empty-state-body">
           {error ? getErrorMessage(error) : statusObj.desc}
         </EmptyStateBody>
@@ -106,7 +111,7 @@ export const BlockPoolBody = (props: BlockPoolBodyPros) => {
       setAvailableDeviceClasses(
         deviceClasses.map((device) => {
           return (
-            <DropdownItem
+            <DropdownItemDeprecated
               key={`device-${device?.name}`}
               component="button"
               id={device?.name}
@@ -114,7 +119,7 @@ export const BlockPoolBody = (props: BlockPoolBodyPros) => {
               onClick={(e) => setVolumeType(e.currentTarget.id)}
             >
               {device?.name.toUpperCase()}
-            </DropdownItem>
+            </DropdownItemDeprecated>
           );
         }),
       );
@@ -145,7 +150,7 @@ export const BlockPoolBody = (props: BlockPoolBodyPros) => {
   );
 
   const replicaDropdownItems = replicaList.map((replica) => (
-    <DropdownItem
+    <DropdownItemDeprecated
       key={`replica-${OCS_DEVICE_REPLICA[replica]}`}
       component="button"
       id={replica}
@@ -155,7 +160,7 @@ export const BlockPoolBody = (props: BlockPoolBodyPros) => {
       }
     >
       {t('ceph-storage-plugin~{{replica}} Replication', { replica: OCS_DEVICE_REPLICA[replica] })}
-    </DropdownItem>
+    </DropdownItemDeprecated>
   ));
 
   return (
@@ -167,7 +172,7 @@ export const BlockPoolBody = (props: BlockPoolBodyPros) => {
               {t('ceph-storage-plugin~Pool name')}
             </label>
             <input
-              className="pf-c-form-control"
+              className="pf-v5-c-form-control"
               type="text"
               onChange={(e) =>
                 dispatch({
@@ -189,10 +194,10 @@ export const BlockPoolBody = (props: BlockPoolBodyPros) => {
             <label className="control-label co-required" htmlFor="pool-replica-size">
               {t('ceph-storage-plugin~Data protection policy')}
             </label>
-            <Dropdown
+            <DropdownDeprecated
               className="dropdown--full-width"
               toggle={
-                <DropdownToggle
+                <DropdownToggleDeprecated
                   id="replica-dropdown"
                   data-test="replica-dropdown"
                   onToggle={() => setReplicaOpen(!isReplicaOpen)}
@@ -204,7 +209,7 @@ export const BlockPoolBody = (props: BlockPoolBodyPros) => {
                         replica: OCS_DEVICE_REPLICA[state.replicaSize],
                       })
                     : t('ceph-storage-plugin~Select replication')}
-                </DropdownToggle>
+                </DropdownToggleDeprecated>
               }
               isOpen={isReplicaOpen}
               dropdownItems={replicaDropdownItems}
@@ -217,10 +222,10 @@ export const BlockPoolBody = (props: BlockPoolBodyPros) => {
               <label className="control-label co-required" htmlFor="pool-volume-type">
                 {t('ceph-storage-plugin~Volume type')}
               </label>
-              <Dropdown
+              <DropdownDeprecated
                 className="dropdown--full-width"
                 toggle={
-                  <DropdownToggle
+                  <DropdownToggleDeprecated
                     id="toggle-id"
                     data-test="volume-type-dropdown"
                     onToggle={() => setVolumeTypeOpen(!isVolumeTypeOpen)}
@@ -228,7 +233,7 @@ export const BlockPoolBody = (props: BlockPoolBodyPros) => {
                     isDisabled={isUpdate}
                   >
                     {state.volumeType.toUpperCase() || t('ceph-storage-plugin~Select volume type')}
-                  </DropdownToggle>
+                  </DropdownToggleDeprecated>
                 }
                 isOpen={isVolumeTypeOpen}
                 dropdownItems={availableDeviceClasses}

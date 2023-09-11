@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Dropdown, Firehose } from '@console/internal/components/utils';
-import { Button, FormGroup, TextInput, InputGroup } from '@patternfly/react-core';
+import { Button, FormGroup, TextInput, InputGroup, InputGroupItem } from '@patternfly/react-core';
 import { SecretModel } from '@console/internal/models';
 import { ResourceDropdown } from '@console/shared';
 import { BC_PROVIDERS, AWS_REGIONS } from '../../constants';
@@ -90,8 +90,8 @@ export const S3EndPointType: React.FC<S3EndpointTypeProps> = (props) => {
         >
           <TextInput
             data-test={`${type.toLowerCase()}-s3-endpoint`}
-            onChange={(e) => {
-              dispatch({ type: 'setEndpoint', value: e });
+            onChange={(_e, value) => {
+              dispatch({ type: 'setEndpoint', value });
             }}
             id="endpoint"
             value={state.endpoint}
@@ -107,39 +107,47 @@ export const S3EndPointType: React.FC<S3EndpointTypeProps> = (props) => {
           className="nb-endpoints-form-entry nb-endpoints-form-entry--full-width"
           isRequired
         >
-          <InputGroup>
-            <Firehose resources={resources}>
-              <ResourceDropdown
-                id="secret-dropdown"
-                selectedKey={state.secretName}
-                placeholder={t('ceph-storage-plugin~Select Secret')}
-                className="nb-endpoints-form-entry__dropdown nb-endpoints-form-entry__dropdown--full-width"
-                buttonClassName="nb-endpoints-form-entry__dropdown"
-                dataSelector={['metadata', 'name']}
-                onChange={(e) => dispatch({ type: 'setSecretName', value: e })}
-              />
-            </Firehose>
-            <Button variant="plain" data-test="switch-to-creds" onClick={switchToCredentials}>
-              {t('ceph-storage-plugin~Switch to Credentials')}
-            </Button>
+          <InputGroup translate={t}>
+            <InputGroupItem>
+              <Firehose resources={resources}>
+                <ResourceDropdown
+                  id="secret-dropdown"
+                  selectedKey={state.secretName}
+                  placeholder={t('ceph-storage-plugin~Select Secret')}
+                  className="nb-endpoints-form-entry__dropdown nb-endpoints-form-entry__dropdown--full-width"
+                  buttonClassName="nb-endpoints-form-entry__dropdown"
+                  dataSelector={['metadata', 'name']}
+                  onChange={(e) => dispatch({ type: 'setSecretName', value: e })}
+                />
+              </Firehose>
+            </InputGroupItem>
+            <InputGroupItem>
+              <Button variant="plain" data-test="switch-to-creds" onClick={switchToCredentials}>
+                {t('ceph-storage-plugin~Switch to Credentials')}
+              </Button>
+            </InputGroupItem>
           </InputGroup>
         </FormGroup>
       ) : (
         <>
           <FormGroup label={credentialField1Label} fieldId="access-key">
-            <InputGroup>
-              <TextInput
-                id="access-key"
-                data-test={`${type.toLowerCase()}-access-key`}
-                value={state.accessKey}
-                onChange={(e) => {
-                  dispatch({ type: 'setAccessKey', value: e });
-                }}
-                aria-label={t('ceph-storage-plugin~Access Key Field')}
-              />
-              <Button variant="plain" onClick={switchToSecret}>
-                {t('ceph-storage-plugin~Switch to Secret')}
-              </Button>
+            <InputGroup translate={t}>
+              <InputGroupItem isFill>
+                <TextInput
+                  id="access-key"
+                  data-test={`${type.toLowerCase()}-access-key`}
+                  value={state.accessKey}
+                  onChange={(_e, value) => {
+                    dispatch({ type: 'setAccessKey', value });
+                  }}
+                  aria-label={t('ceph-storage-plugin~Access Key Field')}
+                />
+              </InputGroupItem>
+              <InputGroupItem>
+                <Button variant="plain" onClick={switchToSecret}>
+                  {t('ceph-storage-plugin~Switch to Secret')}
+                </Button>
+              </InputGroupItem>
             </InputGroup>
           </FormGroup>
           <FormGroup
@@ -151,8 +159,8 @@ export const S3EndPointType: React.FC<S3EndpointTypeProps> = (props) => {
               value={state.secretKey}
               id="secret-key"
               data-test={`${type.toLowerCase()}-secret-key`}
-              onChange={(e) => {
-                dispatch({ type: 'setSecretKey', value: e });
+              onChange={(_e, value) => {
+                dispatch({ type: 'setSecretKey', value });
               }}
               aria-label={t('ceph-storage-plugin~Secret Key Field')}
               type="password"
@@ -170,7 +178,7 @@ export const S3EndPointType: React.FC<S3EndpointTypeProps> = (props) => {
           id="target-bucket"
           value={state.target}
           data-test={`${type.toLowerCase()}-target-bucket`}
-          onChange={(e) => dispatch({ type: 'setTarget', value: e })}
+          onChange={(_e, value) => dispatch({ type: 'setTarget', value })}
           aria-label={targetLabel}
         />
       </FormGroup>

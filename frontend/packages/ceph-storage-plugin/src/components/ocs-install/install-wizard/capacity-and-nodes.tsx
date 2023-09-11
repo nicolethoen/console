@@ -184,13 +184,12 @@ export const StretchClusterFormGroup: React.FC<StretchClusterFormGroupProps> = (
           'ceph-storage-plugin~To support high availability when two data centers can be used, enable arbiter to get the valid quorum between two data centers.',
         )}
         isDisabled={isArbiterDisabled()}
-        onChange={(isChecked: boolean) =>
+        onChange={(_event, isChecked: boolean) =>
           dispatch({ type: 'setStretchClusterChecked', value: isChecked })
         }
       />
       {showInfoAlert && (
         <Alert
-          aria-label={t('ceph-storage-plugin~Arbiter minimum requirements')}
           className="co-alert ceph-ocs-install__lso-install-alert"
           variant="info"
           title={t('ceph-storage-plugin~Arbiter minimum requirements')}

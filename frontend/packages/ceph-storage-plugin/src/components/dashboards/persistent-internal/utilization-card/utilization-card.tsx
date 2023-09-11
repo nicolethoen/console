@@ -1,7 +1,7 @@
 // TODO (@rexagod): https://github.com/openshift/console/pull/10470#discussion_r766453369
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, CardActions, CardHeader, CardTitle, Grid } from '@patternfly/react-core';
+import { Card, CardHeader, CardTitle, Grid } from '@patternfly/react-core';
 import { ByteDataTypes } from '@console/shared/src/graph-helper/data-utils';
 import { UtilizationDurationDropdown } from '@console/shared/src/components/dashboard/utilization-card/UtilizationDurationDropdown';
 import ConsumerPopover from '@console/shared/src/components/dashboard/utilization-card/TopConsumerPopover';
@@ -36,8 +36,18 @@ const UtilizationCard: React.FC = () => {
   );
 
   return (
-    <Card>
-      <CardHeader>
+    <Card isClickable isSelectable>
+      <CardHeader
+        actions={{
+          actions: (
+            <>
+              <UtilizationDurationDropdown />
+            </>
+          ),
+          hasNoOffset: false,
+          className: undefined,
+        }}
+      >
         <CardTitle className="co-utilization-card__title">
           {t('ceph-storage-plugin~Utilization')}
           <FieldLevelHelp>
@@ -46,9 +56,6 @@ const UtilizationCard: React.FC = () => {
             )}
           </FieldLevelHelp>
         </CardTitle>
-        <CardActions>
-          <UtilizationDurationDropdown />
-        </CardActions>
       </CardHeader>
       <Grid className="co-utilization-card__body">
         <PrometheusUtilizationItem

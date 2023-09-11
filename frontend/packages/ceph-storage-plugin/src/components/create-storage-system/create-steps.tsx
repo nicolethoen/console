@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { TFunction } from 'i18next';
-import { WizardStep } from '@patternfly/react-core';
+import { WizardStep as WizardStepDeprecated } from '@patternfly/react-core/deprecated';
 import {
   CapacityAndNodes,
   CreateStorageClass,
@@ -25,7 +25,7 @@ export const createSteps = (
   dispatch: WizardDispatch,
   infraType: string,
   hasOCS: boolean,
-): WizardStep[] => {
+): WizardStepDeprecated[] => {
   const {
     backingStorage,
     stepIdReached,
@@ -78,7 +78,7 @@ export const createSteps = (
     },
   };
 
-  const rhcsExternalProviderSteps: WizardStep[] = [
+  const rhcsExternalProviderSteps: WizardStepDeprecated[] = [
     {
       name: StepsName(t)[Steps.ConnectionDetails],
       canJumpTo: stepIdReached >= 2,
@@ -99,7 +99,7 @@ export const createSteps = (
     },
   ];
 
-  const nonRhcsExternalProviderStep: WizardStep = {
+  const nonRhcsExternalProviderStep: WizardStepDeprecated = {
     canJumpTo: stepIdReached >= 2,
     id: 2,
     name: StepsName(t)[Steps.CreateStorageClass],
@@ -113,7 +113,7 @@ export const createSteps = (
     ),
   };
 
-  const createLocalVolumeSetStep: WizardStep = {
+  const createLocalVolumeSetStep: WizardStepDeprecated = {
     name: StepsName(t)[Steps.CreateLocalVolumeSet],
     canJumpTo: stepIdReached >= 2,
     id: 2,

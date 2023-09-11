@@ -4,14 +4,11 @@ import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { match as RouteMatch } from 'react-router';
+import { Alert, AlertActionCloseButton, Stack, StackItem } from '@patternfly/react-core';
 import {
-  Alert,
-  Wizard,
-  AlertActionCloseButton,
-  Stack,
-  StackItem,
-  WizardStep,
-} from '@patternfly/react-core';
+  Wizard as WizardDeprecated,
+  WizardStep as WizardStepDeprecated,
+} from '@patternfly/react-core/deprecated';
 import { history, resourcePathFromModel } from '@console/internal/components/utils';
 import { setFlag } from '@console/internal/actions/features';
 import { k8sCreate, referenceForModel, K8sResourceKind } from '@console/internal/module/k8s';
@@ -85,7 +82,7 @@ export const CreateInternalCluster: React.FC<CreateInternalClusterProps> = ({
     hasConfiguredNetwork;
   const { getStep, getParamString, getIndex } = navUtils;
 
-  const steps: WizardStep[] = [
+  const steps: WizardStepDeprecated[] = [
     {
       name: t('ceph-storage-plugin~Capacity and nodes'),
       id: CreateStepsSC.STORAGEANDNODES,
@@ -133,7 +130,6 @@ export const CreateInternalCluster: React.FC<CreateInternalClusterProps> = ({
       <StackItem>
         {showInfoAlert && (
           <Alert
-            aria-label={t('ceph-storage-plugin~Info Alert')}
             variant="info"
             className="co-alert ocs-install-info-alert"
             title="Internal"
@@ -149,7 +145,7 @@ export const CreateInternalCluster: React.FC<CreateInternalClusterProps> = ({
         )}
       </StackItem>
       <StackItem isFilled>
-        <Wizard
+        <WizardDeprecated
           className="ocs-install-wizard"
           navAriaLabel={t('ceph-storage-plugin~{{title}} steps', { title })}
           mainAriaLabel={t('ceph-storage-plugin~{{title}} content', { title })}

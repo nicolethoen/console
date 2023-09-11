@@ -5,13 +5,13 @@ import { click } from '../utils/shared-utils';
 
 export const allPairRows = $$('.pairs-list__row');
 
-export const successAlert = $('.pf-c-alert.pf-m-inline.pf-m-success.co-alert');
-export const errorAlert = $('.pf-c-alert.pf-m-inline.pf-m-danger.co-alert.co-alert--scrollable');
+export const successAlert = $('.pf-v5-c-alert.pf-m-inline.pf-m-success.co-alert');
+export const errorAlert = $('.pf-v5-c-alert.pf-m-inline.pf-m-danger.co-alert.co-alert--scrollable');
 
 export const dropDownBtn = $$('.value-from');
 export const textFilter = $('[placeholder="ConfigMap or Secret"]');
 export const option = $$('[role="option"]');
-export const deleteButton = $$('.pf-c-button.pf-m-plain.pairs-list__span-btns');
+export const deleteButton = $$('.pf-v5-c-button.pf-m-plain.pairs-list__span-btns');
 
 export const serialField = $$('[data-test-id=env-prefix]');
 

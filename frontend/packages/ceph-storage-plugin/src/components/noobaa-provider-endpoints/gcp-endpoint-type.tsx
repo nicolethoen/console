@@ -9,6 +9,10 @@ import {
   TextArea,
   PopoverPosition,
   Popover,
+  InputGroupItem,
+  FormHelperText,
+  HelperText,
+  HelperTextItem,
 } from '@patternfly/react-core';
 import { HelpIcon } from '@patternfly/react-icons';
 import { ExternalLink, Firehose } from '@console/internal/components/utils';
@@ -87,81 +91,101 @@ export const GCPEndpointType: React.FC<GCPEndPointTypeProps> = (props) => {
     <>
       <FormGroup
         className="nb-endpoints-form-entry"
-        helperText={
-          !showSecret
-            ? t(
-                'ceph-storage-plugin~Upload a .json file with the service account keys provided by Google Cloud Storage.',
-              )
-            : null
-        }
         label={t('ceph-storage-plugin~Secret Key')}
         fieldId="secret-key"
         isRequired
       >
         {!showSecret ? (
-          <InputGroup>
-            <TextInput
-              isReadOnly
-              value={inputData}
-              className="nb-endpoints-form-entry__file-name"
-              placeholder={t('ceph-storage-plugin~Upload JSON')}
-              aria-label={t('ceph-storage-plugin~Uploaded File Name')}
-            />
-            <div className="inputbtn nb-endpoints-form-entry-upload-btn">
-              <Button
-                href="#"
-                variant="secondary"
-                className="custom-input-btn nb-endpoints-form-entry-upload-btn__button"
-                aria-label={t('ceph-storage-plugin~Upload File')}
-              >
-                {t('ceph-storage-plugin~Browse')}
-              </Button>
-              <input
-                type="file"
-                id="inputButton"
-                className="nb-endpoints-form-entry-upload-btn__input"
-                onChange={onUpload}
-                aria-label={t('ceph-storage-plugin~Upload File')}
+          <InputGroup translate="no">
+            <InputGroupItem isFill>
+              <TextInput
+                value={inputData}
+                className="nb-endpoints-form-entry__file-name"
+                placeholder={t('ceph-storage-plugin~Upload JSON')}
+                aria-label={t('ceph-storage-plugin~Uploaded File Name')}
+                readOnlyVariant="default"
               />
-            </div>
-            <Button
-              variant="plain"
-              onClick={toggleShowSecret}
-              aria-label={t('ceph-storage-plugin~Switch to Secret')}
-            >
-              {t('ceph-storage-plugin~Switch to Secret')}
-            </Button>
+            </InputGroupItem>
+            <InputGroupItem>
+              <div className="inputbtn nb-endpoints-form-entry-upload-btn">
+                <Button
+                  href="#"
+                  variant="secondary"
+                  className="custom-input-btn nb-endpoints-form-entry-upload-btn__button"
+                  aria-label={t('ceph-storage-plugin~Upload File')}
+                >
+                  {t('ceph-storage-plugin~Browse')}
+                </Button>
+                <input
+                  type="file"
+                  id="inputButton"
+                  className="nb-endpoints-form-entry-upload-btn__input"
+                  onChange={onUpload}
+                  aria-label={t('ceph-storage-plugin~Upload File')}
+                />
+              </div>
+            </InputGroupItem>
+            <InputGroupItem>
+              <Button
+                variant="plain"
+                onClick={toggleShowSecret}
+                aria-label={t('ceph-storage-plugin~Switch to Secret')}
+              >
+                {t('ceph-storage-plugin~Switch to Secret')}
+              </Button>
+            </InputGroupItem>
           </InputGroup>
         ) : (
-          <InputGroup>
-            <Firehose resources={resources}>
-              <ResourceDropdown
-                selectedKey={state.secretName}
-                placeholder={t('ceph-storage-plugin~Select Secret')}
-                className="nb-endpoints-form-entry__dropdown nb-endpoints-form-entry__dropdown--full-width"
-                buttonClassName="nb-endpoints-form-entry__dropdown"
-                dataSelector={['metadata', 'name']}
-                ariaLabel={t('ceph-storage-plugin~Select Secret')}
-                onChange={(e) => dispatch({ type: 'setSecretName', value: e })}
-              />
-            </Firehose>
-            <Button
-              variant="plain"
-              onClick={toggleShowSecret}
-              aria-label={t('ceph-storage-plugin~Switch to upload JSON')}
-            >
-              {t('ceph-storage-plugin~Switch to upload JSON')}
-            </Button>
+          <InputGroup translate="no">
+            <InputGroupItem>
+              <Firehose resources={resources}>
+                <ResourceDropdown
+                  selectedKey={state.secretName}
+                  placeholder={t('ceph-storage-plugin~Select Secret')}
+                  className="nb-endpoints-form-entry__dropdown nb-endpoints-form-entry__dropdown--full-width"
+                  buttonClassName="nb-endpoints-form-entry__dropdown"
+                  dataSelector={['metadata', 'name']}
+                  ariaLabel={t('ceph-storage-plugin~Select Secret')}
+                  onChange={(e) => dispatch({ type: 'setSecretName', value: e })}
+                />
+              </Firehose>
+            </InputGroupItem>
+            <InputGroupItem>
+              <Button
+                variant="plain"
+                onClick={toggleShowSecret}
+                aria-label={t('ceph-storage-plugin~Switch to upload JSON')}
+              >
+                {t('ceph-storage-plugin~Switch to upload JSON')}
+              </Button>
+            </InputGroupItem>
           </InputGroup>
         )}
+
+        <FormHelperText>
+          <HelperText>
+            <HelperTextItem>
+              {!showSecret &&
+                t(
+                  'ceph-storage-plugin~Upload a .json file with the service account keys provided by Google Cloud Storage.',
+                )}
+            </HelperTextItem>
+          </HelperText>
+        </FormHelperText>
       </FormGroup>
       {!showSecret && (
-        <FormGroup className="nb-endpoints-form-entry" helperText={gcpHelpText} fieldId="gcp-data">
+        <FormGroup className="nb-endpoints-form-entry" fieldId="gcp-data">
           <TextArea
             aria-label={t('ceph-storage-plugin~Cluster Metadata')}
             className="nb-endpoints-form-entry__data-dump"
             value={fileData}
           />
+
+          <FormHelperText>
+            <HelperText>
+              <HelperTextItem>{gcpHelpText}</HelperTextItem>
+            </HelperText>
+          </FormHelperText>
         </FormGroup>
       )}
       <FormGroup
@@ -172,8 +196,8 @@ export const GCPEndpointType: React.FC<GCPEndPointTypeProps> = (props) => {
       >
         <TextInput
           value={state.target}
-          onChange={(e) => {
-            dispatch({ type: 'setTarget', value: e });
+          onChange={(_e, value) => {
+            dispatch({ type: 'setTarget', value });
           }}
           aria-label={t('ceph-storage-plugin~Target Bucket')}
         />

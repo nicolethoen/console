@@ -16,7 +16,7 @@ type DiskSourceOpts = {
 export const addSource = {
   addBootSource: (provisionSource: ProvisionSource, opts?: DiskSourceOpts, provider?: string) => {
     cy.get('#image-source-type-dropdown').click();
-    cy.get('.pf-c-select__menu').contains(provisionSource.getDescription()).click();
+    cy.get('.pf-v5-c-select__menu').contains(provisionSource.getDescription()).click();
     const sourceInput = provisionSourceInputs[provisionSource.getValue()];
     if (sourceInput) {
       cy.get(sourceInput).type(provisionSource.getSource());
@@ -29,7 +29,7 @@ export const addSource = {
       cy.get(`a[id="${pvcName}-PersistentVolumeClaim-link"]`).click();
     }
     if (provisionSource === ProvisionSource.UPLOAD) {
-      cy.dropFile(Cypress.env('UPLOAD_IMG'), 'cirros', '.pf-c-file-upload');
+      cy.dropFile(Cypress.env('UPLOAD_IMG'), 'cirros', '.pf-v5-c-file-upload');
     }
     if (provisionSource !== ProvisionSource.CLONE_PVC) {
       cy.get('#request-size-input').clear().type('5');

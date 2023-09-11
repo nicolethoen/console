@@ -1,6 +1,14 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormGroup, TextInput, FileUpload, Form } from '@patternfly/react-core';
+import {
+  FormGroup,
+  TextInput,
+  FileUpload,
+  Form,
+  FormHelperText,
+  HelperText,
+  HelperTextItem,
+} from '@patternfly/react-core';
 
 import {
   createModalLauncher,
@@ -141,7 +149,7 @@ export const AdvancedVaultModal = withHandlePromise((props: AdvancedKMSModalProp
           >
             <TextInput
               value={backendPath}
-              onChange={setBackendPath}
+              onChange={(_event, value) => setBackendPath(value)}
               type="text"
               id="kms-service-backend-path"
               name="kms-service-backend-path"
@@ -157,7 +165,7 @@ export const AdvancedVaultModal = withHandlePromise((props: AdvancedKMSModalProp
             >
               <TextInput
                 value={authPath}
-                onChange={setAuthPath}
+                onChange={(_event, value) => setAuthPath(value)}
                 type="text"
                 id="kms-service-auth-path"
                 name="kms-service-auth-path"
@@ -176,7 +184,7 @@ export const AdvancedVaultModal = withHandlePromise((props: AdvancedKMSModalProp
               >
                 <TextInput
                   value={authNamespace}
-                  onChange={setAuthNamespace}
+                  onChange={(_event, value) => setAuthNamespace(value)}
                   type="text"
                   id="kms-service-auth-namespace"
                   name="kms-service-auth-namespace"
@@ -193,7 +201,7 @@ export const AdvancedVaultModal = withHandlePromise((props: AdvancedKMSModalProp
           >
             <TextInput
               value={tlsName}
-              onChange={setTLSName}
+              onChange={(_event, value) => setTLSName(value)}
               type="text"
               id="kms-service-tls"
               name="kms-service-tls"
@@ -205,18 +213,25 @@ export const AdvancedVaultModal = withHandlePromise((props: AdvancedKMSModalProp
               label={t('ceph-storage-plugin~Vault Enterprise Namespace')}
               className="ceph-advanced-kms__form-body"
               labelIcon={<FieldLevelHelp>{vaultNamespaceTooltip}</FieldLevelHelp>}
-              helperText={t(
-                'ceph-storage-plugin~The name must be accurate and must match the service namespace',
-              )}
             >
               <TextInput
                 value={providerNS}
-                onChange={setProvideNS}
+                onChange={(_event, value) => setProvideNS(value)}
                 type="text"
                 id="kms-service-namespace"
                 name="kms-service-namespace"
                 placeholder="kms-namespace"
               />
+
+              <FormHelperText>
+                <HelperText>
+                  <HelperTextItem>
+                    {t(
+                      'ceph-storage-plugin~The name must be accurate and must match the service namespace.',
+                    )}
+                  </HelperTextItem>
+                </HelperText>
+              </FormHelperText>
             </FormGroup>
           )}
           <FormGroup
@@ -229,11 +244,11 @@ export const AdvancedVaultModal = withHandlePromise((props: AdvancedKMSModalProp
               id="kms-service-ca-cert"
               value={caCertificate}
               filename={caCertificateFile}
-              onChange={updateCaCert}
+              onFileInputChange={(_event, file) => updateCaCert(file, file.name)}
               hideDefaultPreview
               filenamePlaceholder={t('ceph-storage-plugin~Upload a .PEM file here...')}
               dropzoneProps={{
-                accept: '.pem',
+                accept: { 'application/x-pem-file': ['.pem'] },
                 maxSize: KMSMaxFileUploadSize,
                 onDropRejected: () => setError(KMSFileSizeErrorMsg),
               }}
@@ -250,11 +265,11 @@ export const AdvancedVaultModal = withHandlePromise((props: AdvancedKMSModalProp
               id="kms-service-cert"
               value={clientCertificate}
               filename={clientCertificateFile}
-              onChange={updateClientCert}
+              onFileInputChange={(_event, file) => updateClientCert(file, file.name)}
               hideDefaultPreview
               filenamePlaceholder={t('ceph-storage-plugin~Upload a .PEM file here...')}
               dropzoneProps={{
-                accept: '.pem',
+                accept: { 'application/x-pem-file': ['.pem'] },
                 maxSize: KMSMaxFileUploadSize,
                 onDropRejected: () => setError(KMSFileSizeErrorMsg),
               }}
@@ -271,11 +286,11 @@ export const AdvancedVaultModal = withHandlePromise((props: AdvancedKMSModalProp
               id="kms-service-key"
               value={clientKey}
               filename={clientKeyFile}
-              onChange={updateClientKey}
+              onFileInputChange={(_event, file) => updateClientKey(file, file.name)}
               hideDefaultPreview
               filenamePlaceholder={t('ceph-storage-plugin~Upload a .PEM file here...')}
               dropzoneProps={{
-                accept: '.pem',
+                accept: { 'application/x-pem-file': ['.pem'] },
                 maxSize: KMSMaxFileUploadSize,
                 onDropRejected: () => setError(KMSFileSizeErrorMsg),
               }}

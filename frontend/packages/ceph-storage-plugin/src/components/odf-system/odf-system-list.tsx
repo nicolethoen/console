@@ -32,13 +32,13 @@ import { CEPH_STORAGE_NAMESPACE } from '../../constants';
 import { MCG_STANDALONE, OCS_INDEPENDENT_FLAG } from '../../features';
 
 const tableColumnClasses = [
-  'pf-u-w-15-on-xl',
-  'pf-m-hidden pf-m-visible-on-md pf-u-w-12-on-xl',
-  'pf-m-hidden pf-m-visible-on-lg pf-u-w-12-on-xl',
-  'pf-m-hidden pf-m-visible-on-lg pf-u-w-12-on-xl',
-  'pf-m-hidden pf-m-visible-on-lg pf-u-w-12-on-xl',
-  'pf-m-hidden pf-m-visible-on-lg pf-u-w-12-on-xl',
-  'pf-m-hidden pf-m-visible-on-lg pf-u-w-12-on-xl',
+  'pf-v5-u-w-15-on-xl',
+  'pf-m-hidden pf-m-visible-on-md pf-v5-u-w-12-on-xl',
+  'pf-m-hidden pf-m-visible-on-lg pf-v5-u-w-12-on-xl',
+  'pf-m-hidden pf-m-visible-on-lg pf-v5-u-w-12-on-xl',
+  'pf-m-hidden pf-m-visible-on-lg pf-v5-u-w-12-on-xl',
+  'pf-m-hidden pf-m-visible-on-lg pf-v5-u-w-12-on-xl',
+  'pf-m-hidden pf-m-visible-on-lg pf-v5-u-w-12-on-xl',
   Kebab.columnClass,
 ];
 

@@ -122,7 +122,7 @@ export class Wizard {
   async selectNamespace(namespace: string) {
     await selectItemFromDropdown(
       $('#project-dropdown'),
-      element(by.cssContainingText('.pf-c-dropdown__menu-item', namespace)),
+      element(by.cssContainingText('.pf-v5-c-dropdown__menu-item', namespace)),
     );
   }
 

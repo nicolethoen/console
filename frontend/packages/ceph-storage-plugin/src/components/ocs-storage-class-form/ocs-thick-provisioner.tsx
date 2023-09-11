@@ -15,7 +15,7 @@ export const ThickProvision: React.FC<ProvisionerProps> = ({ parameterKey, onPar
 
   const [checked, isChecked] = React.useState(false);
 
-  const setChecked = (value: boolean) => {
+  const setChecked = (_event, value: boolean) => {
     onParamChange(parameterKey, value.toString(), false);
     isChecked(value);
   };

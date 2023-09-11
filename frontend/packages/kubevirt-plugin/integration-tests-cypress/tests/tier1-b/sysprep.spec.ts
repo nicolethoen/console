@@ -32,11 +32,11 @@ describe('ID (CNV-6821) Sysprep testing', () => {
     cy.get('@nextButton').click();
     cy.get('#vm-name').clear().type(vmName);
     cy.byLegacyTestID('wizard-customize').click();
-    cy.get('.pf-c-wizard__nav-link').filter(':contains("Advanced")').click();
+    cy.get('.pf-v5-c-wizard__nav-link').filter(':contains("Advanced")').click();
   });
 
   it('should check sysprep upload fields are present', () => {
-    cy.get('.pf-c-file-upload').should('have.lengthOf', 2);
+    cy.get('.pf-v5-c-file-upload').should('have.lengthOf', 2);
   });
 
   it('should fill input fields with data and create vm', () => {
@@ -49,7 +49,7 @@ describe('ID (CNV-6821) Sysprep testing', () => {
   });
 
   it('should check for added sysprep disk', () => {
-    cy.get('.pf-c-button.pf-m-primary').filter(':contains("virtual machine")').click();
+    cy.get('.pf-v5-c-button.pf-m-primary').filter(':contains("virtual machine")').click();
     cy.byLegacyTestID('horizontal-link-Disks').click();
     cy.get('[data-id=sysprep]', { timeout: 300000 }).should('be.visible');
   });

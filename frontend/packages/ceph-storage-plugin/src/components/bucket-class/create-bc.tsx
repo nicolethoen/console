@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from 'react-router';
-import { Title, Wizard, WizardStep } from '@patternfly/react-core';
+import { Title } from '@patternfly/react-core';
+import {
+  Wizard as WizardDeprecated,
+  WizardStep as WizardStepDeprecated,
+} from '@patternfly/react-core/deprecated';
 import {
   apiVersionForModel,
   k8sCreate,
@@ -222,7 +226,7 @@ const CreateBucketClass: React.FC<CreateBCProps> = ({ match }) => {
     return stepsReached >= currentId;
   };
 
-  const steps: WizardStep[] = [
+  const steps: WizardStepDeprecated[] = [
     {
       id: CreateStepsBC.GENERAL,
       name: t('ceph-storage-plugin~General'),
@@ -291,7 +295,7 @@ const CreateBucketClass: React.FC<CreateBCProps> = ({ match }) => {
         </p>
       </div>
       <div className="nb-create-bc-wizard">
-        <Wizard
+        <WizardDeprecated
           steps={steps}
           cancelButtonText={t('ceph-storage-plugin~Cancel')}
           nextButtonText={t('ceph-storage-plugin~Next')}

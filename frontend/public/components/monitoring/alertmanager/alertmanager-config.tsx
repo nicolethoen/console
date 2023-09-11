@@ -12,7 +12,7 @@ import {
   EmptyStateVariant,
   Label as PfLabel,
   LabelGroup as PfLabelGroup,
-  Title,
+  EmptyStateHeader,
 } from '@patternfly/react-core';
 import { PencilAltIcon } from '@patternfly/react-icons';
 import { Helmet } from 'react-helmet';
@@ -84,9 +84,9 @@ const AlertRouting = ({ secret, config }: AlertRoutingProps) => {
 };
 
 const tableColumnClasses = [
-  'pf-u-w-50-on-xs pf-u-w-25-on-lg',
-  'pf-m-hidden pf-m-visible-on-lg pf-u-w-25-on-lg',
-  'pf-u-w-50-on-xs',
+  'pf-v5-u-w-50-on-xs pf-v5-u-w-25-on-lg',
+  'pf-m-hidden pf-m-visible-on-lg pf-v5-u-w-25-on-lg',
+  'pf-v5-u-w-50-on-xs',
   Kebab.columnClass,
 ];
 
@@ -302,7 +302,7 @@ const ReceiverTableRow: React.FC<RowFunctionArgs<
           receiver.name === InitialReceivers.Default) &&
         !integrationTypesLabel ? (
           <Link to={`/monitoring/alertmanagerconfig/receivers/${receiver.name}/edit`}>
-            <PencilAltIcon className="co-icon-space-r pf-c-button-icon--plain" />
+            <PencilAltIcon className="co-icon-space-r pf-v5-c-button-icon--plain" />
             {t('public~Configure')}
           </Link>
         ) : (
@@ -396,9 +396,7 @@ const ReceiversEmptyState: React.FC<{}> = () => {
   const { t } = useTranslation();
   return (
     <EmptyState variant={EmptyStateVariant.full}>
-      <Title headingLevel="h2" size="lg">
-        {t('public~No receivers found')}
-      </Title>
+      <EmptyStateHeader titleText={<>{t('public~No receivers found')}</>} headingLevel="h2" />
       <EmptyStateBody>
         {t(
           'public~Create a receiver to get OpenShift alerts through other services such as email or a chat platform. The first receiver you create will become the default receiver and will automatically receive all alerts from this cluster. Subsequent receivers can have specific sets of alerts routed to them.',
@@ -431,7 +429,7 @@ const Receivers = ({ secret, config }: ReceiversProps) => {
         <TextFilter
           defaultValue=""
           label={t('public~Receivers by name')}
-          onChange={(val) => setReceiverFilter(val)}
+          onChange={(_event, val) => setReceiverFilter(val)}
         />
         <Link
           className="co-m-primary-action co-m-pane__filter-row-action"

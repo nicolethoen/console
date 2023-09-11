@@ -1,8 +1,15 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { FormGroup, TextInput, ValidatedOptions } from '@patternfly/react-core';
-import { useDeepCompareMemoize } from '@console/shared';
+import {
+  FormGroup,
+  FormHelperText,
+  HelperText,
+  HelperTextItem,
+  TextInput,
+  ValidatedOptions,
+} from '@patternfly/react-core';
+import { RedExclamationCircleIcon, useDeepCompareMemoize } from '@console/shared';
 import { kmsConfigValidation } from './utils';
 import { KMSConfigureProps } from './providers';
 import { HpcsConfig, HPCSParams, ProviderNames } from '../../types';
@@ -49,16 +56,11 @@ export const HpcsConfigure: React.FC<KMSConfigureProps> = ({ state, dispatch, cl
         fieldId="kms-service-name"
         label={t('ceph-storage-plugin~Connection name')}
         className={`${className}__form-body`}
-        helperTextInvalid={t('ceph-storage-plugin~This is a required field')}
-        validated={isValid(kms.name?.valid)}
-        helperText={t(
-          'ceph-storage-plugin~A unique name for the key management service within the project.',
-        )}
         isRequired
       >
         <TextInput
           value={kms.name?.value}
-          onChange={setParams(HPCSParams.NAME)}
+          onChange={(_event, value) => setParams(HPCSParams.NAME)(value)}
           type="text"
           id="kms-service-name"
           name="kms-service-name"
@@ -66,18 +68,32 @@ export const HpcsConfigure: React.FC<KMSConfigureProps> = ({ state, dispatch, cl
           validated={isValid(kms.name?.valid)}
           data-test="kms-service-name-text"
         />
+
+        <FormHelperText>
+          <HelperText>
+            {!isValid(kms.name?.valid) ? (
+              <HelperTextItem variant="error" icon={<RedExclamationCircleIcon />}>
+                {t('ceph-storage-plugin~This is a required field.')}
+              </HelperTextItem>
+            ) : (
+              <HelperTextItem>
+                {t(
+                  'ceph-storage-plugin~A unique name for the key management service within the project.',
+                )}
+              </HelperTextItem>
+            )}
+          </HelperText>
+        </FormHelperText>
       </FormGroup>
       <FormGroup
         fieldId="kms-instance-id"
         label={t('ceph-storage-plugin~Service instance ID')}
         className={`${className}__form-body`}
-        helperTextInvalid={t('ceph-storage-plugin~This is a required field')}
-        validated={isValid(kms.instanceId?.valid)}
         isRequired
       >
         <TextInput
           value={kms.instanceId?.value}
-          onChange={setParams(HPCSParams.INSTANCE_ID)}
+          onChange={(_event, value) => setParams(HPCSParams.INSTANCE_ID)(value)}
           type="text"
           id="kms-instance-id"
           name="kms-instance-id"
@@ -85,18 +101,26 @@ export const HpcsConfigure: React.FC<KMSConfigureProps> = ({ state, dispatch, cl
           validated={isValid(kms.instanceId?.valid)}
           data-test="kms-instance-id-text"
         />
+
+        <FormHelperText>
+          <HelperText>
+            {!isValid(kms.instanceId?.valid) && (
+              <HelperTextItem variant="error" icon={<RedExclamationCircleIcon />}>
+                {t('ceph-storage-plugin~This is a required field.')}
+              </HelperTextItem>
+            )}
+          </HelperText>
+        </FormHelperText>
       </FormGroup>
       <FormGroup
         fieldId="kms-api-key"
         label={t('ceph-storage-plugin~Service API key')}
         className={`${className}__form-body`}
-        helperTextInvalid={t('ceph-storage-plugin~This is a required field')}
-        validated={isValid(kms.apiKey?.valid)}
         isRequired
       >
         <TextInput
           value={kms.apiKey?.value}
-          onChange={setParams(HPCSParams.API_KEY)}
+          onChange={(_event, value) => setParams(HPCSParams.API_KEY)(value)}
           type="text"
           id="kms-api-key"
           name="kms-api-key"
@@ -104,18 +128,26 @@ export const HpcsConfigure: React.FC<KMSConfigureProps> = ({ state, dispatch, cl
           validated={isValid(kms.apiKey?.valid)}
           data-test="kms-api-key-text"
         />
+
+        <FormHelperText>
+          <HelperText>
+            {!isValid(kms.apiKey?.valid) && (
+              <HelperTextItem variant="error" icon={<RedExclamationCircleIcon />}>
+                {t('ceph-storage-plugin~This is a required field.')}
+              </HelperTextItem>
+            )}
+          </HelperText>
+        </FormHelperText>
       </FormGroup>
       <FormGroup
         fieldId="kms-root-key"
         label={t('ceph-storage-plugin~Customer root key')}
         className={`${className}__form-body`}
-        helperTextInvalid={t('ceph-storage-plugin~This is a required field')}
-        validated={isValid(kms.rootKey?.valid)}
         isRequired
       >
         <TextInput
           value={kms.rootKey?.value}
-          onChange={setParams(HPCSParams.ROOT_KEY)}
+          onChange={(_event, value) => setParams(HPCSParams.ROOT_KEY)(value)}
           type="text"
           id="kms-root-key"
           name="kms-root-key"
@@ -123,18 +155,26 @@ export const HpcsConfigure: React.FC<KMSConfigureProps> = ({ state, dispatch, cl
           validated={isValid(kms.rootKey?.valid)}
           data-test="kms-root-key-text"
         />
+
+        <FormHelperText>
+          <HelperText>
+            {!isValid(kms.rootKey?.valid) && (
+              <HelperTextItem variant="error" icon={<RedExclamationCircleIcon />}>
+                {t('ceph-storage-plugin~This is a required field.')}
+              </HelperTextItem>
+            )}
+          </HelperText>
+        </FormHelperText>
       </FormGroup>
       <FormGroup
         fieldId="kms-base-url"
         label={t('ceph-storage-plugin~IBM Base URL')}
         className={`${className}__form-body`}
-        helperTextInvalid={t('ceph-storage-plugin~This is a required field')}
-        validated={isValid(kms.baseUrl?.valid)}
         isRequired
       >
         <TextInput
           value={kms.baseUrl?.value}
-          onChange={setParams(HPCSParams.BASE_URL)}
+          onChange={(_event, value) => setParams(HPCSParams.BASE_URL)(value)}
           type="text"
           id="kms-base-url"
           name="kms-base-url"
@@ -142,6 +182,16 @@ export const HpcsConfigure: React.FC<KMSConfigureProps> = ({ state, dispatch, cl
           validated={isValid(kms.baseUrl?.valid)}
           data-test="kms-base-url"
         />
+
+        <FormHelperText>
+          <HelperText>
+            {!isValid(kms.baseUrl?.valid) && (
+              <HelperTextItem variant="error" icon={<RedExclamationCircleIcon />}>
+                {t('ceph-storage-plugin~This is a required field.')}
+              </HelperTextItem>
+            )}
+          </HelperText>
+        </FormHelperText>
       </FormGroup>
       <FormGroup
         fieldId="kms-token-url"
@@ -150,7 +200,7 @@ export const HpcsConfigure: React.FC<KMSConfigureProps> = ({ state, dispatch, cl
       >
         <TextInput
           value={kms.tokenUrl}
-          onChange={setParams(HPCSParams.TOKEN_URL, false)}
+          onChange={(_event, value) => setParams(HPCSParams.TOKEN_URL, false)(value)}
           placeholder={IBM_TOKEN_URL}
           type="text"
           id="kms-token-url"

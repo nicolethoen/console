@@ -22,8 +22,7 @@ const vmiData: VirtualMachineData = {
 
 describe('Test VM/VMI actions', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
   });
 

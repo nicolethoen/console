@@ -204,7 +204,7 @@ export const AddSecretToWorkloadModal: React.FC<AddSecretToWorkloadModalProps> =
               <div className="form-group">
                 <label htmlFor="co-add-secret-to-workload__prefix">{t('public~Prefix')}</label>
                 <input
-                  className="pf-c-form-control"
+                  className="pf-v5-c-form-control"
                   name="prefix"
                   id="co-add-secret-to-workload__prefix"
                   placeholder="(optional)"
@@ -229,7 +229,7 @@ export const AddSecretToWorkloadModal: React.FC<AddSecretToWorkloadModalProps> =
                   {t('public~Mount path')}
                 </label>
                 <input
-                  className="pf-c-form-control"
+                  className="pf-v5-c-form-control"
                   name="mountPath"
                   id="co-add-secret-to-workload__mountpath"
                   type="text"

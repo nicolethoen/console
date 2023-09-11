@@ -195,7 +195,7 @@ export const SelectedCapacity: React.FC<SelectedCapacityProps> = ({ ns, state, d
           title={humanizeBinaryBytes(selectedCapacity).string}
           constrainToVisibleArea
           subTitleComponent={
-            <ChartLabel dy={5} style={{ fill: `var(--pf-global--palette--black-500)` }} />
+            <ChartLabel dy={5} style={{ fill: `var(--pf-v5-global--palette--black-500)` }} />
           }
         />
       )}

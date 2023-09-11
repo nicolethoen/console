@@ -58,8 +58,7 @@ function checkDiskBootable(diskName: string, bootable: boolean) {
 
 describe('Validate root disk', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
     visitStorageStep(vmData);
   });

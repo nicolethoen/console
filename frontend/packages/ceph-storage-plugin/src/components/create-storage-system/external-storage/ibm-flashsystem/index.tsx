@@ -7,10 +7,16 @@ import {
   Button,
   Tooltip,
   ValidatedOptions,
-  Select,
-  SelectOption,
+  InputGroupItem,
+  FormHelperText,
+  HelperText,
+  HelperTextItem,
 } from '@patternfly/react-core';
-import { EyeSlashIcon, EyeIcon } from '@patternfly/react-icons';
+import {
+  Select as SelectDeprecated,
+  SelectOption as SelectOptionDeprecated,
+} from '@patternfly/react-core/deprecated';
+import { EyeSlashIcon, ExclamationCircleIcon, EyeIcon } from '@patternfly/react-icons';
 import { SecretKind, apiVersionForModel } from '@console/internal/module/k8s';
 import { SecretModel } from '@console/internal/models';
 import { FlashSystemState, IBMFlashSystemKind } from './type';
@@ -32,7 +38,7 @@ export const FlashSystemConnectionDetails: React.FC<ExternalComponentProps<Flash
   const [reveal, setReveal] = React.useState(false);
   const [endpointValid, setEndpointValid] = React.useState(ValidatedOptions.default);
 
-  const onChange = (value: string) => {
+  const onChange = (_event, value: string) => {
     setFormState('endpoint', value);
     value && isValidIP(value)
       ? setEndpointValid(ValidatedOptions.success)
@@ -49,14 +55,7 @@ export const FlashSystemConnectionDetails: React.FC<ExternalComponentProps<Flash
 
   return (
     <>
-      <FormGroup
-        label={t('ceph-storage-plugin~IP address')}
-        fieldId="endpoint-input"
-        isRequired
-        validated={endpointValid}
-        helperText={t('ceph-storage-plugin~Rest API IP address of IBM FlashSystem.')}
-        helperTextInvalid={t('ceph-storage-plugin~The endpoint is not a valid IP address')}
-      >
+      <FormGroup label={t('ceph-storage-plugin~IP address')} fieldId="endpoint-input" isRequired>
         <TextInput
           id="endpoint-input"
           value={formState.endpoint}
@@ -64,36 +63,54 @@ export const FlashSystemConnectionDetails: React.FC<ExternalComponentProps<Flash
           onChange={onChange}
           isRequired
         />
+
+        <FormHelperText>
+          <HelperText>
+            {endpointValid === ValidatedOptions.error ? (
+              <HelperTextItem variant="error" icon={<ExclamationCircleIcon />}>
+                {t('ceph-storage-plugin~The endpoint is not a valid IP address.')}
+              </HelperTextItem>
+            ) : (
+              <HelperTextItem>
+                {t('ceph-storage-plugin~Rest API IP address of IBM FlashSystem.')}
+              </HelperTextItem>
+            )}
+          </HelperText>
+        </FormHelperText>
       </FormGroup>
       <FormGroup label={t('ceph-storage-plugin~Username')} isRequired fieldId="username-input">
         <TextInput
           id="username-input"
           value={formState.username}
           type="text"
-          onChange={(value: string) => setFormState('username', value)}
+          onChange={(_event, value: string) => setFormState('username', value)}
           isRequired
         />
       </FormGroup>
       <FormGroup label={t('ceph-storage-plugin~Password')} isRequired fieldId="password-input">
-        <InputGroup>
-          <TextInput
-            id="password-input"
-            value={formState.password}
-            type={reveal ? 'text' : 'password'}
-            onChange={(value: string) => setFormState('password', value)}
-            isRequired
-          />
-          <Tooltip
-            content={
-              reveal
-                ? t('ceph-storage-plugin~Hide password')
-                : t('ceph-storage-plugin~Reveal password')
-            }
-          >
-            <Button variant="control" onClick={() => setReveal(!reveal)}>
-              {reveal ? <EyeSlashIcon /> : <EyeIcon />}
-            </Button>
-          </Tooltip>
+        <InputGroup translate={t}>
+          <InputGroupItem isFill>
+            <TextInput
+              id="password-input"
+              value={formState.password}
+              type={reveal ? 'text' : 'password'}
+              onChange={(_event, value: string) => setFormState('password', value)}
+              isRequired
+            />
+          </InputGroupItem>
+          <InputGroupItem>
+            <Tooltip
+              content={
+                reveal
+                  ? t('ceph-storage-plugin~Hide password')
+                  : t('ceph-storage-plugin~Reveal password')
+              }
+            >
+              <Button variant="control" onClick={() => setReveal(!reveal)}>
+                {reveal ? <EyeSlashIcon /> : <EyeIcon />}
+              </Button>
+            </Tooltip>
+          </InputGroupItem>
         </InputGroup>
       </FormGroup>
       <FormGroup label={t('ceph-storage-plugin~Pool name')} isRequired fieldId="poolname-input">
@@ -101,12 +118,12 @@ export const FlashSystemConnectionDetails: React.FC<ExternalComponentProps<Flash
           id="poolname-input"
           value={formState.poolname}
           type="text"
-          onChange={(value: string) => setFormState('poolname', value)}
+          onChange={(_event, value: string) => setFormState('poolname', value)}
           isRequired
         />
       </FormGroup>
       <FormGroup label={t('ceph-storage-plugin~Volume mode')} fieldId="volume-mode-input">
-        <Select
+        <SelectDeprecated
           onSelect={onModeSelect}
           id="volume-mode-input"
           selections={formState.volmode}
@@ -116,9 +133,9 @@ export const FlashSystemConnectionDetails: React.FC<ExternalComponentProps<Flash
           placeholderText={VOLUME_MODES[0]}
         >
           {VOLUME_MODES.map((mode) => (
-            <SelectOption key={mode} value={mode} />
+            <SelectOptionDeprecated key={mode} value={mode} />
           ))}
-        </Select>
+        </SelectDeprecated>
       </FormGroup>
     </>
   );

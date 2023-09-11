@@ -16,8 +16,7 @@ const vmiName = 'vmi-ephemeral';
 
 describe('Test VMI', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
     vmiFixture.metadata.namespace = testName;
     cy.createResource(vmiFixture);

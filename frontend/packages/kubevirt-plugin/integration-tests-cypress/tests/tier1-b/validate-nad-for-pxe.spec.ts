@@ -15,8 +15,7 @@ const vmData: VirtualMachineData = {
 
 describe('Validate NAD for PXE provision source', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
     cy.visitVMsList();
   });

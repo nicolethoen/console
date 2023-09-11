@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Select,
-  SelectVariant,
-  OptionsMenu,
-  OptionsMenuPosition,
-  OptionsMenuToggle,
-} from '@patternfly/react-core';
+  Select as SelectDeprecated,
+  SelectVariant as SelectVariantDeprecated,
+  OptionsMenu as OptionsMenuDeprecated,
+  OptionsMenuToggle as OptionsMenuToggleDeprecated,
+  OptionsMenuPosition as OptionsMenuPositionDeprecated,
+} from '@patternfly/react-core/deprecated';
 import {
   getOptionsMenuItems,
   getGroupedSelectOptions,
@@ -130,8 +130,8 @@ export const DataConsumptionDropdown: React.FC<DataConsumptionDropdownProps> = (
   return (
     <div className="nb-data-consumption-card__dropdown">
       {isRgwSupported && (
-        <Select
-          variant={SelectVariant.single}
+        <SelectDeprecated
+          variant={SelectVariantDeprecated.single}
           className="nb-data-consumption-card__dropdown-item nb-data-consumption-card__dropdown-item--margin"
           autoFocus={false}
           onSelect={onSelectServiceDropdown}
@@ -146,15 +146,15 @@ export const DataConsumptionDropdown: React.FC<DataConsumptionDropdownProps> = (
           isCheckboxSelectionBadgeHidden
         >
           {serviceDropdownItems}
-        </Select>
+        </SelectDeprecated>
       )}
-      <OptionsMenu
+      <OptionsMenuDeprecated
         id="breakdown-options"
         className="nb-data-consumption-card__dropdown-item nb-data-consumption-card__options-menu"
-        position={OptionsMenuPosition.right}
+        position={OptionsMenuPositionDeprecated.right}
         menuItems={comboDropdownItems}
         toggle={
-          <OptionsMenuToggle
+          <OptionsMenuToggleDeprecated
             onToggle={() => setComboDropdown(!isOpenComboDropdown)}
             toggleTemplate={
               selectedBreakdown

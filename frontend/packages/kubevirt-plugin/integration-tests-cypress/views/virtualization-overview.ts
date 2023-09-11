@@ -19,11 +19,11 @@ export const hideGettingStartedCardKebab = 'button[data-test="actions"]';
 export const hideGettingStartedCardTooltip = 'button[data-test="hide"]';
 export const restoreGettingStartedBtn = '[data-test="restore-getting-started"]';
 // common elements
-export const cardTitle = '.pf-c-card__title';
+export const cardTitle = '.pf-v5-c-card__title';
 export const cardActions = '.co-overview-card__actions';
 export const itemTitle = '[data-test="detail-item-title"]';
 export const itemValue = '[data-test="detail-item-value"]';
-export const popUp = '.pf-c-popover';
+export const popUp = '.pf-v5-c-popover';
 export const alertsList = '.co-status-card__alerts-body';
 export const successIcon = '[data-test="success-icon"]';
 export const modalTitle = '[data-test-id="modal-title"]';

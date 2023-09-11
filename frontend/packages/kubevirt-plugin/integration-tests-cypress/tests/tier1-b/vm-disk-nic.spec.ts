@@ -49,8 +49,7 @@ function visitNetworkStep(data: VirtualMachineData) {
 
 describe('Test VM Disk/NIC', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
     cy.createNAD(testName);
   });

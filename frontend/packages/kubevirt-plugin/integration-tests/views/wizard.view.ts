@@ -16,8 +16,8 @@ export const nextButton = element(by.buttonText('Next'));
 export const customizeButton = $('[data-test-id="wizard-customize"]');
 export const createVirtualMachineButton = element(by.partialButtonText('Create'));
 export const modalCancelButton = $('.modal-content').element(by.buttonText('Cancel'));
-export const stepTitle = $('.pf-c-title.pf-m-lg');
-export const wizardBody = $('.pf-c-wizard__main-body');
+export const stepTitle = $('.pf-v5-c-title.pf-m-lg');
+export const wizardBody = $('.pf-v5-c-wizard__main-body');
 
 // Template
 export const templateByName = (name: string) =>
@@ -25,9 +25,9 @@ export const templateByName = (name: string) =>
 
 // Errors
 export const footerError = $('div[aria-label="Danger Alert"]');
-export const footerErrorDescroption = footerError.$('.pf-c-alert__description');
+export const footerErrorDescroption = footerError.$('.pf-v5-c-alert__description');
 export const bootError = $('#image-source-type-dropdown-helper');
-export const errorHelper = $('.pf-c-form__helper-text.pf-m-error');
+export const errorHelper = $('.pf-v5-c-form__helper-text.pf-m-error');
 export const invalidMessageContainer = $('.kubevirt-fort-row__invalid-message-container');
 
 // Basic Settings tab

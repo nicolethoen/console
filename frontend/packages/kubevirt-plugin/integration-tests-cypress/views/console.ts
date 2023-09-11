@@ -1,13 +1,13 @@
 // console tab
 export const credentials = '#cloudinit-credentials';
-export const credentialsText = '.pf-c-accordion__expanded-content-body';
-export const consoleTypeSelector = '#pf-c-console__type-selector';
+export const credentialsText = '.pf-v5-c-accordion__expanded-content-body';
+export const consoleTypeSelector = '#pf-v5-c-console__type-selector';
 export const vncConsole = '#VncConsole';
 export const serialConsole = '#SerialConsole';
 export const vncDisplay =
   'div[style="display: flex; width: 100%; height: 100%; overflow: auto; background: rgb(40, 40, 40);"]';
 export const serialDisplay = '.xterm-accessibility';
-export const emptyState = '.pf-c-empty-state__body';
+export const emptyState = '.pf-v5-c-empty-state__body';
 export const disconnect = 'Disconnect';
 export const connect = 'Connect';
 export const sendKey = 'Send Key';

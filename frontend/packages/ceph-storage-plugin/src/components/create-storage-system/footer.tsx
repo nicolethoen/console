@@ -4,14 +4,12 @@ import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
+import { Button, Alert, AlertActionCloseButton } from '@patternfly/react-core';
 import {
-  WizardFooter,
-  Button,
-  WizardContext,
-  WizardContextType,
-  Alert,
-  AlertActionCloseButton,
-} from '@patternfly/react-core';
+  WizardFooter as WizardFooterDeprecated,
+  WizardContext as WizardContextDeprecated,
+  WizardContextType as WizardContextTypeDeprecated,
+} from '@patternfly/react-core/deprecated';
 import { history } from '@console/internal/components/utils';
 import { setFlag } from '@console/internal/actions/features';
 import { WizardCommonProps, WizardState } from './reducer';
@@ -195,7 +193,9 @@ export const CreateStorageSystemFooter: React.FC<CreateStorageSystemFooterProps>
   hasOCS,
 }) => {
   const { t } = useTranslation();
-  const { activeStep, onNext, onBack } = React.useContext<WizardContextType>(WizardContext);
+  const { activeStep, onNext, onBack } = React.useContext<WizardContextTypeDeprecated>(
+    WizardContextDeprecated,
+  );
   const [requestInProgress, setRequestInProgress] = React.useState(false);
   const [requestError, setRequestError] = React.useState('');
   const [showErrorAlert, setShowErrorAlert] = React.useState(false);
@@ -250,7 +250,7 @@ export const CreateStorageSystemFooter: React.FC<CreateStorageSystemFooterProps>
           {requestError}
         </Alert>
       )}
-      <WizardFooter>
+      <WizardFooterDeprecated>
         <Button
           isLoading={requestInProgress || null}
           isDisabled={disableNext || requestInProgress || !jumpToNextStep}
@@ -273,7 +273,7 @@ export const CreateStorageSystemFooter: React.FC<CreateStorageSystemFooterProps>
         <Button variant="link" onClick={history.goBack} isDisabled={requestInProgress}>
           {t('ceph-storage-plugin~Cancel')}
         </Button>
-      </WizardFooter>
+      </WizardFooterDeprecated>
     </>
   );
 };

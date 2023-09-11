@@ -6,8 +6,7 @@ const template = TEMPLATE.RHEL9;
 
 describe('Test RHEL9 template', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
     cy.visitVMTemplatesList();
     cy.filterByName(template.dvName);

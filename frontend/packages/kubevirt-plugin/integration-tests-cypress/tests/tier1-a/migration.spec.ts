@@ -18,8 +18,7 @@ const vmData: VirtualMachineData = {
 
 describe('Test VM Migration', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
     vm.create(vmData);
     cy.visitVMsList();

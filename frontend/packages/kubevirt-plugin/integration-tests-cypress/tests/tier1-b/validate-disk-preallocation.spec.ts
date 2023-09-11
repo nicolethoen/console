@@ -24,8 +24,7 @@ const vmData: VirtualMachineData = {
 
 describe('Test disk preallocation', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
     vm.create(vmData);
     cy.visitVMsList();

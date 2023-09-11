@@ -29,6 +29,7 @@ import {
   InputGroup,
   Alert,
   TextArea,
+  InputGroupItem,
 } from '@patternfly/react-core';
 import { history } from '@console/internal/components/utils/router';
 import { SecretModel, PodModel } from '@console/internal/models';
@@ -188,9 +189,6 @@ const CreateExternalCluster = withHandlePromise((props: CreateExternalClusterPro
               "ceph-storage-plugin~A bucket will be created to provide the OpenShift Data Foundation's Service.",
             )}
             role="alert"
-            aria-label={t(
-              "ceph-storage-plugin~Bucket created for OpenShift Container Storage's Service",
-            )}
             isInline
           />
         </div>
@@ -204,14 +202,18 @@ const CreateExternalCluster = withHandlePromise((props: CreateExternalClusterPro
             isRequired
             fieldId="cluster-metadata"
           >
-            <InputGroup>
-              <TextInput
-                aria-label={t('ceph-storage-plugin~Upload JSON File')}
-                value={t('ceph-storage-plugin~Upload Credentials file') as string}
-                className="im-install-page__input-box"
-                isDisabled
-              />
-              <FileUpload role="button" onUpload={onUpload} />
+            <InputGroup translate={t}>
+              <InputGroupItem isFill>
+                <TextInput
+                  aria-label={t('ceph-storage-plugin~Upload JSON File')}
+                  value={t('ceph-storage-plugin~Upload Credentials file') as string}
+                  className="im-install-page__input-box"
+                  isDisabled
+                />
+              </InputGroupItem>
+              <InputGroupItem>
+                <FileUpload role="button" onUpload={onUpload} />
+              </InputGroupItem>
             </InputGroup>
           </FormGroup>
           <FormGroup fieldId="preview-box">

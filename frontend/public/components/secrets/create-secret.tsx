@@ -232,7 +232,7 @@ export const SecretFormWrapper: React.FC<BaseEditSecretProps_> = (props) => {
             </label>
             <div>
               <input
-                className="pf-c-form-control"
+                className="pf-v5-c-form-control"
                 type="text"
                 onChange={onNameChanged}
                 value={secret?.metadata?.name}
@@ -282,7 +282,7 @@ export const SecretFormWrapper: React.FC<BaseEditSecretProps_> = (props) => {
         <form className="co-m-pane__body-group co-create-secret-form" onSubmit={save}>
           {renderBody()}
           <ButtonBar errorMessage={error} inProgress={inProgress}>
-            <ActionGroup className="pf-c-form">
+            <ActionGroup className="pf-v5-c-form">
               <Button
                 type="submit"
                 data-test="save-changes"
@@ -491,7 +491,7 @@ class ConfigEntryFormWithTranslation extends React.Component<
           </label>
           <div>
             <input
-              className="pf-c-form-control"
+              className="pf-v5-c-form-control"
               id={`${this.props.id}-address`}
               aria-describedby={`${this.props.id}-address-help`}
               type="text"
@@ -513,7 +513,7 @@ class ConfigEntryFormWithTranslation extends React.Component<
           </label>
           <div>
             <input
-              className="pf-c-form-control"
+              className="pf-v5-c-form-control"
               id={`${this.props.id}-username`}
               type="text"
               name="username"
@@ -531,7 +531,7 @@ class ConfigEntryFormWithTranslation extends React.Component<
           </label>
           <div>
             <input
-              className="pf-c-form-control"
+              className="pf-v5-c-form-control"
               id={`${this.props.id}-password`}
               type="password"
               name="password"
@@ -549,7 +549,7 @@ class ConfigEntryFormWithTranslation extends React.Component<
           </label>
           <div>
             <input
-              className="pf-c-form-control"
+              className="pf-v5-c-form-control"
               id={`${this.props.id}-email`}
               type="text"
               name="email"
@@ -815,9 +815,9 @@ class WebHookSecretFormWithTranslation extends React.Component<
         <label className="control-label co-required" htmlFor="webhook-secret-key">
           {t('public~Webhook secret key')}
         </label>
-        <div className="pf-c-input-group">
+        <div className="pf-v5-c-input-group">
           <input
-            className="pf-c-form-control"
+            className="pf-v5-c-form-control"
             id="webhook-secret-key"
             type="text"
             name="webhookSecretKey"
@@ -829,7 +829,7 @@ class WebHookSecretFormWithTranslation extends React.Component<
           <button
             type="button"
             onClick={this.generateWebHookSecret}
-            className="pf-c-button pf-m-tertiary"
+            className="pf-v5-c-button pf-m-tertiary"
           >
             {t('public~Generate')}
           </button>
@@ -941,7 +941,7 @@ class BasicAuthSubformWithTranslation extends React.Component<
           </label>
           <div>
             <input
-              className="pf-c-form-control"
+              className="pf-v5-c-form-control"
               id="username"
               aria-describedby="username-help"
               type="text"
@@ -960,7 +960,7 @@ class BasicAuthSubformWithTranslation extends React.Component<
           </label>
           <div>
             <input
-              className="pf-c-form-control"
+              className="pf-v5-c-form-control"
               id="password"
               aria-describedby="password-help"
               type="password"
@@ -1234,7 +1234,7 @@ class KeyValueEntryFormWithTranslation extends React.Component<
           </label>
           <div>
             <input
-              className="pf-c-form-control"
+              className="pf-v5-c-form-control"
               id={`${this.props.id}-key`}
               type="text"
               name="key"

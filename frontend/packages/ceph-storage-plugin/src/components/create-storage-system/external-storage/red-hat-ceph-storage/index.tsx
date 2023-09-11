@@ -1,7 +1,15 @@
 import * as React from 'react';
 import * as _ from 'lodash';
 import { Trans, useTranslation } from 'react-i18next';
-import { FormGroup, FileUpload, FileUploadProps, Form } from '@patternfly/react-core';
+import {
+  FormGroup,
+  FileUpload,
+  Form,
+  FormHelperText,
+  HelperText,
+  HelperTextItem,
+} from '@patternfly/react-core';
+import { RedExclamationCircleIcon } from '@console/shared/src/components/status/icons';
 import { useK8sGet } from '@console/internal/components/utils/k8s-get-hook';
 import { apiVersionForModel, ListKind, PodKind } from '@console/internal/module/k8s';
 import { PodModel, SecretModel } from '@console/internal/models';
@@ -47,7 +55,9 @@ export const ConnectionDetails: React.FC<ExternalComponentProps<RHCSState>> = ({
     annotations?.['external.features.ocs.openshift.io/export-script'],
   );
 
-  const handleFileChange: FileUploadProps['onChange'] = (fData: string, fName) => {
+  const handleFileChange = async (file: File, fName: string) => {
+    const fData = await file.text();
+
     if (isValidJSON(fData)) {
       const { plainKeys, secretKeys } = getValidationKeys(
         annotations?.['external.features.ocs.openshift.io/validation'],
@@ -74,28 +84,6 @@ export const ConnectionDetails: React.FC<ExternalComponentProps<RHCSState>> = ({
           label={t('ceph-storage-plugin~External storage system metadata')}
           fieldId="external-storage-system-metadata"
           className="odf-connection-details__form-group"
-          helperText={
-            <div className="odf-connection-details__helper-text">
-              <Trans t={t} ns="ceph-storage-plugin">
-                Download <code className="co-code">{{ SCRIPT_NAME }}</code> script and run on the
-                RHCS cluster, then upload the results (JSON) in the External storage system metadata
-                field.
-              </Trans>{' '}
-              {downloadFile && (
-                <a
-                  id="downloadAnchorElem"
-                  href={downloadFile}
-                  download="ceph-external-cluster-details-exporter.py"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {t('ceph-storage-plugin~Download script')}
-                </a>
-              )}
-            </div>
-          }
-          helperTextInvalid={errorMessage}
-          validated={errorMessage ? 'error' : 'default'}
         >
           <FileUpload
             id="external-storage-system-metadata"
@@ -103,20 +91,51 @@ export const ConnectionDetails: React.FC<ExternalComponentProps<RHCSState>> = ({
             type="text"
             isRequired
             isReadOnly
+            onFileInputChange={(_event, file) => handleFileChange(file, file.name)}
             value={prettifyJSON(fileData ?? '')}
             filename={fileName}
             isLoading={isLoading}
             validated={errorMessage ? 'error' : 'default'}
             dropzoneProps={{
-              accept: '.json',
+              accept: { 'application/json': ['.json'] },
             }}
-            onChange={handleFileChange}
             onReadStarted={() => setFormState('isLoading', true)}
             onReadFinished={() => setFormState('isLoading', false)}
             browseButtonText={t('ceph-storage-plugin~Browse')}
             clearButtonText={t('ceph-storage-plugin~Clear')}
             filenamePlaceholder={t('ceph-storage-plugin~Upload helper script')}
           />
+
+          <FormHelperText>
+            <HelperText>
+              {errorMessage ? (
+                <HelperTextItem variant="error" icon={<RedExclamationCircleIcon />}>
+                  {errorMessage}
+                </HelperTextItem>
+              ) : (
+                <HelperTextItem>
+                  <div className="odf-connection-details__helper-text">
+                    <Trans t={t} ns="ceph-storage-plugin">
+                      Download <code className="co-code">{{ SCRIPT_NAME }}</code> script and run on
+                      the RHCS cluster, then upload the results (JSON) in the External storage
+                      system metadata field.
+                    </Trans>{' '}
+                    {downloadFile && (
+                      <a
+                        id="downloadAnchorElem"
+                        href={downloadFile}
+                        download="ceph-external-cluster-details-exporter.py"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {t('ceph-storage-plugin~Download script.')}
+                      </a>
+                    )}
+                  </div>
+                </HelperTextItem>
+              )}
+            </HelperText>
+          </FormHelperText>
         </FormGroup>
       </Form>
     </ErrorHandler>

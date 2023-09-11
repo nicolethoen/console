@@ -52,7 +52,9 @@ describe('Test VM Migration', () => {
         expect(await getDetailActionDropdownOptions()).toContain(CANCEL_MIGRATION);
       }
       if (STORAGE_CLASS === 'hostpath-provisioner') {
-        const errorAlert = $('.pf-c-alert.pf-m-inline.pf-m-danger.co-alert.co-alert--scrollable');
+        const errorAlert = $(
+          '.pf-v5-c-alert.pf-m-inline.pf-m-danger.co-alert.co-alert--scrollable',
+        );
         await detailViewAction(VM_ACTION.Migrate, false);
         await click(confirmButton);
         await browser.wait(until.presenceOf(errorAlert), PAGE_LOAD_TIMEOUT_SECS);

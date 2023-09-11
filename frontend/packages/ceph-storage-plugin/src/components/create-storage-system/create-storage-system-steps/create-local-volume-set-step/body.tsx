@@ -9,6 +9,9 @@ import {
   Text,
   TextVariants,
   Tooltip,
+  FormHelperText,
+  HelperText,
+  HelperTextItem,
 } from '@patternfly/react-core';
 import { Dropdown } from '@console/internal/components/utils';
 import { NodeKind } from '@console/internal/module/k8s';
@@ -131,17 +134,24 @@ export const LocalVolumeSetBody: React.FC<LocalVolumeSetBodyProps> = ({
         label={t('ceph-storage-plugin~LocalVolumeSet name')}
         isRequired
         fieldId="create-lvs-volume-set-name"
-        helperText={t(
-          'ceph-storage-plugin~A LocalVolumeSet will be created to allow you to filter a set of disks, group them and create a dedicated StorageClass to consume storage from them.',
-        )}
       >
         <TextInput
           type={TextInputTypes.text}
           id="create-lvs-volume-set-name"
           value={state.volumeSetName}
-          onChange={(name: string) => formHandler('volumeSetName', name)}
+          onChange={(_event, name: string) => formHandler('volumeSetName', name)}
           isRequired
         />
+
+        <FormHelperText>
+          <HelperText>
+            <HelperTextItem>
+              {t(
+                'ceph-storage-plugin~A LocalVolumeSet will be created to allow you to filter a set of disks, group them and create a dedicated StorageClass to consume storage from them.',
+              )}
+            </HelperTextItem>
+          </HelperText>
+        </FormHelperText>
       </FormGroup>
       <FormGroup
         label={t('ceph-storage-plugin~StorageClass name')}
@@ -152,7 +162,7 @@ export const LocalVolumeSetBody: React.FC<LocalVolumeSetBodyProps> = ({
           id="create-lvs-storage-class-name"
           value={storageClassName}
           placeholder={state.volumeSetName}
-          onChange={(name: string) =>
+          onChange={(_event, name: string) =>
             dispatch({
               type: 'wizard/setStorageClass',
               payload: { name, provisioner: NO_PROVISIONER },
@@ -264,7 +274,7 @@ export const LocalVolumeSetBody: React.FC<LocalVolumeSetBodyProps> = ({
                   className="odf-create-lvs__disk-input"
                   onFocus={() => setMinActiveState(true)}
                   onBlur={() => setMinActiveState(false)}
-                  onChange={(size: string) => formHandler('minDiskSize', size)}
+                  onChange={(_event, size: string) => formHandler('minDiskSize', size)}
                 />
               </Tooltip>
             </FormGroup>
@@ -297,7 +307,7 @@ export const LocalVolumeSetBody: React.FC<LocalVolumeSetBodyProps> = ({
                   className="odf-create-lvs__disk-input"
                   onFocus={() => setMaxActiveState(true)}
                   onBlur={() => setMaxActiveState(false)}
-                  onChange={(value) => formHandler('maxDiskSize', value)}
+                  onChange={(_event, value) => formHandler('maxDiskSize', value)}
                 />
               </Tooltip>
             </FormGroup>
@@ -332,7 +342,7 @@ export const LocalVolumeSetBody: React.FC<LocalVolumeSetBodyProps> = ({
               value={state.maxDiskLimit}
               validated={validMaxDiskLimit ? 'default' : 'error'}
               className="odf-create-lvs__disk-input"
-              onChange={(maxLimit) => formHandler('maxDiskLimit', maxLimit)}
+              onChange={(_event, maxLimit) => formHandler('maxDiskLimit', maxLimit)}
               placeholder={t('ceph-storage-plugin~All')}
             />
           </Tooltip>

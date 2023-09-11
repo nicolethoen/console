@@ -21,13 +21,13 @@ export const LoadingComponent: React.FC = () => {
 
   return (
     <span
-      className="pf-c-spinner"
+      className="pf-v5-c-spinner"
       role="progressbar"
       aria-valuetext={t('ceph-storage-plugin~Loading...')}
     >
-      <span className="pf-c-spinner__clipper" />
-      <span className="pf-c-spinner__lead-ball" />
-      <span className="pf-c-spinner__tail-ball" />
+      <span className="pf-v5-c-spinner__clipper" />
+      <span className="pf-v5-c-spinner__lead-ball" />
+      <span className="pf-v5-c-spinner__tail-ball" />
     </span>
   );
 };
@@ -220,12 +220,12 @@ export const BlockPoolColumnInfo = (t: TFunction) => ({
    * sm: name
    */
   name: {
-    classes: classNames('pf-u-w-16-on-2xl'),
+    classes: classNames('pf-v5-u-w-16-on-2xl'),
     id: 'name',
     title: t('ceph-storage-plugin~Name'),
   },
   status: {
-    classes: classNames('pf-m-hidden', 'pf-m-visible-on-md', 'pf-u-w-8-on-2xl'),
+    classes: classNames('pf-m-hidden', 'pf-m-visible-on-md', 'pf-v5-u-w-8-on-2xl'),
     id: 'status',
     title: t('ceph-storage-plugin~Status'),
   },
@@ -235,7 +235,7 @@ export const BlockPoolColumnInfo = (t: TFunction) => ({
     title: t('ceph-storage-plugin~StorageClasses'),
   },
   replicas: {
-    classes: classNames('pf-m-hidden', 'pf-m-visible-on-lg', 'pf-u-w-8-on-2xl'),
+    classes: classNames('pf-m-hidden', 'pf-m-visible-on-lg', 'pf-v5-u-w-8-on-2xl'),
     id: 'replicas',
     title: t('ceph-storage-plugin~Replicas'),
   },

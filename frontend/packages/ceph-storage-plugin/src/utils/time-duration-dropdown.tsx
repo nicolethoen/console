@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 import { Dropdown } from '@console/internal/components/utils';
-import { InputGroup, TextInput, ValidatedOptions } from '@patternfly/react-core';
+import { InputGroup, TextInput, ValidatedOptions, InputGroupItem } from '@patternfly/react-core';
 import { TimeUnits } from '../constants/bucket-class';
 
 export const TimeDurationDropdown: React.FC<TimeDurationDropdownProps> = ({
@@ -17,7 +17,7 @@ export const TimeDurationDropdown: React.FC<TimeDurationDropdownProps> = ({
   const [value, setValue] = React.useState(0);
   const [validated, setValidated] = React.useState(ValidatedOptions.success);
 
-  const onValueChange = (val) => {
+  const onValueChange = (_event, val) => {
     setValue(val);
     onChange({ value: val, unit }, setValidated);
   };
@@ -28,25 +28,29 @@ export const TimeDurationDropdown: React.FC<TimeDurationDropdownProps> = ({
   };
 
   return (
-    <InputGroup>
-      <TextInput
-        className={classNames('pf-c-form-control', inputClassName)}
-        type="number"
-        onChange={onValueChange}
-        placeholder={placeholder}
-        data-test={testID}
-        value={value}
-        id={inputID}
-        validated={validated}
-      />
-      <Dropdown
-        title={TimeUnits.HOUR}
-        selectedKey={unit}
-        items={TimeUnits}
-        onChange={onUnitChange}
-        required={required}
-        id={id}
-      />
+    <InputGroup translate="no">
+      <InputGroupItem isFill>
+        <TextInput
+          className={classNames('pf-v5-c-form-control', inputClassName)}
+          type="number"
+          onChange={onValueChange}
+          placeholder={placeholder}
+          data-test={testID}
+          value={value}
+          id={inputID}
+          validated={validated}
+        />
+      </InputGroupItem>
+      <InputGroupItem>
+        <Dropdown
+          title={TimeUnits.HOUR}
+          selectedKey={unit}
+          items={TimeUnits}
+          onChange={onUnitChange}
+          required={required}
+          id={id}
+        />
+      </InputGroupItem>
     </InputGroup>
   );
 };

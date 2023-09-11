@@ -1,13 +1,13 @@
 .ceph-install__select-mode {
-  margin-bottom: var(--pf-global--spacer--lg);
+  margin-bottom: var(--pf-v5-global--spacer--lg);
 }
 
 .ceph-install-select-mode__title {
-  margin-bottom: var(--pf-global--spacer--md);
+  margin-bottom: var(--pf-v5-global--spacer--md);
 }
 
 .ceph-install__select-node__title {
-  margin-top: var(--pf-global--spacer--lg);
+  margin-top: var(--pf-v5-global--spacer--lg);
 }
 
 .ceph-install--no-margin > input {
@@ -16,7 +16,7 @@
 
 .ceph-install__mode-toggle {
   // no pf class for 0.3rem
-  padding: var(--pf-global--spacer--sm) var(--pf-global--spacer--xl) 0.3rem
-    var(--pf-global--spacer--xl);
-  border-bottom: var(--pf-global--BorderWidth--sm) solid var(--pf-global--BorderColor--100);
+  padding: var(--pf-v5-global--spacer--sm) var(--pf-v5-global--spacer--xl) 0.3rem
+    var(--pf-v5-global--spacer--xl);
+  border-bottom: var(--pf-v5-global--BorderWidth--sm) solid var(--pf-v5-global--BorderColor--100);
 }

@@ -30,7 +30,7 @@ export const MultilineUtilizationItem: React.FC<MultilineUtilizationItemProps> =
       <div className="co-utilization-card__item-ceph" data-test-id="utilization-item">
         <div className="co-utilization-card__item-description-ceph">
           <div className="co-utilization-card__item-section-multiline">
-            <h4 className="pf-c-title pf-m-lg" data-test="utilization-item-title">
+            <h4 className="pf-v5-c-title pf-m-lg" data-test="utilization-item-title">
               {title}
             </h4>
             {error || (!isLoading && !(data.length && data.every((datum) => datum.length))) ? (

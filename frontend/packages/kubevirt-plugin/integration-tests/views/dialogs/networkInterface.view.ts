@@ -6,4 +6,4 @@ export const nicNetwork = $('#nic-network');
 export const nicType = $('#nic-select-type');
 export const nicMACAddress = $('#nic-mac-address');
 export const nicDropDownItem = (text) =>
-  element(by.cssContainingText('.pf-c-select__menu-item-main', text));
+  element(by.cssContainingText('.pf-v5-c-select__menu-item-main', text));

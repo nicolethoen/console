@@ -1,24 +1,24 @@
 .im--light {
-  color: var(--pf-global--Color--200);
+  color: var(--pf-v5-global--Color--200);
 }
 
 .im-install-page {
-  margin-top: var(--pf-global--spacer--lg);
-  margin-bottom: var(--pf-global--spacer--md);
+  margin-top: var(--pf-v5-global--spacer--lg);
+  margin-bottom: var(--pf-v5-global--spacer--md);
   &--error {
-    color: var(--pf-chart-global--danger--Color--100);
+    color: var(--pf-v5-chart-global--danger--Color--100);
   }
   &--margin-top {
-    margin-top: var(--pf-global--spacer--sm);
+    margin-top: var(--pf-v5-global--spacer--sm);
   }
 }
 
 .im-install-page__form {
-  margin-top: var(--pf-global--spacer--md);
+  margin-top: var(--pf-v5-global--spacer--md);
 }
 
 .im-install-page__sub-header {
-  margin-bottom: var(--pf-global--spacer--md);
+  margin-bottom: var(--pf-v5-global--spacer--md);
 }
 
 .im-install-page-form__text-area {
@@ -31,13 +31,13 @@
 }
 
 .im-install-page__input-box {
-  background-color: var(--pf-global--disabled-color--200);
-  color: var(--pf-global--disabled-color--100);
+  background-color: var(--pf-v5-global--disabled-color--200);
+  color: var(--pf-v5-global--disabled-color--100);
 }
 
 .im-install-page__text-box {
   min-height: 15em;
-  color: var(--pf-global--palette--black-500);
-  background-color: var(--pf-global--BackgroundColor--light-100) !important;
-  border: var(--pf-global--BorderWidth--sm) solid var(--pf-global--BorderColor--100) !important;
+  color: var(--pf-v5-global--palette--black-500);
+  background-color: var(--pf-v5-global--BackgroundColor--light-100) !important;
+  border: var(--pf-v5-global--BorderWidth--sm) solid var(--pf-v5-global--BorderColor--100) !important;
 }

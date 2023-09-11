@@ -20,7 +20,7 @@ export const pvc = {
     },
     selectSC: (name: string) => {
       cy.get('#upload-form-ds-sc-select').click();
-      cy.get('.pf-c-select__menu-item').contains(name).click();
+      cy.get('.pf-v5-c-select__menu-item').contains(name).click();
     },
     create: () => {
       cy.get('#save-changes').click();

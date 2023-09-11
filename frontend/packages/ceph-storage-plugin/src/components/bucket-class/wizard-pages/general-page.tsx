@@ -9,6 +9,9 @@ import {
   TextInput,
   Radio,
   ValidatedOptions,
+  FormHelperText,
+  HelperText,
+  HelperTextItem,
 } from '@patternfly/react-core';
 import { ExternalLink } from '@console/internal/components/utils';
 import { FieldLevelHelp } from '@console/internal/components/utils/field-level-help';
@@ -27,7 +30,7 @@ const GeneralPage: React.FC<GeneralPageProps> = ({ dispatch, state }) => {
   const [validated, setValidated] = React.useState<ValidatedOptions>(ValidatedOptions.default);
 
   const isNamespaceStoreSupported = useFlag(FEATURES.OCS_NAMESPACE_STORE);
-  const onChange = (value: string) => {
+  const onChange = (_event, value: string) => {
     dispatch({ type: 'setBucketClassName', name: value });
     if (validateBucketClassName(value)) {
       setValidated(ValidatedOptions.success);
@@ -101,9 +104,6 @@ const GeneralPage: React.FC<GeneralPageProps> = ({ dispatch, state }) => {
           className="nb-create-bc-step-page-form__element"
           fieldId="bucketclassname-input"
           label={t('ceph-storage-plugin~BucketClass name')}
-          helperText={t(
-            'ceph-storage-plugin~A unique name for the bucket class within the project.',
-          )}
         >
           <TextInput
             data-test="bucket-class-name"
@@ -115,6 +115,14 @@ const GeneralPage: React.FC<GeneralPageProps> = ({ dispatch, state }) => {
             validated={validated}
             aria-label={t('ceph-storage-plugin~BucketClass Name')}
           />
+
+          <FormHelperText>
+            <HelperText>
+              <HelperTextItem>
+                {t('ceph-storage-plugin~A unique name for the bucket class within the project.')}
+              </HelperTextItem>
+            </HelperText>
+          </FormHelperText>
         </FormGroup>
         <FormGroup
           className="nb-create-bc-step-page-form__element"
@@ -125,7 +133,7 @@ const GeneralPage: React.FC<GeneralPageProps> = ({ dispatch, state }) => {
             data-test="bucket-class-description"
             id="bc-description"
             value={state.description}
-            onChange={(data) => dispatch({ type: 'setDescription', value: data })}
+            onChange={(_event, data) => dispatch({ type: 'setDescription', value: data })}
             aria-label={t('ceph-storage-plugin~Description of bucket class')}
           />
         </FormGroup>

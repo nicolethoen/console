@@ -63,7 +63,7 @@ export const KMSConfigure: React.FC<KMSConfigureProps> = ({
       >
         <FormSelect
           value={kmsProvider}
-          onChange={setKMSProvider(dispatch)}
+          onChange={(_event, value) => setKMSProvider(dispatch)(value as ProviderNames)}
           id="kms-provider"
           name="kms-provider-name"
           aria-label={t('ceph-storage-plugin~kms-provider-name')}

@@ -100,7 +100,7 @@ const AttachStorage: React.FC<AttachStorageProps> = (props) => {
         )}
       </FormGroup>
       <ButtonBar errorMessage={state.error || loadError?.message} inProgress={state.progress}>
-        <ActionGroup className="pf-c-form">
+        <ActionGroup className="pf-v5-c-form">
           <Button type="submit" variant="primary" disabled={loadError || !loaded}>
             {t('ceph-storage-plugin~Create')}
           </Button>

@@ -78,7 +78,7 @@ export const wizard = {
         cy.get(wizardView.cdrom).click();
       }
       if (Cypress.env('STORAGE_CLASS')) {
-        cy.get(storageClass.advanced).find('.pf-c-expandable-section__toggle-icon').click();
+        cy.get(storageClass.advanced).find('.pf-v5-c-expandable-section__toggle-icon').click();
         cy.get(storageClass.dropdown).click();
         cy.get(wizardView.dropDownItemLink).contains(Cypress.env('STORAGE_CLASS')).click();
         cy.contains('Access mode').should('exist');
@@ -244,7 +244,7 @@ export const wizard = {
       cy.get('#operating-system-dropdown').click();
       cy.get('button').contains(baseOS).click({ force: true });
       cy.get('#image-source-type-dropdown').click();
-      cy.get('.pf-c-select__menu').contains(ProvisionSource.REGISTRY.getDescription()).click();
+      cy.get('.pf-v5-c-select__menu').contains(ProvisionSource.REGISTRY.getDescription()).click();
       cy.get('#provision-source-container').type(ProvisionSource.REGISTRY.getSource());
       cy.get('#create-vm-wizard-reviewandcreate-btn').click();
       cy.get('#create-vm-wizard-submit-btn').click();

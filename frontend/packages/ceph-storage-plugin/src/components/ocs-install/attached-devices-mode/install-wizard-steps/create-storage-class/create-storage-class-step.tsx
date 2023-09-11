@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Form, Alert, Button, Grid, GridItem, WizardContextConsumer } from '@patternfly/react-core';
+import { Form, Alert, Button, Grid, GridItem } from '@patternfly/react-core';
+import { WizardContextConsumer as WizardContextConsumerDeprecated } from '@patternfly/react-core/deprecated';
 import { Modal, useFlag } from '@console/shared';
 import { k8sCreate, NodeKind } from '@console/internal/module/k8s';
 import { LocalVolumeSetModel } from '@console/local-storage-operator-plugin/src/models';
@@ -127,7 +128,7 @@ const ConfirmationModal = ({ state, dispatch, setInProgress, setErrorMessage, ns
   const { t } = useTranslation();
   const isArbiterSupported = useFlag(FEATURES.OCS_ARBITER);
   return (
-    <WizardContextConsumer>
+    <WizardContextConsumerDeprecated>
       {({ onNext }) => {
         const makeLVSCall = () => {
           dispatch({ type: 'setShowConfirmModal', value: false });
@@ -154,7 +155,7 @@ const ConfirmationModal = ({ state, dispatch, setInProgress, setErrorMessage, ns
               )}
             </span>
             {isArbiterSupported && (
-              <p className="pf-u-pt-sm">
+              <p className="pf-v5-u-pt-sm">
                 <strong>{t('ceph-storage-plugin~Note:')} </strong>
                 {arbiterText(t)}
               </p>
@@ -182,6 +183,6 @@ const ConfirmationModal = ({ state, dispatch, setInProgress, setErrorMessage, ns
           </Modal>
         );
       }}
-    </WizardContextConsumer>
+    </WizardContextConsumerDeprecated>
   );
 };

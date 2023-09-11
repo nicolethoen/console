@@ -4,9 +4,12 @@ import { useTranslation } from 'react-i18next';
 import {
   Form,
   FormGroup,
+  FormHelperText,
   FormSelect,
   FormSelectOption,
   FormSelectProps,
+  HelperText,
+  HelperTextItem,
   Radio,
 } from '@patternfly/react-core';
 import { StorageClassDropdown } from '@console/internal/components/utils/storage-class-dropdown';
@@ -47,7 +50,7 @@ const ExternalSystemSelection: React.FC<ExternalSystemSelectionProps> = ({
   const { t } = useTranslation();
 
   const handleSelection: FormSelectProps['onChange'] = React.useCallback(
-    (value: string) => {
+    (event: React.FormEvent<HTMLSelectElement>, value: string) => {
       if (stepIdReached === 2) dispatch({ type: 'wizard/setStepIdReached', payload: 1 });
       dispatch({
         type: 'backingStorage/setExternalStorage',
@@ -59,7 +62,7 @@ const ExternalSystemSelection: React.FC<ExternalSystemSelectionProps> = ({
 
   React.useEffect(() => {
     if (!selectedStorage) {
-      handleSelection(selectOptions[0].model.kind, null);
+      handleSelection(null, selectOptions[0].model.kind);
     }
   }, [handleSelection, selectOptions, selectedStorage]);
 
@@ -68,7 +71,6 @@ const ExternalSystemSelection: React.FC<ExternalSystemSelectionProps> = ({
       fieldId="storage-platform-name"
       label={t('ceph-storage-plugin~Storage platform')}
       className=""
-      helperText={t('ceph-storage-plugin~Select a storage platform you wish to connect')}
     >
       <FormSelect
         aria-label={t('ceph-storage-plugin~Select external system from list')}
@@ -81,6 +83,14 @@ const ExternalSystemSelection: React.FC<ExternalSystemSelectionProps> = ({
           <FormSelectOption key={kind} value={kind} label={displayName} />
         ))}
       </FormSelect>
+
+      <FormHelperText>
+        <HelperText>
+          <HelperTextItem>
+            {t('ceph-storage-plugin~Select a storage platform you wish to connect.')}
+          </HelperTextItem>
+        </HelperText>
+      </FormHelperText>
     </FormGroup>
   );
 };

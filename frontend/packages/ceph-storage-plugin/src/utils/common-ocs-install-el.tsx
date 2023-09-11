@@ -3,12 +3,8 @@ import { useTranslation } from 'react-i18next';
 import * as cx from 'classnames';
 import { Link } from 'react-router-dom';
 import { TFunction } from 'i18next';
-import {
-  Alert,
-  AlertVariant,
-  AlertActionLink,
-  WizardContextConsumer,
-} from '@patternfly/react-core';
+import { Alert, AlertVariant, AlertActionLink } from '@patternfly/react-core';
+import { WizardContextConsumer as WizardContextConsumerDeprecated } from '@patternfly/react-core/deprecated';
 import { CreateStepsSC } from '../constants';
 import '../components/ocs-install/ocs-install.scss';
 import { EncryptionType } from '../types';
@@ -139,7 +135,7 @@ export const ActionAlert: React.FC<ActionAlertProps> = ({
   actionLinkStep,
   className,
 }) => (
-  <WizardContextConsumer>
+  <WizardContextConsumerDeprecated>
     {({ goToStepById }) => (
       <Alert
         className={cx('co-alert', className)}
@@ -158,7 +154,7 @@ export const ActionAlert: React.FC<ActionAlertProps> = ({
         {text && <p>{text}</p>}
       </Alert>
     )}
-  </WizardContextConsumer>
+  </WizardContextConsumerDeprecated>
 );
 
 type ActionAlertProps = Validation & {

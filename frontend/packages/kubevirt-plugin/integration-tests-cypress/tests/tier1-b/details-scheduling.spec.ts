@@ -135,7 +135,7 @@ describe('Test VM scheduling policy', () => {
       cy.get(keyInput('affinity-expression')).type(key1);
       cy.get(affinityRuleValueInput).click();
       cy.get(affinityRuleValueInput).type(value1);
-      cy.contains('.pf-c-select__menu-item', 'Create').click();
+      cy.contains('.pf-v5-c-select__menu-item', 'Create').click();
       cy.get(modalConfirm).click();
       cy.get(alertTitle).should('contain', oneMatchNode);
       cy.get(modalConfirm).click();

@@ -1,7 +1,17 @@
 import * as classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import * as React from 'react';
-import { ActionGroup, Button, FormGroup, Form, TextInput, Tooltip } from '@patternfly/react-core';
+import {
+  ActionGroup,
+  Button,
+  FormGroup,
+  Form,
+  TextInput,
+  Tooltip,
+  FormHelperText,
+  HelperText,
+  HelperTextItem,
+} from '@patternfly/react-core';
 import {
   ButtonBar,
   Dropdown,
@@ -47,7 +57,7 @@ const NamespaceStoreForm: React.FC<NamespaceStoreFormProps> = withHandlePromise<
     initialState,
   );
 
-  const handleNsNameTextInputChange = (strVal: string) => setNsName(strVal);
+  const handleNsNameTextInputChange = (_event, strVal: string) => setNsName(strVal);
   const {
     onCancel,
     className,
@@ -135,9 +145,6 @@ const NamespaceStoreForm: React.FC<NamespaceStoreFormProps> = withHandlePromise<
         label={t('ceph-storage-plugin~Namespace store name')}
         fieldId="namespacestore-name"
         className="nb-endpoints-form-entry"
-        helperText={t(
-          'ceph-storage-plugin~A unique name for the namespace store within the project',
-        )}
         isRequired
       >
         <Tooltip
@@ -154,6 +161,14 @@ const NamespaceStoreForm: React.FC<NamespaceStoreFormProps> = withHandlePromise<
             placeholder="my-namespacestore"
           />
         </Tooltip>
+
+        <FormHelperText>
+          <HelperText>
+            <HelperTextItem>
+              {t('ceph-storage-plugin~A unique name for the namespace store within the project.')}
+            </HelperTextItem>
+          </HelperText>
+        </FormHelperText>
       </FormGroup>
 
       <FormGroup
@@ -208,18 +223,25 @@ const NamespaceStoreForm: React.FC<NamespaceStoreFormProps> = withHandlePromise<
             label={t('ceph-storage-plugin~Folder')}
             fieldId="folder-name"
             className="nb-endpoints-form-entry"
-            helperText={t(
-              'ceph-storage-plugin~If the name you write exists, we will be using the existing folder if not we will create a new folder ',
-            )}
             isRequired
           >
             <TextInput
               id="folder-name"
-              onChange={setFolderName}
+              onChange={(_event, value: string) => setFolderName(value)}
               value={folderName}
               data-test="folder-name"
               placeholder="Please enter the folder name"
             />
+
+            <FormHelperText>
+              <HelperText>
+                <HelperTextItem>
+                  {t(
+                    'ceph-storage-plugin~If the name you write exists, we will be using the existing folder if not we will create a new folder.',
+                  )}
+                </HelperTextItem>
+              </HelperText>
+            </FormHelperText>
           </FormGroup>
         </>
       )}

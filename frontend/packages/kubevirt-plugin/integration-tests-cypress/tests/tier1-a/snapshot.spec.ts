@@ -21,8 +21,7 @@ const snapshotName = 'test-snapshot';
 
 describe('Test VM snapshot', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
     cy.visitVMsList();
     vm.create(vmData);
@@ -49,7 +48,7 @@ describe('Test VM snapshot', () => {
       tab.navigateToDetails();
       vm.stop();
       tab.navigateToSnapshot();
-      cy.get('.pf-c-table__text').contains('Name').should('be.visible');
+      cy.get('.pf-v5-c-table__text').contains('Name').should('be.visible');
 
       // restore snapshot
       cy.get(snapshotView.restoreBtn(snapshotName)).should('have.attr', 'aria-disabled', 'false');

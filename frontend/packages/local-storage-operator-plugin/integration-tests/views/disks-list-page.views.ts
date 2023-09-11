@@ -17,20 +17,20 @@ export const diskList = {
   headerNames: ['Name', 'Disk State', 'Type', 'Model', 'Capacity', 'Filesystem'],
   rows: resourceRows,
   filterDropdown: rowFiltersButton,
-  filterDropdownHeader: $('.pf-c-dropdown__group-title'),
+  filterDropdownHeader: $('.pf-v5-c-dropdown__group-title'),
   textFilter,
 };
 
 export const clickFilterDropdown = () => click(diskList.filterDropdown);
 
 export const clearDiskFilter = async () => {
-  const uncheckFilter = await $('.pf-c-chip-group__close >  button');
+  const uncheckFilter = await $('.pf-v5-c-chip-group__close >  button');
   await click(uncheckFilter);
 };
 
 export const checkDiskFilter = async (filter: string) => {
   await clickFilterDropdown();
-  const countBadge = $(`a[data-test-row-filter="${filter}"] > div > .pf-c-badge`);
+  const countBadge = $(`a[data-test-row-filter="${filter}"] > div > .pf-v5-c-badge`);
   const count = await countBadge.getText();
   await click($(`#${filter}`));
   const rowsCount = await resourceRows.count();

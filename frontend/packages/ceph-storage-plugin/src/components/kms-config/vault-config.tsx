@@ -12,11 +12,15 @@ import {
   TextInput,
   Button,
   ValidatedOptions,
+  Icon,
+  FormHelperText,
+  HelperText,
+  HelperTextItem,
 } from '@patternfly/react-core';
 import { global_palette_blue_300 as blueInfoColor } from '@patternfly/react-tokens/dist/js/global_palette_blue_300';
 import { PencilAltIcon } from '@patternfly/react-icons';
 import { useFlag } from '@console/shared/src/hooks/flag';
-import { useDeepCompareMemoize } from '@console/shared';
+import { RedExclamationCircleIcon, useDeepCompareMemoize } from '@console/shared';
 import { setEncryptionDispatch, parseURL, kmsConfigValidation, isLengthUnity } from './utils';
 import { KMSConfigureProps, EncryptionDispatch } from './providers';
 import {
@@ -129,12 +133,11 @@ export const VaultConfigure: React.FC<KMSConfigureProps> = ({
           fieldId="authentication-method"
           label={t('ceph-storage-plugin~Authentication method')}
           className={`${className}__form-body`}
-          helperTextInvalid={t('ceph-storage-plugin~This is a required field')}
           isRequired
         >
           <FormSelect
             value={vaultState.authMethod}
-            onChange={setAuthMethod}
+            onChange={(_event, value) => setAuthMethod(value as VaultAuthMethods)}
             id="authentication-method"
             name="authentication-method"
             aria-label={t('ceph-storage-plugin~authentication-method')}
@@ -148,6 +151,16 @@ export const VaultConfigure: React.FC<KMSConfigureProps> = ({
               />
             ))}
           </FormSelect>
+
+          {!vaultState.authMethod && (
+            <FormHelperText>
+              <HelperText>
+                <HelperTextItem variant="error" icon={<RedExclamationCircleIcon />}>
+                  {t('ceph-storage-plugin~This is a required field.')}
+                </HelperTextItem>
+              </HelperText>
+            </FormHelperText>
+          )}
         </FormGroup>
       )}
       <VaultConnectionForm
@@ -215,19 +228,19 @@ const VaultConnectionForm: React.FC<VaultConnectionFormProps> = ({
     });
 
   // vault state update
-  const setServiceName = (name: string) => {
+  const setServiceName = (_event, name: string) => {
     vaultStateClone.name.value = name;
     vaultStateClone.name.valid = name !== '';
     updateVaultState(vaultStateClone);
   };
 
-  const setAddress = (address: string) => {
+  const setAddress = (_event, address: string) => {
     vaultStateClone.address.value = address;
     vaultStateClone.address.valid = address !== '' && parseURL(address.trim()) != null;
     updateVaultState(vaultStateClone);
   };
 
-  const setAddressPort = (port: string) => {
+  const setAddressPort = (_event, port: string) => {
     vaultStateClone.port.value = port;
     vaultStateClone.port.valid =
       port !== '' && !_.isNaN(Number(port)) && Number(port) > 0 && Number(port) < 65536;
@@ -236,13 +249,13 @@ const VaultConnectionForm: React.FC<VaultConnectionFormProps> = ({
 
   const validateAddressMessage = () =>
     vaultState.address.value === ''
-      ? t('ceph-storage-plugin~This is a required field')
-      : t('ceph-storage-plugin~Please enter a URL');
+      ? t('ceph-storage-plugin~This is a required field.')
+      : t('ceph-storage-plugin~Please enter a URL.');
 
   const validatePortMessage = () =>
     vaultState.port.value === ''
-      ? t('ceph-storage-plugin~This is a required field')
-      : t('ceph-storage-plugin~Please enter a valid port');
+      ? t('ceph-storage-plugin~This is a required field.')
+      : t('ceph-storage-plugin~Please enter a valid port.');
 
   const isValid = (value: boolean) => (value ? ValidatedOptions.default : ValidatedOptions.error);
 
@@ -255,11 +268,6 @@ const VaultConnectionForm: React.FC<VaultConnectionFormProps> = ({
         fieldId="kms-service-name"
         label={t('ceph-storage-plugin~Connection name')}
         className={`${className}__form-body`}
-        helperTextInvalid={t('ceph-storage-plugin~This is a required field')}
-        validated={isValid(vaultState.name?.valid)}
-        helperText={t(
-          'ceph-storage-plugin~A unique name for the key management service within the project.',
-        )}
         isRequired
       >
         <TextInput
@@ -272,14 +280,28 @@ const VaultConnectionForm: React.FC<VaultConnectionFormProps> = ({
           validated={isValid(vaultState.name?.valid)}
           data-test="kms-service-name-text"
         />
+
+        <FormHelperText>
+          <HelperText>
+            {!isValid(vaultState.name?.valid) ? (
+              <HelperTextItem variant="error" icon={<RedExclamationCircleIcon />}>
+                {t('ceph-storage-plugin~This is a required field.')}
+              </HelperTextItem>
+            ) : (
+              <HelperTextItem>
+                {t(
+                  'ceph-storage-plugin~A unique name for the key management service within the project.',
+                )}
+              </HelperTextItem>
+            )}
+          </HelperText>
+        </FormHelperText>
       </FormGroup>
       <div className="ocs-install-kms__form-url">
         <FormGroup
           fieldId="kms-address"
           label={t('ceph-storage-plugin~Address')}
           className={classNames('ocs-install-kms__form-address', `${className}__form-body`)}
-          helperTextInvalid={validateAddressMessage()}
-          validated={isValid(vaultState.address?.valid)}
           isRequired
         >
           <TextInput
@@ -293,6 +315,16 @@ const VaultConnectionForm: React.FC<VaultConnectionFormProps> = ({
             validated={isValid(vaultState.address?.valid)}
             data-test="kms-address-text"
           />
+
+          <FormHelperText>
+            <HelperText>
+              {!isValid(vaultState.address?.valid) && (
+                <HelperTextItem variant="error" icon={<RedExclamationCircleIcon />}>
+                  {validateAddressMessage()}
+                </HelperTextItem>
+              )}
+            </HelperText>
+          </FormHelperText>
         </FormGroup>
         <FormGroup
           fieldId="kms-address-port"
@@ -301,8 +333,6 @@ const VaultConnectionForm: React.FC<VaultConnectionFormProps> = ({
             'ocs-install-kms__form-port',
             `${className}__form-body--small-padding`,
           )}
-          helperTextInvalid={validatePortMessage()}
-          validated={isValid(vaultState.port?.valid)}
           isRequired
         >
           <TextInput
@@ -315,6 +345,16 @@ const VaultConnectionForm: React.FC<VaultConnectionFormProps> = ({
             validated={isValid(vaultState.port?.valid)}
             data-test="kms-address-port-text"
           />
+
+          <FormHelperText>
+            <HelperText>
+              {!isValid(vaultState.port?.valid) && (
+                <HelperTextItem variant="error" icon={<RedExclamationCircleIcon />}>
+                  {validatePortMessage()}
+                </HelperTextItem>
+              )}
+            </HelperText>
+          </FormHelperText>
         </FormGroup>
       </div>
       {isWizardFlow && (
@@ -342,7 +382,9 @@ const VaultConnectionForm: React.FC<VaultConnectionFormProps> = ({
           vaultState.clientCert ||
           vaultState.clientKey ||
           vaultState.providerNamespace) && (
-          <PencilAltIcon data-test="edit-icon" size="sm" color={blueInfoColor.value} />
+          <Icon size="sm">
+            <PencilAltIcon data-test="edit-icon" color={blueInfoColor.value} />
+          </Icon>
         )}
       </Button>
     </>

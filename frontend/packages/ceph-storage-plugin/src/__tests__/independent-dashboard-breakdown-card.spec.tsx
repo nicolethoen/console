@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { ShallowWrapper, shallow } from 'enzyme';
-import { CardBody, CardHeader, CardTitle, Select } from '@patternfly/react-core';
+import { CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
+import { Select as SelectDeprecated } from '@patternfly/react-core/deprecated';
+
 import { DashboardItemProps } from '@console/internal/components/dashboard/with-dashboard-resources';
 import { PROJECTS, STORAGE_CLASSES, PODS } from '../constants';
 import { BreakdownCard } from '../components/dashboards/persistent-external/breakdown-card';
@@ -53,8 +55,8 @@ describe('BreakdownCard', () => {
   });
 
   it('Should render Dropdown', () => {
-    expect(wrapper.find(Select).exists()).toBe(true);
-    expect(wrapper.find(Select).props().children).toEqual(breakdownSelectItems);
+    expect(wrapper.find(SelectDeprecated).exists()).toBe(true);
+    expect(wrapper.find(SelectDeprecated).props().children).toEqual(breakdownSelectItems);
   });
 
   it('Should render Card body', () => {

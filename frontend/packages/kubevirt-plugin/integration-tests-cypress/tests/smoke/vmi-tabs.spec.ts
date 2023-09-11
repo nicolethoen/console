@@ -6,8 +6,7 @@ const vmiName = 'vmi-ephemeral';
 
 describe('smoke tests', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
     vmiFixture.metadata.namespace = testName;
     cy.createResource(vmiFixture);
@@ -32,7 +31,7 @@ describe('smoke tests', () => {
     });
 
     it('vmi overview tab is loaded', () => {
-      cy.get('.pf-c-card__title').should('exist');
+      cy.get('.pf-v5-c-card__title').should('exist');
     });
 
     it('vmi details tab is loaded', () => {

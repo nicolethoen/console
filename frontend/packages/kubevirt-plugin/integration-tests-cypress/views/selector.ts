@@ -48,11 +48,12 @@ export const startOnClone = 'input[id="clone-dialog-vm-start"]';
 export const saveAndRestart = '#save-and-restart';
 
 // alert
-export const alertTitle = '.pf-c-alert__title';
-export const errorAlert = '.pf-c-alert.pf-m-inline.pf-m-danger.co-alert.co-alert--scrollable';
-export const pendingChangeAlert = '.pf-c-alert.pf-m-inline.pf-m-warning.kv__pending_changes-alert';
-export const alertDescription = '.pf-c-alert__description';
-export const warningAlert = '.pf-c-alert.pf-m-inline.pf-m-warning';
+export const alertTitle = '.pf-v5-c-alert__title';
+export const errorAlert = '.pf-v5-c-alert.pf-m-inline.pf-m-danger.co-alert.co-alert--scrollable';
+export const pendingChangeAlert =
+  '.pf-v5-c-alert.pf-m-inline.pf-m-warning.kv__pending_changes-alert';
+export const alertDescription = '.pf-v5-c-alert__description';
+export const warningAlert = '.pf-v5-c-alert.pf-m-inline.pf-m-warning';
 
 // nic modal
 export enum nicDialog {
@@ -91,12 +92,12 @@ export enum storageClass {
 export const createYAMLButton = 'button[data-test="save-changes"]';
 
 // multiple IP pop-up
-export const ipPopOverContent = '.pf-c-popover__content';
+export const ipPopOverContent = '.pf-v5-c-popover__content';
 
 // template list
 export const nameFilter = 'input[data-test="name-filter-input"]';
-// export const starIcon = '.pf-c-button.pf-m-plain.kv-pin-remove-btn';
-export const unStarIcon = '.pf-c-button.pf-m-plain.kv-pin-btn';
+// export const starIcon = '.pf-v5-c-button.pf-m-plain.kv-pin-remove-btn';
+export const unStarIcon = '.pf-v5-c-button.pf-m-plain.kv-pin-btn';
 export const supportLevel = '[data-test-id="details-Support"]';
 export const supportLevelTag = '[data-test="template-support"]';
 export const createVMBtn = 'button[data-test="create-from-template"]';
@@ -105,7 +106,7 @@ export const row = '[data-test-rows="resource-row"]';
 export const resourceTitle = '[data-test-id="resource-title"]';
 export const resourceStatus = '[data-test="resource-status"]';
 export const loadingBox = '.loading-box.loading-box__loaded';
-export const menuItemMain = '.pf-c-select__menu-item-main';
+export const menuItemMain = '.pf-v5-c-select__menu-item-main';
 
 // VMs list view
 export const filterBtn = '[data-test-id="filter-dropdown-toggle"]';

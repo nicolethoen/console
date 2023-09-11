@@ -1,10 +1,10 @@
 .odf-create-storage-system-footer__alert {
-  margin: 0 var(--pf-global--spacer--md);
+  margin: 0 var(--pf-v5-global--spacer--md);
 }
 
 .odf-create-storage-system-wizard-body {
-  margin: var(--pf-global--spacer--4xl);
+  margin: var(--pf-v5-global--spacer--4xl);
   &__error {
-    color: var(--pf-global--danger-color--200);
+    color: var(--pf-v5-global--danger-color--200);
   }
 }

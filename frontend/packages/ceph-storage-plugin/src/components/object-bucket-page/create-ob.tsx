@@ -76,7 +76,7 @@ export const CreateOBPage: React.FC = () => {
             </label>
             <div className="form-group">
               <input
-                className="pf-c-form-control"
+                className="pf-v5-c-form-control"
                 type="text"
                 onChange={(e) => {
                   dispatch({ type: 'setName', name: e.currentTarget.value });
@@ -107,7 +107,7 @@ export const CreateOBPage: React.FC = () => {
           </div>
         </div>
         <ButtonBar errorMessage={state.error} inProgress={state.progress}>
-          <ActionGroup className="pf-c-form">
+          <ActionGroup className="pf-v5-c-form">
             <Button type="submit" variant="primary">
               {t('ceph-storage-plugin~Create')}
             </Button>

@@ -3,10 +3,6 @@ import { useTranslation } from 'react-i18next';
 import * as _ from 'lodash';
 import {
   Alert,
-  Dropdown,
-  DropdownItem,
-  DropdownToggle,
-  DropdownSeparator,
   FormGroup,
   Checkbox,
   Card,
@@ -14,13 +10,26 @@ import {
   Form,
   Radio,
   ActionGroup,
+  FormHelperText,
+  HelperText,
+  HelperTextItem,
 } from '@patternfly/react-core';
+import {
+  Dropdown as DropdownDeprecated,
+  DropdownItem as DropdownItemDeprecated,
+  DropdownToggle as DropdownToggleDeprecated,
+  DropdownSeparator as DropdownSeparatorDeprecated,
+} from '@patternfly/react-core/deprecated';
 import { useDeepCompareMemoize } from '@console/shared';
 import { CaretDownIcon } from '@patternfly/react-icons';
 import { StatusBox } from '@console/internal/components/utils/status-box';
 import { useK8sGet } from '@console/internal/components/utils/k8s-get-hook';
 import { useK8sWatchResource } from '@console/internal/components/utils/k8s-watch-hook';
-import { WatchK8sResource, ProvisionerProps } from '@console/dynamic-plugin-sdk';
+import {
+  WatchK8sResource,
+  ProvisionerProps,
+  RedExclamationCircleIcon,
+} from '@console/dynamic-plugin-sdk';
 import { useFlag } from '@console/shared/src/hooks/flag';
 import {
   ConfigMapKind,
@@ -87,7 +96,7 @@ export const CephFsNameComponent: React.FC<ProvisionerProps> = ({
           {t('ceph-storage-plugin~Filesystem name')}
         </label>
         <input
-          className="pf-c-form-control"
+          className="pf-v5-c-form-control"
           type="text"
           value={parameterValue}
           disabled={!isExternal}
@@ -149,7 +158,7 @@ export const PoolResourceComponent: React.FC<ProvisionerProps> = ({
         cephClusters[0]?.status?.phase === CLUSTER_STATUS.READY
       ) {
         res.push(
-          <DropdownItem
+          <DropdownItemDeprecated
             key={pool.metadata.uid}
             component="button"
             id={pool?.metadata?.name}
@@ -161,13 +170,13 @@ export const PoolResourceComponent: React.FC<ProvisionerProps> = ({
             })}
           >
             {pool?.metadata?.name}
-          </DropdownItem>,
+          </DropdownItemDeprecated>,
         );
       }
       return res;
     },
     [
-      <DropdownItem
+      <DropdownItemDeprecated
         data-test="create-new-pool-button"
         key="first-item"
         component="button"
@@ -179,8 +188,8 @@ export const PoolResourceComponent: React.FC<ProvisionerProps> = ({
         }
       >
         {t('ceph-storage-plugin~Create New Pool')}
-      </DropdownItem>,
-      <DropdownSeparator key="separator" />,
+      </DropdownItemDeprecated>,
+      <DropdownSeparatorDeprecated key="separator" />,
     ],
   );
 
@@ -192,17 +201,17 @@ export const PoolResourceComponent: React.FC<ProvisionerProps> = ({
             <label className="co-required" htmlFor="ocs-storage-pool">
               {t('ceph-storage-plugin~Storage Pool')}
             </label>
-            <Dropdown
+            <DropdownDeprecated
               className="dropdown--full-width"
               toggle={
-                <DropdownToggle
+                <DropdownToggleDeprecated
                   id="pool-dropdown-id"
                   data-test="pool-dropdown-toggle"
                   onToggle={() => setOpen(!isOpen)}
                   toggleIndicator={CaretDownIcon}
                 >
                   {poolName || t('ceph-storage-plugin~Select a Pool')}
-                </DropdownToggle>
+                </DropdownToggleDeprecated>
               }
               isOpen={isOpen}
               dropdownItems={poolDropdownItems}
@@ -232,7 +241,7 @@ export const PoolResourceComponent: React.FC<ProvisionerProps> = ({
           {t('ceph-storage-plugin~Storage Pool')}
         </label>
         <input
-          className="pf-c-form-control"
+          className="pf-v5-c-form-control"
           type="text"
           onChange={onPoolInput}
           placeholder={t('ceph-storage-plugin~my-storage-pool')}
@@ -276,7 +285,7 @@ export const StorageClassEncryption: React.FC<ProvisionerProps> = ({
   const isKmsSupported = useFlag(FEATURES.OCS_KMS);
   const [checked, isChecked] = React.useState(false);
 
-  const setChecked = (value: boolean) => {
+  const setChecked = (_event, value: boolean) => {
     onParamChange(parameterKey, value.toString(), false);
     isChecked(value);
   };
@@ -285,11 +294,7 @@ export const StorageClassEncryption: React.FC<ProvisionerProps> = ({
     isKmsSupported && (
       <div className="ocs-storage-class__form">
         <Form>
-          <FormGroup
-            fieldId="storage-class-encryption"
-            helperTextInvalid={t('ceph-storage-plugin~This is a required field')}
-            isRequired
-          >
+          <FormGroup fieldId="storage-class-encryption" isRequired>
             <Checkbox
               id="storage-class-encryption"
               isChecked={checked}
@@ -305,6 +310,16 @@ export const StorageClassEncryption: React.FC<ProvisionerProps> = ({
                 'ceph-storage-plugin~An encryption key will be generated for each PersistentVolume created using this StorageClass.',
               )}
             </span>
+
+            {checked === undefined && (
+              <FormHelperText>
+                <HelperText>
+                  <HelperTextItem variant="error" icon={<RedExclamationCircleIcon />}>
+                    {t('ceph-storage-plugin~This is a required field.')}
+                  </HelperTextItem>
+                </HelperText>
+              </FormHelperText>
+            )}
           </FormGroup>
         </Form>
       </div>
@@ -340,7 +355,7 @@ const ExistingKMSDropDown: React.FC<ExistingKMSDropDownProps> = ({
         SupportedProviders[providerName]?.allowedPlatforms.includes(infraType)
       )
         res.push(
-          <DropdownItem
+          <DropdownItemDeprecated
             key={providerDetails.group}
             component="button"
             id={providerName}
@@ -348,7 +363,7 @@ const ExistingKMSDropDown: React.FC<ExistingKMSDropDownProps> = ({
             onClick={handleProviderDropdownChange}
           >
             {providerDetails.group}
-          </DropdownItem>,
+          </DropdownItemDeprecated>,
         );
       return res;
     },
@@ -374,7 +389,7 @@ const ExistingKMSDropDown: React.FC<ExistingKMSDropDownProps> = ({
 
             if (SupportedProviders[provider].supported.includes(kmsProviderName)) {
               res.push(
-                <DropdownItem
+                <DropdownItemDeprecated
                   key={connectionName}
                   component="button"
                   id={connectionName}
@@ -386,7 +401,7 @@ const ExistingKMSDropDown: React.FC<ExistingKMSDropDownProps> = ({
                   }
                 >
                   {connectionName}
-                </DropdownItem>,
+                </DropdownItemDeprecated>,
               );
             }
           } catch (err) {
@@ -404,10 +419,10 @@ const ExistingKMSDropDown: React.FC<ExistingKMSDropDownProps> = ({
     <div className="ocs-storage-class-encryption__form-dropdown--padding">
       <div className="form-group">
         <label htmlFor="kms-provider">{t('ceph-storage-plugin~Provider')}</label>
-        <Dropdown
+        <DropdownDeprecated
           className="dropdown dropdown--full-width"
           toggle={
-            <DropdownToggle
+            <DropdownToggleDeprecated
               id="kms-provider-dropdown-id"
               data-test="kms-provider-dropdown-toggle"
               onToggle={() => setProviderOpen(!isProviderOpen)}
@@ -415,7 +430,7 @@ const ExistingKMSDropDown: React.FC<ExistingKMSDropDownProps> = ({
               isDisabled={!isHpcsKmsSupported || isLengthUnity(kmsProviderDropdownItems)}
             >
               {SupportedProviders[provider].group}
-            </DropdownToggle>
+            </DropdownToggleDeprecated>
           }
           isOpen={isProviderOpen}
           dropdownItems={kmsProviderDropdownItems}
@@ -426,17 +441,17 @@ const ExistingKMSDropDown: React.FC<ExistingKMSDropDownProps> = ({
       </div>
       <div className="form-group">
         <label htmlFor="kms-service">{t('ceph-storage-plugin~Key service')}</label>
-        <Dropdown
+        <DropdownDeprecated
           className="dropdown dropdown--full-width"
           toggle={
-            <DropdownToggle
+            <DropdownToggleDeprecated
               id="kms-service-dropdown-id"
               data-test="kms-service-dropdown-toggle"
               onToggle={() => setServiceOpen(!isServiceOpen)}
               toggleIndicator={CaretDownIcon}
             >
               {serviceName || t('ceph-storage-plugin~Select an existing connection')}
-            </DropdownToggle>
+            </DropdownToggleDeprecated>
           }
           isOpen={isServiceOpen}
           dropdownItems={kmsServiceDropdownItems}

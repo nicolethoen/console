@@ -15,10 +15,10 @@ export const vmwarePodStatusLoader = $('#v2v-vmware-status-status');
 export const virtualMachineSelect = $('#vcenter-vm-dropdown');
 
 export const vmNameHelper = $('#vm-name-helper');
-export const errorHelper = $('.pf-c-form__helper-text.pf-m-error');
+export const errorHelper = $('.pf-v5-c-form__helper-text.pf-m-error');
 
 export const spinnerIcon = $('svg.fa-spin');
-export const connectionWarning = $('h4.pf-c-alert__title');
+export const connectionWarning = $('h4.pf-v5-c-alert__title');
 
 export const seeDetailPageButton = element(by.buttonText('See virtual machine details'));
 

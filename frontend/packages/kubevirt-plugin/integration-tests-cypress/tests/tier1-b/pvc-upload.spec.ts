@@ -21,8 +21,7 @@ const vmData: VirtualMachineData = {
 
 describe('kubevirt PVC upload', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
   });
 
@@ -38,15 +37,15 @@ describe('kubevirt PVC upload', () => {
       pvc.form.open();
       for (const img of imageFormats) {
         cy.exec(`touch ${img} || true`);
-        cy.dropFile(img, img.split('/').pop(), '.pf-c-file-upload');
-        cy.get('.pf-c-alert__title').contains('File type extension').should('not.exist');
+        cy.dropFile(img, img.split('/').pop(), '.pf-v5-c-file-upload');
+        cy.get('.pf-v5-c-alert__title').contains('File type extension').should('not.exist');
       }
     });
 
     it('ID(CNV-4891) It shows a warning message when image format is not supported', () => {
       pvc.form.open();
       cy.exec(`touch ${invalidImage} || true`);
-      cy.dropFile(invalidImage, invalidImage.split('/').pop(), '.pf-c-file-upload');
+      cy.dropFile(invalidImage, invalidImage.split('/').pop(), '.pf-v5-c-file-upload');
       cy.contains('File type extension').should('be.visible');
     });
 
@@ -54,7 +53,7 @@ describe('kubevirt PVC upload', () => {
       cy.createDataVolume(template.dvName, OS_IMAGES_NS);
       pvc.form.open();
       pvc.form.selectOS(os);
-      cy.get('.pf-c-alert__title')
+      cy.get('.pf-v5-c-alert__title')
         .contains('Operating system source already defined')
         .should('exist');
     });

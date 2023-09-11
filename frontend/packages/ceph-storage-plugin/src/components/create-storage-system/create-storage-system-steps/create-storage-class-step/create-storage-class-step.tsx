@@ -45,7 +45,7 @@ export const CreateStorageClass: React.FC<CreateStorageClassProps> = ({
           id="storage-class-name"
           value={storageClass.name}
           type="text"
-          onChange={(value: string) =>
+          onChange={(_event, value: string) =>
             dispatch({
               type: 'wizard/setStorageClass',
               payload: {

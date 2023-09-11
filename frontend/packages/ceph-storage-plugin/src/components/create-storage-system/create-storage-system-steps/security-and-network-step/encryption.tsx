@@ -21,7 +21,7 @@ const EncryptionLabel: React.FC<{ label: string }> = ({ label }) => (
 const EncryptionLevel: React.FC<EncryptionLevelProps> = ({ encryption, dispatch }) => {
   const { t } = useTranslation();
 
-  const handleClusterWideEncryption = (isChecked: boolean) =>
+  const handleClusterWideEncryption = (_event, isChecked: boolean) =>
     dispatch({
       type: 'securityAndNetwork/setEncryption',
       payload: {
@@ -30,7 +30,7 @@ const EncryptionLevel: React.FC<EncryptionLevelProps> = ({ encryption, dispatch 
       },
     });
 
-  const handleStorageClassEncryption = (isChecked: boolean) => {
+  const handleStorageClassEncryption = (_event, isChecked: boolean) => {
     const payload = {
       ...encryption,
       storageClass: isChecked,
@@ -93,7 +93,7 @@ const KMSConnection: React.FC<EncryptionProps> = ({
   const { t } = useTranslation();
 
   const handleOnChange = React.useCallback(
-    (isChecked: boolean) => {
+    (_event: React.FormEvent<HTMLInputElement>, isChecked: boolean) => {
       dispatch({
         type: 'securityAndNetwork/setEncryption',
         payload: {
@@ -183,7 +183,7 @@ export const Encryption: React.FC<EncryptionProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [encryption.clusterWide, encryption.storageClass, encryptionChecked]);
 
-  const handleEncryptionOnChange = (checked: boolean) => {
+  const handleEncryptionOnChange = (_event, checked: boolean) => {
     const payload = {
       ...encryption,
       clusterWide: checked,

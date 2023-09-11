@@ -19,8 +19,7 @@ const vmData: VirtualMachineData = {
 
 describe('Test multiple IP addresses are displayed for VM', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
   });
 

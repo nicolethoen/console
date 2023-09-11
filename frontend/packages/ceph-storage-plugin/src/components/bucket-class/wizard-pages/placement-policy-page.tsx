@@ -12,7 +12,7 @@ const PlacementPolicyPage: React.FC<PlacementPolicyPageProps> = ({ dispatch, sta
   const [showHelp, setShowHelp] = React.useState(true);
   const showTier2 = !!tier2Policy;
 
-  const onChange = (checked: boolean, event) => {
+  const onChange = (event) => {
     const { name, value } = event.target;
     if (name === 'placement-policy-1') {
       dispatch({ type: 'setPlacementPolicyTier1', value });

@@ -62,7 +62,7 @@ const RawCapacity: React.FC<RawCapacityProps> = ({ t, osdSizeWithoutUnit, replic
         <TextInput
           isDisabled
           id="request-size"
-          className={classNames('pf-c-form-control', 'ceph-add-capacity__input')}
+          className={classNames('pf-v5-c-form-control', 'ceph-add-capacity__input')}
           type="number"
           name="requestSize"
           value={osdSizeWithoutUnit}
@@ -245,7 +245,7 @@ export const AddCapacityModal = (props: AddCapacityModalProps) => {
             Adding capacity for <strong>{{ name }}</strong>, may increase your expenses.
           </Trans>
           <FormGroup
-            className="pf-u-pt-md pf-u-pb-sm"
+            className="pf-v5-u-pt-md pf-v5-u-pb-sm"
             id="add-cap-sc-dropdown__FormGroup"
             fieldId="add-capacity-dropdown"
             label={t('ceph-storage-plugin~StorageClass')}
@@ -281,7 +281,7 @@ export const AddCapacityModal = (props: AddCapacityModalProps) => {
                 {!!osdSizeWithoutUnit && (
                   <RawCapacity t={t} replica={replica} osdSizeWithoutUnit={osdSizeWithoutUnit} />
                 )}
-                <TextContent className="pf-u-font-weight-bold pf-u-secondary-color-100 ceph-add-capacity__current-capacity">
+                <TextContent className="pf-v5-u-font-weight-bold pf-v5-u-secondary-color-100 ceph-add-capacity__current-capacity">
                   {t('ceph-storage-plugin~Currently Used:')}&nbsp;
                   {currentCapacity}
                 </TextContent>

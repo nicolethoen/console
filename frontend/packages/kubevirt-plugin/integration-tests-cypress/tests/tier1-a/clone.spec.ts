@@ -34,8 +34,7 @@ const cloneNS = `${testName}-clone-ns`;
 
 describe('Test VM Clone', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
     cy.createProject(cloneNS);
     vm.create(vmData);
@@ -55,7 +54,7 @@ describe('Test VM Clone', () => {
 
   it('ID(CNV-1730) Displays warning in clone wizard when cloned VM is running', () => {
     selectActionFromDropdown(VM_ACTION.Clone, actionButtons.kebabButton);
-    cy.get('.pf-c-alert__title')
+    cy.get('.pf-v5-c-alert__title')
       .contains(`The VM ${vmData.name} is still running. It will be powered off while cloning.`)
       .should('exist');
     cy.get(cloneView.cancel).click();

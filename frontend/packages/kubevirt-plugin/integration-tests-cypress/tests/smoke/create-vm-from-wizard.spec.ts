@@ -39,8 +39,7 @@ const winData: VirtualMachineData = {
 
 describe('Test vm creation', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
   });
 

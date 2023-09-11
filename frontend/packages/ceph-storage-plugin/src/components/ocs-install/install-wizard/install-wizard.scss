@@ -1,13 +1,13 @@
 .ocs-install-info-alert {
-  margin: var(--pf-global--spacer--md) var(--pf-global--spacer--xl);
+  margin: var(--pf-v5-global--spacer--md) var(--pf-v5-global--spacer--xl);
 }
 
 .ocs-install-wizard {
-  .pf-c-wizard {
-    --pf-c-wizard__nav--Width: 16rem;
+  .pf-v5-c-wizard {
+    --pf-v5-c-wizard__nav--Width: 16rem;
   }
 
-  border-top: var(--pf-global--BorderWidth--sm) solid var(--pf-global--BorderColor--100);
+  border-top: var(--pf-v5-global--BorderWidth--sm) solid var(--pf-v5-global--BorderColor--100);
 
   &__card {
     max-width: 27rem;
@@ -17,29 +17,30 @@
   &__card-body {
     overflow-y: scroll;
     overflow-x: auto;
-    scrollbar-color: var(--pf-global--BackgroundColor--light-300) var(--pf-global--palette--white);
+    scrollbar-color: var(--pf-v5-global--BackgroundColor--light-300)
+      var(--pf-v5-global--palette--white);
   }
 
   &__dd {
-    margin-left: var(--pf-global--spacer--md);
+    margin-left: var(--pf-v5-global--spacer--md);
   }
 
   &__h3 {
-    --pf-c-content--h3--FontWeight: 200;
+    --pf-v5-c-content--h3--FontWeight: 200;
   }
 
   &__icon {
-    margin-right: var(--pf-global--spacer--xs);
+    margin-right: var(--pf-v5-global--spacer--xs);
   }
 
   &__review-list-item-alert {
     max-width: 40rem;
-    margin-top: var(--pf-global--spacer--xs);
+    margin-top: var(--pf-v5-global--spacer--xs);
   }
 
   &__review-alert {
     max-width: 60rem;
-    margin-top: var(--pf-global--spacer--lg);
+    margin-top: var(--pf-v5-global--spacer--lg);
   }
 
   &__select-nodes {
@@ -54,7 +55,7 @@
   }
 
   &__text-content {
-    margin-bottom: var(--pf-global--spacer--md);
+    margin-bottom: var(--pf-v5-global--spacer--md);
   }
 
   &__review-encryption {
@@ -63,29 +64,31 @@
 }
 
 .ocs-install-encryption {
-  padding-left: var(--pf-global--spacer--lg);
+  padding-left: var(--pf-v5-global--spacer--lg);
 
   &__form-body {
-    padding: var(--pf-global--spacer--md);
+    padding: var(--pf-v5-global--spacer--md);
   }
 
   &__form-body--small-padding {
-    padding: var(--pf-global--spacer--md) var(--pf-global--spacer--md) var(--pf-global--spacer--md) 0;
+    padding: var(--pf-v5-global--spacer--md) var(--pf-v5-global--spacer--md)
+      var(--pf-v5-global--spacer--md) 0;
   }
 
   &__form-alert {
-    margin: var(--pf-global--spacer--md);
+    margin: var(--pf-v5-global--spacer--md);
   }
 
   &__form-checkbox {
-    margin-top: var(--pf-global--spacer--md);
+    margin-top: var(--pf-v5-global--spacer--md);
   }
 
   &__pv-title {
     display: inline-block;
 
     &--padding {
-      padding: var(--pf-global--spacer--sm) var(--pf-global--spacer--sm) var(--pf-global--spacer--sm) 0;
+      padding: var(--pf-v5-global--spacer--sm) var(--pf-v5-global--spacer--sm)
+        var(--pf-v5-global--spacer--sm) 0;
     }
   }
 }

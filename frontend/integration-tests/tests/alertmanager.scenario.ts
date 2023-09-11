@@ -50,30 +50,31 @@ describe('Alertmanager: PagerDuty Receiver Form', () => {
     await firstElementByTestID('label-name-0').sendKeys('severity');
     await firstElementByTestID('label-value-0').sendKeys('warning');
 
-    expect(firstElementByTestID('pagerduty-url').getAttribute('value')).toEqual(
+    expect(await firstElementByTestID('pagerduty-url').getAttribute('value')).toEqual(
       'https://events.pagerduty.com/v2/enqueue',
     );
 
     // adv config options
     await monitoringView.showAdvancedConfiguration.click();
-    expect(firstElementByTestID('send-resolved-alerts').getAttribute('checked')).toBeTruthy();
-    expect(firstElementByTestID('pagerduty-client').getAttribute('value')).toEqual(
+    expect(await firstElementByTestID('send-resolved-alerts').getAttribute('checked')).toBeTruthy();
+    expect(await firstElementByTestID('pagerduty-client').getAttribute('value')).toEqual(
       '{{ template "pagerduty.default.client" . }}',
     );
-    expect(firstElementByTestID('pagerduty-client-url').getAttribute('value')).toEqual(
+    expect(await firstElementByTestID('pagerduty-client-url').getAttribute('value')).toEqual(
       '{{ template "pagerduty.default.clientURL" . }}',
     );
-    expect(firstElementByTestID('pagerduty-description').getAttribute('value')).toEqual(
+    expect(await firstElementByTestID('pagerduty-description').getAttribute('value')).toEqual(
       '{{ template "pagerduty.default.description" .}}',
     );
-    expect(firstElementByTestID('pagerduty-severity').getAttribute('value')).toEqual('error');
+    expect(await firstElementByTestID('pagerduty-severity').getAttribute('value')).toEqual('error');
+
     await monitoringView.saveButton.click();
     await crudView.isLoaded();
     await monitoringView.wait(until.elementToBeClickable(crudView.nameFilter));
     await crudView.nameFilter.clear();
     await crudView.nameFilter.sendKeys('MyReceiver');
-    monitoringView.getFirstRowAsText().then((text) => {
-      expect(text).toEqual('MyReceiver pagerduty severity = warning');
+    await monitoringView.getFirstRowAsText().then((text) => {
+      expect(text).toEqual('MyReceiver pagerduty severity=warning');
     });
   });
 

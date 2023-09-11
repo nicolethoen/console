@@ -31,8 +31,7 @@ const cloneVMName = `${vm.name}-clone`;
 describe('test dev console', () => {
   before(() => {
     cy.viewport(1536, 960);
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
     cy.cdiCloner(testName, OS_IMAGES_NS);
     cy.createDataVolume(template.dvName, OS_IMAGES_NS);

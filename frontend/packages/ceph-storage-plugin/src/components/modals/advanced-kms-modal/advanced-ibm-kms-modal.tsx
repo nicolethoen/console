@@ -48,7 +48,7 @@ export const AdvancedHpcsModal = withHandlePromise((props: AdvancedKMSModalProps
           >
             <TextInput
               value={kms.baseUrl.value}
-              onChange={setBaseUrl}
+              onChange={(_event, value) => setBaseUrl(value)}
               type="text"
               id="kms-base-url"
               name="kms-base-url"
@@ -62,7 +62,7 @@ export const AdvancedHpcsModal = withHandlePromise((props: AdvancedKMSModalProps
           >
             <TextInput
               value={tokenUrl}
-              onChange={setTokenUrl}
+              onChange={(_event, value) => setTokenUrl(value)}
               type="text"
               id="kms-token-url"
               name="kms-token-url"

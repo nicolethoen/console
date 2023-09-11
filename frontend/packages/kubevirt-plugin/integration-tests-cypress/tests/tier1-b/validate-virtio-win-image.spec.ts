@@ -19,8 +19,7 @@ const testDescribe = Cypress.env('DOWNSTREAM') ? describe : xdescribe;
 
 testDescribe('Test Windows VM virtio-win image', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
     cy.visitVMsList();
     vm.create(vmData);

@@ -20,7 +20,7 @@ describe('ID(CNV-5654) test vm empty state', () => {
     if (Cypress.env('DOWNSTREAM')) {
       virtualization.vms.emptyState.clickQuickStarts();
       // TODO: uncomment it once https://issues.redhat.com/browse/CNV-14013 is fixed.
-      // cy.get('.pf-c-search-input__text-input').should('have.value', 'virtual machine');
+      // cy.get('.pf-v5-c-search-input__text-input').should('have.value', 'virtual machine');
     }
   });
 

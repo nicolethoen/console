@@ -21,8 +21,7 @@ const vmData1: VirtualMachineData = {
 
 describe('Test VM creation from template page', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
     cy.createDefaultTemplate();
   });

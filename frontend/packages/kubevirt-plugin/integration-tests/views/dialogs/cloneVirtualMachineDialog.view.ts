@@ -14,4 +14,4 @@ export const startOnCreationCheckBox = $('#clone-dialog-vm-start');
 export const confirmButton = $('#confirm-action');
 export const cancelButton = element(by.buttonText('Cancel'));
 
-export const errorHelper = modalDialog.$('.pf-c-form__helper-text');
+export const errorHelper = modalDialog.$('.pf-v5-c-form__helper-text');

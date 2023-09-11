@@ -36,8 +36,7 @@ const vmData: VirtualMachineData = {
 
 describe('VM creation wizard Cloud init editor fields', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
     cy.visitVMsList();
     wizard.vm.open();

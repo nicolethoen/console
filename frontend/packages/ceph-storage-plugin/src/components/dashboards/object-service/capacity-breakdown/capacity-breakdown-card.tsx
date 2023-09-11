@@ -1,16 +1,13 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import * as _ from 'lodash';
+import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
 import {
-  Select,
-  SelectGroup,
-  SelectOption,
-  SelectProps,
-  Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
-} from '@patternfly/react-core';
+  Select as SelectDeprecated,
+  SelectGroup as SelectGroupDeprecated,
+  SelectOption as SelectOptionDeprecated,
+  SelectProps as SelectPropsDeprecated,
+} from '@patternfly/react-core/deprecated';
 import {
   FieldLevelHelp,
   FirehoseResource,
@@ -54,13 +51,13 @@ type DropdownItems = {
 
 const getDisableableSelectOptions = (dropdownItems: DropdownItems) => {
   return dropdownItems.map(({ group, items }) => (
-    <SelectGroup key={group} label={group} className="co-filter-dropdown-group">
+    <SelectGroupDeprecated key={group} label={group} className="co-filter-dropdown-group">
       {items.map(({ name, id, disabled }) => (
-        <SelectOption key={id} value={id} disabled={disabled}>
+        <SelectOptionDeprecated key={id} value={id} disabled={disabled}>
           {name}
-        </SelectOption>
+        </SelectOptionDeprecated>
       ))}
-    </SelectGroup>
+    </SelectGroupDeprecated>
   ));
 };
 
@@ -159,7 +156,7 @@ const BreakdownCard: React.FC = () => {
     setServiceSelect(!isOpenServiceSelect);
   };
 
-  const handleMetricsChange: SelectProps['onSelect'] = (_e, breakdown) => {
+  const handleMetricsChange: SelectPropsDeprecated['onSelect'] = (_e, breakdown) => {
     setMetricType(breakdown as CapacityBreakdown.Metrics);
     setBreakdownSelect(!isOpenBreakdownSelect);
   };
@@ -212,7 +209,7 @@ const BreakdownCard: React.FC = () => {
         </CardTitle>
         <div className="nb-capacity-breakdown-card__header">
           {isRGWSupported && (
-            <Select
+            <SelectDeprecated
               className="nb-capacity-breakdown-card-header__dropdown nb-capacity-breakdown-card-header__dropdown--margin"
               autoFocus={false}
               onSelect={handleServiceChange}
@@ -228,9 +225,9 @@ const BreakdownCard: React.FC = () => {
               isCheckboxSelectionBadgeHidden
             >
               {serviceSelectItems}
-            </Select>
+            </SelectDeprecated>
           )}
-          <Select
+          <SelectDeprecated
             className="nb-capacity-breakdown-card-header__dropdown"
             autoFocus={false}
             onSelect={handleMetricsChange}
@@ -245,7 +242,7 @@ const BreakdownCard: React.FC = () => {
             isCheckboxSelectionBadgeHidden
           >
             {breakdownSelectItems}
-          </Select>
+          </SelectDeprecated>
         </div>
       </CardHeader>
       <CardBody className="nb-capacity-breakdown-card__body">

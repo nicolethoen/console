@@ -4,14 +4,19 @@ import {
   FormGroup,
   Alert,
   Checkbox,
-  Select,
-  SelectVariant,
-  SelectOption,
   TextContent,
   TextVariants,
   Text,
-  SelectProps,
+  FormHelperText,
+  HelperTextItem,
+  HelperText as PfHelperText,
 } from '@patternfly/react-core';
+import {
+  Select as SelectDeprecated,
+  SelectOption as SelectOptionDeprecated,
+  SelectVariant as SelectVariantDeprecated,
+  SelectProps as SelectPropsDeprecated,
+} from '@patternfly/react-core/deprecated';
 import { WizardState } from '../../reducer';
 
 import { arbiterText } from '../../../../constants';
@@ -19,6 +24,7 @@ import { EnableArbiterLabel } from '../../../ocs-install/install-wizard/capacity
 
 const HelperText: React.FC<{ enableArbiter: boolean }> = ({ enableArbiter }) => {
   const { t } = useTranslation();
+
   return (
     <>
       <TextContent>
@@ -30,7 +36,6 @@ const HelperText: React.FC<{ enableArbiter: boolean }> = ({ enableArbiter }) => 
       </TextContent>
       {enableArbiter && (
         <Alert
-          aria-label={t('ceph-storage-plugin~Arbiter minimum requirements')}
           title={t('ceph-storage-plugin~Arbiter minimum requirements')}
           variant="info"
           isInline
@@ -52,7 +57,7 @@ export const StretchCluster: React.FC<StretchClusterProps> = ({
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const handleSelection: SelectProps['onSelect'] = (e, selection) => {
+  const handleSelection: SelectPropsDeprecated['onSelect'] = (e, selection) => {
     onSelect(e, selection);
     setIsOpen(false);
   };
@@ -69,7 +74,7 @@ export const StretchCluster: React.FC<StretchClusterProps> = ({
         data-checked-state={enableArbiter}
         label={<EnableArbiterLabel />}
         description={<HelperText enableArbiter={enableArbiter} />}
-        onChange={(hasChecked: boolean) => {
+        onChange={(_event, hasChecked: boolean) => {
           if (!hasChecked) onSelect(null, '');
           onChecked(hasChecked);
         }}
@@ -78,24 +83,31 @@ export const StretchCluster: React.FC<StretchClusterProps> = ({
             <FormGroup
               label={t('ceph-storage-plugin~Arbiter zone')}
               fieldId="arbiter-zone-selection"
-              helperText={t(
-                'ceph-storage-plugin~An arbiter node will be automatically selected from this zone',
-              )}
             >
-              <Select
-                variant={SelectVariant.single}
+              <SelectDeprecated
+                variant={SelectVariantDeprecated.single}
                 placeholderText={t('ceph-storage-plugin~Select an arbiter zone')}
                 aria-label={t('ceph-storage-plugin~Arbiter zone selection')}
-                onToggle={(value: boolean) => setIsOpen(value)}
+                onToggle={(_event, value: boolean) => setIsOpen(value)}
                 onSelect={handleSelection}
                 selections={arbiterLocation}
                 isOpen={isOpen}
                 id="arbiter-zone-selection"
               >
                 {zones.map((zone) => (
-                  <SelectOption key={zone} value={zone} />
+                  <SelectOptionDeprecated key={zone} value={zone} />
                 ))}
-              </Select>
+              </SelectDeprecated>
+
+              <FormHelperText>
+                <PfHelperText>
+                  <HelperTextItem>
+                    {t(
+                      'ceph-storage-plugin~An arbiter node will be automatically selected from this zone.',
+                    )}
+                  </HelperTextItem>
+                </PfHelperText>
+              </FormHelperText>
             </FormGroup>
           )
         }
@@ -105,7 +117,7 @@ export const StretchCluster: React.FC<StretchClusterProps> = ({
 };
 
 type StretchClusterProps = {
-  onSelect: SelectProps['onSelect'];
+  onSelect: SelectPropsDeprecated['onSelect'];
   onChecked: (isChecked: boolean) => void;
   arbiterLocation: WizardState['capacityAndNodes']['arbiterLocation'];
   enableArbiter: WizardState['capacityAndNodes']['enableArbiter'];

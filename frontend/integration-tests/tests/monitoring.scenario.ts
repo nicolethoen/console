@@ -108,35 +108,35 @@ describe('Alertmanager: Configuration', () => {
     await firstElementByTestID('integration-key').sendKeys('<integration_key>');
 
     // labels
-    expect(firstElementByTestID('invalid-label-name-error').isPresent()).toBe(false);
+    expect(await firstElementByTestID('invalid-label-name-error').isPresent()).toBe(false);
     await firstElementByTestID('label-name-0').sendKeys('9abcgo'); // invalid, cannot start with digit
-    expect(firstElementByTestID('invalid-label-name-error').isPresent()).toBe(true);
+    expect(await firstElementByTestID('invalid-label-name-error').isPresent()).toBe(true);
     await firstElementByTestID('label-name-0').clear();
     await firstElementByTestID('label-name-0').sendKeys('_abcd'); // valid, can start with and contain '_'
-    expect(firstElementByTestID('invalid-label-name-error').isPresent()).toBe(false);
+    expect(await firstElementByTestID('invalid-label-name-error').isPresent()).toBe(false);
     await firstElementByTestID('label-name-0').clear();
     await firstElementByTestID('label-name-0').sendKeys('abcd@#$R@T%'); // invalid chars
-    expect(firstElementByTestID('invalid-label-name-error').isPresent()).toBe(true);
+    expect(await firstElementByTestID('invalid-label-name-error').isPresent()).toBe(true);
     await firstElementByTestID('label-name-0').clear();
-    expect(firstElementByTestID('duplicate-label-name-error').isPresent()).toBe(false);
+    expect(await firstElementByTestID('duplicate-label-name-error').isPresent()).toBe(false);
     await firstElementByTestID('label-name-0').sendKeys('severity');
-    expect(firstElementByTestID('invalid-label-name-error').isPresent()).toBe(false);
+    expect(await firstElementByTestID('invalid-label-name-error').isPresent()).toBe(false);
     await firstElementByTestID('label-value-0').sendKeys('warning');
     await firstElementByTestID('add-routing-label').click();
     await firstElementByTestID('label-name-1').sendKeys('severity');
     await firstElementByTestID('label-value-1').sendKeys('warning');
-    expect(firstElementByTestID('duplicate-label-name-error').isPresent()).toBe(true);
-    await firstElementByTestID('remove-routing-label').click();
-    expect(firstElementByTestID('duplicate-label-name-error').isPresent()).toBe(false);
+    expect(await firstElementByTestID('duplicate-label-name-error').isPresent()).toBe(true);
+    await browser.$$('[data-test-id="remove-routing-label"]').get(0).click();
+    expect(await firstElementByTestID('duplicate-label-name-error').isPresent()).toBe(false);
 
-    expect(monitoringView.saveButton.isEnabled()).toBe(true); // subform valid & labels provided, save should be enabled at this point
+    expect(await monitoringView.saveButton.isEnabled()).toBe(true); // subform valid & labels provided, save should be enabled at this point
     await monitoringView.saveButton.click();
     await crudView.isLoaded();
     await monitoringView.wait(until.elementToBeClickable(crudView.nameFilter));
     await crudView.nameFilter.clear();
     await crudView.nameFilter.sendKeys('MyReceiver');
-    monitoringView.getFirstRowAsText().then((text) => {
-      expect(text).toEqual('MyReceiver pagerduty severity = warning');
+    await monitoringView.getFirstRowAsText().then((text) => {
+      expect(text).toEqual('MyReceiver pagerduty severity=warning');
     });
   });
 
@@ -145,20 +145,19 @@ describe('Alertmanager: Configuration', () => {
     await monitoringView.wait(until.elementToBeClickable(crudView.nameFilter));
     await crudView.nameFilter.clear();
     await crudView.nameFilter.sendKeys('MyReceiver');
-    expect(crudView.resourceRows.count()).toBe(1);
+    expect(await crudView.resourceRows.count()).toBe(1);
     await monitoringView.clickFirstRowKebabAction('Edit Receiver');
     await browser.wait(until.presenceOf(firstElementByTestID('cancel')));
-    expect(firstElementByTestID('receiver-name').getAttribute('value')).toEqual('MyReceiver');
-    expect(firstElementByTestID('dropdown-button').getText()).toEqual('PagerDuty');
-    expect(firstElementByTestID('pagerduty-key-label').getText()).toEqual('Service key');
-    expect(firstElementByTestID('integration-key').getAttribute('value')).toEqual(
+    expect(await firstElementByTestID('receiver-name').getAttribute('value')).toEqual('MyReceiver');
+    expect(await firstElementByTestID('dropdown-button').getText()).toEqual('PagerDuty');
+    expect(await firstElementByTestID('pagerduty-key-label').getText()).toEqual('Service key');
+    expect(await firstElementByTestID('integration-key').getAttribute('value')).toEqual(
       '<integration_key>',
     );
-    expect(firstElementByTestID('label-name-0').getAttribute('value')).toEqual('severity');
-    expect(firstElementByTestID('label-value-0').getAttribute('value')).toEqual('warning');
+    expect(await firstElementByTestID('label-name-0').getAttribute('value')).toEqual('severity');
+    expect(await firstElementByTestID('label-value-0').getAttribute('value')).toEqual('warning');
 
     // Edit Values
-
     await firstElementByTestID('receiver-name').clear();
     await firstElementByTestID('receiver-name').sendKeys('MyEditedReceiver');
     await firstElementByTestID('label-name-0').clear();
@@ -171,8 +170,8 @@ describe('Alertmanager: Configuration', () => {
     await monitoringView.wait(until.elementToBeClickable(crudView.nameFilter));
     await crudView.nameFilter.clear();
     await crudView.nameFilter.sendKeys('MyEditedReceiver');
-    monitoringView.getFirstRowAsText().then((text) => {
-      expect(text).toEqual('MyEditedReceiver pagerduty cluster = MyCluster');
+    await monitoringView.getFirstRowAsText().then((text) => {
+      expect(text).toEqual('MyEditedReceiver pagerduty cluster=MyCluster');
     });
   });
 

@@ -36,7 +36,7 @@ export const deleteSnapshot = () => {
 
 export const warningNoDisksFound = () => {
   cy.get(takeSnapshotBtn).click();
-  cy.get('.pf-c-alert__title')
+  cy.get('.pf-v5-c-alert__title')
     .contains('No disks found to include in the snapshot')
     .should('be.visible');
   cy.get(saveBtn).should('be.disabled');

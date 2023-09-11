@@ -9,7 +9,7 @@ export const activeTab = $('li.co-m-horizontal-nav-item--active');
 export const resourceHorizontalTab = (model: K8sKind) =>
   $(`[data-test-id="horizontal-link-${model.labelPlural}"]`);
 
-export const modalDialog = $('.pf-c-modal-box__footer');
+export const modalDialog = $('.pf-v5-c-modal-box__footer');
 export const modalOverlay = $('.co-overlay');
 export const cancelDialog = modalDialog.element(by.buttonText('Cancel'));
 
@@ -23,9 +23,9 @@ export const switchClusterNamespace = async (namespace: string): Promise<void> =
 };
 
 export const dropDownItem = (text) =>
-  element(by.cssContainingText('.pf-c-select__menu-item', text));
+  element(by.cssContainingText('.pf-v5-c-select__menu-item', text));
 export const dropDownItemMain = (text) =>
-  element(by.cssContainingText('.pf-c-select__menu-item-main', text));
-export const dropDownList = $$('.pf-c-select__menu-item-main');
+  element(by.cssContainingText('.pf-v5-c-select__menu-item-main', text));
+export const dropDownList = $$('.pf-v5-c-select__menu-item-main');
 
 export const confirmButton = $('#confirm-action');

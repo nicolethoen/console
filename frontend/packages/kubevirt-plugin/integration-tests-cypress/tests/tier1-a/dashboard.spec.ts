@@ -27,8 +27,7 @@ const vmData: VirtualMachineData = {
 
 describe('Test VM dashboard tab', () => {
   before(() => {
-    cy.Login();
-    cy.visit('/');
+    cy.login();
     cy.createProject(testName);
     cy.visitVMsList();
   });

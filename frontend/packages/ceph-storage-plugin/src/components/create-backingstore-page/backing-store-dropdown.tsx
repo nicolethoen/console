@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Alert } from '@patternfly/react-core';
 import {
-  Alert,
-  Dropdown,
-  DropdownItem,
-  DropdownSeparator,
-  DropdownToggle,
-} from '@patternfly/react-core';
+  Dropdown as DropdownDeprecated,
+  DropdownItem as DropdownItemDeprecated,
+  DropdownSeparator as DropdownSeparatorDeprecated,
+  DropdownToggle as DropdownToggleDeprecated,
+} from '@patternfly/react-core/deprecated';
 import { useK8sWatchResource } from '@console/internal/components/utils/k8s-watch-hook';
 import { useDeepCompareMemoize } from '@console/shared';
 import CreateBackingStoreFormModal from './create-bs-modal';
@@ -41,7 +41,7 @@ export const BackingStoreDropdown: React.FC<BackingStoreDropdownProps> = ({
       return backingStoreList.reduce(
         (res, nbs) => {
           res.push(
-            <DropdownItem
+            <DropdownItemDeprecated
               key={nbs.metadata.uid}
               component="button"
               id={nbs?.metadata?.name}
@@ -52,21 +52,21 @@ export const BackingStoreDropdown: React.FC<BackingStoreDropdownProps> = ({
               })}
             >
               {nbs?.metadata?.name}
-            </DropdownItem>,
+            </DropdownItemDeprecated>,
           );
           return res;
         },
         !creatorDisabled
           ? [
-              <DropdownItem
+              <DropdownItemDeprecated
                 data-test="create-new-backingstore-button"
                 key="first-item"
                 component="button"
                 onClick={() => CreateBackingStoreFormModal({ namespace })}
               >
                 {t('ceph-storage-plugin~Create new BackingStore ')}
-              </DropdownItem>,
-              <DropdownSeparator key="separator" />,
+              </DropdownItemDeprecated>,
+              <DropdownSeparatorDeprecated key="separator" />,
             ]
           : [],
       );
@@ -86,17 +86,17 @@ export const BackingStoreDropdown: React.FC<BackingStoreDropdownProps> = ({
           title={t('ceph-storage-plugin~An error has occured while fetching backing stores')}
         />
       )}
-      <Dropdown
+      <DropdownDeprecated
         className="dropdown--full-width"
         toggle={
-          <DropdownToggle
+          <DropdownToggleDeprecated
             id="nbs-dropdown-id"
             data-test="nbs-dropdown-toggle"
             onToggle={() => setOpen(!isOpen)}
             isDisabled={!!nbsLoadErr}
           >
             {selectedKey || nsName || t('ceph-storage-plugin~Select a backing store')}
-          </DropdownToggle>
+          </DropdownToggleDeprecated>
         }
         isOpen={isOpen}
         dropdownItems={dropdownItems}

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { FormGroup } from '@patternfly/react-core';
 import {
-  FormGroup,
-  Select,
-  SelectOption,
-  SelectProps,
-  SelectVariant,
-} from '@patternfly/react-core';
+  Select as SelectDeprecated,
+  SelectOption as SelectOptionDeprecated,
+  SelectProps as SelectPropsDeprecated,
+  SelectVariant as SelectVariantDeprecated,
+} from '@patternfly/react-core/deprecated';
 
 import { DeploymentType } from '../../../../constants/create-storage-system';
 import { WizardDispatch, WizardState } from '../../reducer';
@@ -30,7 +30,7 @@ export const SelectDeployment: React.FC<SelectDeploymentProps> = ({ deployment, 
 
   const descriptions = optionsDescription(t);
 
-  const handleSelection: SelectProps['onSelect'] = (_, value) => {
+  const handleSelection: SelectPropsDeprecated['onSelect'] = (_, value) => {
     dispatch({
       type: 'backingStorage/setDeployment',
       // 'value' on SelectProps['onSelect'] is string hence does not match with payload of type "DeploymentType"
@@ -39,25 +39,25 @@ export const SelectDeployment: React.FC<SelectDeploymentProps> = ({ deployment, 
     setIsSelectOpen(false);
   };
 
-  const handleToggling: SelectProps['onToggle'] = (isExpanded: boolean) =>
+  const handleToggling: SelectPropsDeprecated['onToggle'] = (_event, isExpanded: boolean) =>
     setIsSelectOpen(isExpanded);
 
   const selectOptions = options.map((option) => (
-    <SelectOption key={option} value={option} description={descriptions[option]} />
+    <SelectOptionDeprecated key={option} value={option} description={descriptions[option]} />
   ));
 
   return (
     <FormGroup label={t('ceph-storage-plugin~Deployment type')} fieldId="deployment-type">
-      <Select
+      <SelectDeprecated
         className="odf-backing-storage__selection--width"
-        variant={SelectVariant.single}
+        variant={SelectVariantDeprecated.single}
         onToggle={handleToggling}
         onSelect={handleSelection}
         selections={deployment}
         isOpen={isSelectOpen}
       >
         {selectOptions}
-      </Select>
+      </SelectDeprecated>
     </FormGroup>
   );
 };

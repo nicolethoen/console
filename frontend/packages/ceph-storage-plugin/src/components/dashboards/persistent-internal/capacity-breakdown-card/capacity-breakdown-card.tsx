@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Select, SelectProps, Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
+import { Card, CardBody, CardHeader, CardTitle } from '@patternfly/react-core';
+import {
+  Select as SelectDeprecated,
+  SelectProps as SelectPropsDeprecated,
+} from '@patternfly/react-core/deprecated';
 import { humanizeBinaryBytes, FieldLevelHelp } from '@console/internal/components/utils';
 import {
   DashboardItemProps,
@@ -46,7 +50,7 @@ const BreakdownCard: React.FC<DashboardItemProps> = ({
   const metricTotal: string = results?.[1]?.data?.result?.[0]?.value?.[1];
   const cephUsed: string = results?.[2]?.data?.result?.[0]?.value?.[1];
 
-  const handleMetricsChange: SelectProps['onSelect'] = (_e, breakdown) => {
+  const handleMetricsChange: SelectPropsDeprecated['onSelect'] = (_e, breakdown) => {
     setMetricType(breakdown as string);
     setBreakdownSelect(!isOpenBreakdownSelect);
   };
@@ -78,7 +82,7 @@ const BreakdownCard: React.FC<DashboardItemProps> = ({
             )}
           </FieldLevelHelp>
         </CardTitle>
-        <Select
+        <SelectDeprecated
           className="ceph-capacity-breakdown-card-header__dropdown"
           autoFocus={false}
           onSelect={handleMetricsChange}
@@ -90,7 +94,7 @@ const BreakdownCard: React.FC<DashboardItemProps> = ({
           isCheckboxSelectionBadgeHidden
         >
           {breakdownSelectItems}
-        </Select>
+        </SelectDeprecated>
       </CardHeader>
       <CardBody className="ceph-capacity-breakdown-card__body">
         <BreakdownCardBody

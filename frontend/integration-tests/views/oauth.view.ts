@@ -1,12 +1,31 @@
-import { $ } from 'protractor';
+import { browser, $, ExpectedConditions as until } from 'protractor';
 
 export const addIDPDropdown = $('[data-test-id="dropdown-button"]');
 export const idpNameInput = $('#idp-name');
 export const addIDPButton = $('[data-test-id="add-idp"]');
-export const idpTableCellName = (name: string) => $(`[data-test-idp-name="${name}"]`);
-export const idpTableCellType = (name: string) => $(`[data-test-idp-type-for="${name}"]`);
-export const idpTableCellMapping = (name: string) => $(`[data-test-idp-mapping-for="${name}"]`);
-export const errorMessage = $('.pf-c-alert.pf-m-danger');
+
+export const idpTableCellName = async (name: string) => {
+  const idpElement = $(`[data-test-idp-name="${name}"]`);
+  await browser.wait(until.presenceOf(idpElement), 25000);
+
+  return idpElement;
+};
+
+export const idpTableCellType = async (name: string) => {
+  const idpElement = $(`[data-test-idp-type-for="${name}"]`);
+  await browser.wait(until.presenceOf(idpElement), 25000);
+
+  return idpElement;
+};
+
+export const idpTableCellMapping = async (name: string) => {
+  const idpElement = $(`[data-test-idp-mapping-for="${name}"]`);
+  await browser.wait(until.presenceOf(idpElement), 25000);
+
+  return idpElement;
+};
+
+export const errorMessage = $('.pf-v5-c-alert.pf-m-danger');
 
 // BasicAuth IDP
 export const basicAuthLink = $('[data-test-id="basicauth"]');
