@@ -24,7 +24,7 @@ export const templateByName = (name: string) =>
   element(by.cssContainingText('.catalog-tile-pf-title', name));
 
 // Errors
-export const footerError = $('div[aria-label="Danger Alert"]');
+export const footerError = $('div.pf-v5-c-alert');
 export const footerErrorDescroption = footerError.$('.pf-v5-c-alert__description');
 export const bootError = $('#image-source-type-dropdown-helper');
 export const errorHelper = $('.pf-v5-c-form__helper-text.pf-m-error');
